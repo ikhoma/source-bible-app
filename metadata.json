@@ -1,0 +1,7 @@
+{
+  "name": "Source Bible App",
+  "description": "A scholarly, reading-focused mobile Bible study application with deep word analysis tools and theological context.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
