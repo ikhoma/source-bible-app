@@ -1,0 +1,125 @@
+{
+    "book": "Psalms",
+    "chapter": 1,
+    "source": "https://biblehub.com",
+    "verses": {
+        "1": {
+            "text": "Blessed is the man who does not walk in the counsel of the wicked, or set foot on the path of sinners, or sit in the seat of mockers.",
+            "crossReferences": [
+                "Jeremiah 17:5-8",
+                "Proverbs 4:14-15",
+                "Proverbs 13:20",
+                "Proverbs 1:10-15",
+                "1 Corinthians 15:33",
+                "Proverbs 24:1-2",
+                "Ephesians 5:11",
+                "2 Corinthians 6:14-17",
+                "Proverbs 19:27",
+                "Proverbs 23:6-7",
+                "Matthew 5:3-12",
+                "Romans 12:2",
+                "James 1:22-25",
+                "1 Peter 4:3-4",
+                "1 John 2:15-17"
+            ]
+        },
+        "2": {
+            "text": "But his delight is in the Law of the LORD, and on His law he meditates day and night.",
+            "crossReferences": [
+                "Joshua 1:8",
+                "James 1:25",
+                "Psalm 119:97",
+                "Psalm 119:15",
+                "Psalm 119:11",
+                "Psalm 119:1-2",
+                "Psalm 119:48",
+                "Psalm 119:72",
+                "Psalm 119:92",
+                "Psalm 119:105",
+                "Psalm 119:140",
+                "Psalm 119:148",
+                "Deuteronomy 6:6-9",
+                "Colossians 3:16",
+                "Romans 7:22"
+            ]
+        },
+        "3": {
+            "text": "He is like a tree planted by streams of water, yielding its fruit in season, whose leaf does not wither, and who prospers in all he does.",
+            "crossReferences": [
+                "Jeremiah 17:7-8",
+                "John 15:5",
+                "Ezekiel 47:12",
+                "Matthew 7:17-18",
+                "Revelation 22:1-2",
+                "Proverbs 11:30",
+                "Colossians 1:10",
+                "Galatians 5:22-23",
+                "Isaiah 61:3",
+                "James 3:17",
+                "Matthew 13:23",
+                "Hosea 14:5-6",
+                "1 Corinthians 3:6-7"
+            ]
+        },
+        "4": {
+            "text": "Not so the wicked! For they are like chaff driven off by the wind.",
+            "crossReferences": [
+                "Matthew 3:12",
+                "Job 21:18",
+                "Isaiah 17:13",
+                "Hosea 13:3",
+                "Matthew 13:30",
+                "Isaiah 29:5",
+                "Jeremiah 13:24",
+                "Luke 3:17",
+                "Isaiah 41:15-16",
+                "Job 27:21",
+                "Isaiah 40:24",
+                "Malachi 4:1",
+                "Daniel 2:35",
+                "James 1:6",
+                "Ephesians 4:14"
+            ]
+        },
+        "5": {
+            "text": "Therefore the wicked will not stand in the judgment, nor sinners in the assembly of the righteous.",
+            "crossReferences": [
+                "Matthew 13:49-50",
+                "Matthew 25:31-33",
+                "Revelation 20:12-15",
+                "Matthew 7:21-23",
+                "John 5:28-29",
+                "2 Corinthians 5:10",
+                "Romans 14:10-12",
+                "1 Corinthians 6:9-10",
+                "Revelation 21:8",
+                "2 Thessalonians 1:6-10",
+                "Malachi 3:18",
+                "Daniel 12:2",
+                "Ezekiel 18:24",
+                "Isaiah 3:11",
+                "Isaiah 5:24"
+            ]
+        },
+        "6": {
+            "text": "For the LORD guards the path of the righteous, but the way of the wicked will perish.",
+            "crossReferences": [
+                "Proverbs 4:18-19",
+                "Matthew 7:13-14",
+                "Jeremiah 12:1",
+                "John 10:14",
+                "Proverbs 10:29",
+                "Matthew 25:31-46",
+                "2 Timothy 2:19",
+                "Proverbs 15:9",
+                "John 14:6",
+                "Isaiah 30:21",
+                "Romans 8:28",
+                "Proverbs 3:6",
+                "1 Peter 3:12",
+                "Isaiah 40:11",
+                "Romans 2:6-8"
+            ]
+        }
+    }
+}

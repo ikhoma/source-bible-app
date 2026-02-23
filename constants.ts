@@ -1,4 +1,5 @@
-import { Verse, WordStudyData, VerseStudyData, InductiveStudyData } from './types';
+import { Verse, VerseStudyData, InductiveStudyData } from './types';
+import { WORD_STUDY_DB } from './data/wordStudyDb';
 
 // Helper to construct tokens easily
 // We iterate manually in the array, but this helper keeps object creation tidy
@@ -183,527 +184,7 @@ export const INDUCTIVE_STUDY_DB: Record<number, InductiveStudyData> = {
   }
 };
 
-export const WORD_STUDY_DB: Record<string, WordStudyData> = {
-  // --- FUNCTIONAL WORDS / PARTICLES ---
-  "який": {
-    strongs: "834 (asher)",
-    original: "אֲשֶׁר",
-    transliteration: "asher",
-    partOfSpeech: "Відносний займенник",
-    definition: "Який, котрий, що. Вказує на зв'язок між частинами речення.",
-    semanticRange: ["який", "що", "де", "коли"]
-  },
-  "не": {
-    strongs: "3808 (lo)",
-    original: "לֹא",
-    transliteration: "lo",
-    partOfSpeech: "Частка",
-    definition: "Ні, не. Абсолютне заперечення.",
-    semanticRange: ["ні", "не"]
-  },
-  "і": {
-    strongs: "— (ve)",
-    original: "וְ",
-    transliteration: "ve",
-    partOfSpeech: "Сполучник (префікс)",
-    definition: "І, та, але. З'єднує слова або речення (Вав-послідовність).",
-    semanticRange: ["і", "а", "та"]
-  },
-  "на": {
-    strongs: "5921 (al) / (ba)",
-    original: "עַל / בְּ",
-    transliteration: "al / ba",
-    partOfSpeech: "Прийменник",
-    definition: "На, в, при. Вказує на місцезнаходження або напрямок.",
-    semanticRange: ["на", "над", "проти"]
-  },
-  "у": {
-    strongs: "— (be)",
-    original: "בְּ",
-    transliteration: "be",
-    partOfSpeech: "Прийменник (префікс)",
-    definition: "В, у, всередині.",
-    semanticRange: ["в", "у", "серед"]
-  },
-  "в": {
-    strongs: "— (be)",
-    original: "בְּ",
-    transliteration: "be",
-    partOfSpeech: "Прийменник (префікс)",
-    definition: "В, у, за допомогою.",
-    semanticRange: ["в", "через"]
-  },
-  "але": {
-    strongs: "3588 (ki)",
-    original: "כִּי",
-    transliteration: "ki",
-    partOfSpeech: "Сполучник",
-    definition: "Бо, але, тому що. Логічний перехід.",
-    semanticRange: ["бо", "але", "якщо"]
-  },
-  "він": {
-    strongs: "1931 (hu)",
-    original: "הוּא",
-    transliteration: "hu",
-    partOfSpeech: "Займенник",
-    definition: "Він, той. Вказує на особу.",
-    semanticRange: ["він", "той сам"]
-  },
-  "про": {
-    strongs: "—",
-    original: "—",
-    transliteration: "—",
-    partOfSpeech: "Прийменник",
-    definition: "Про, відносно. Використовується для позначення теми."
-  },
-  "його": {
-    strongs: "— (suffix)",
-    original: "וֹ",
-    transliteration: "o",
-    partOfSpeech: "Займенник (суфікс)",
-    definition: "Його, належність йому.",
-    semanticRange: ["його"]
-  },
-
-  // --- VERSE 1 ---
-  "блаженний": {
-    strongs: "835 (esher')",
-    original: "אֶשֶׁר",
-    transliteration: "esher",
-    pronunciation: "EH-sher",
-    partOfSpeech: "Іменник, множина (конструкція)",
-    semanticRange: ["щастя", "блаженство", "успішний рух вперед"],
-    definition: "Вигук, що описує об'єктивний стан благословення та щастя людини.",
-    notDefinition: "Матеріальне багатство саме по собі або тимчасова радість.",
-    usages: [
-      { ref: "Псалми 1:1", text: "Блаженний муж, що за радою несправедливих не ходить..." },
-      { ref: "Псалми 32:1", text: "Блаженний, кому прощено переступ, кому прикрито гріх!" },
-      { ref: "Псалми 33:12", text: "Блаженний той люд, що Богом у нього Господь..." },
-      { ref: "Псалми 41:1", text: "Блаженний, хто дбає про вбогого, в день нещастя Господь порятує його!" },
-      { ref: "Псалми 84:5", text: "Блаженна людина, що в Тобі має силу свою, що дороги до Тебе в їхньому серці!" },
-      { ref: "Приповісті 8:34", text: "Блаженна людина, яка слухає Мене, щоб пильнувати біля дверей Моїх день-у-день..." }
-    ],
-    typicalConstruction: "אֲשְׁרֵי + особа",
-    origin: {
-      strongs: "H833",
-      transliteration: "ashar",
-      original: "אָשַׁר"
-    }
-  },
-  "муж": {
-    strongs: "376 (ish)",
-    original: "אִישׁ",
-    transliteration: "ish",
-    pronunciation: "eesh",
-    partOfSpeech: "Іменник чоловічий рід",
-    semanticRange: ["чоловік", "особа", "воїн"],
-    definition: "Позначає чоловіка як особистість, часто з акцентом на його силу або характер.",
-    notDefinition: "Просто «людство» (як adam).",
-    usages: [
-      { ref: "Буття 2:23", text: "Вона буде зватися жінкою, бо взята від мужа..." },
-      { ref: "Йов 1:1", text: "Був муж у землі Уц..." },
-    ]
-  },
-  "ходить": {
-    strongs: "1980 (halak)",
-    original: "הָלַךְ",
-    transliteration: "halak",
-    pronunciation: "haw-LAK",
-    partOfSpeech: "Дієслово",
-    semanticRange: ["іти", "поводитися", "жити"],
-    definition: "Буквально означає пересуватися, але часто використовується метафорично для опису способу життя та поведінки.",
-    usages: [
-      { ref: "Буття 5:24", text: "І ходив Енох з Богом..." },
-      { ref: "Псалми 15:2", text: "Той, хто ходить непорочно..." }
-    ]
-  },
-  "раду": {
-    strongs: "6098 (etsah)",
-    original: "עֵצָה",
-    transliteration: "etsah",
-    pronunciation: "ay-TSAW",
-    partOfSpeech: "Іменник жіночий рід",
-    semanticRange: ["порада", "план", "задум"],
-    definition: "План дій або спосіб мислення. Означає перейняття світогляду.",
-    usages: [
-      { ref: "Псалми 33:11", text: "Рада Господня стоїть віки..." },
-    ],
-    origin: {
-      strongs: "H3289",
-      transliteration: "yaats",
-      original: "יָעַץ"
-    }
-  },
-  "нечестивих": {
-    strongs: "7563 (rasha)",
-    original: "רָשָׁע",
-    transliteration: "rasha",
-    pronunciation: "raw-SHAW",
-    partOfSpeech: "Прикметник",
-    semanticRange: ["злочинець", "винний", "нестабільний"],
-    definition: "Морально нестабільний, той, хто активно порушує Божий порядок.",
-    usages: [
-      { ref: "Ісая 57:20", text: "А нечестиві — як море розбурхане..." },
-    ],
-    origin: {
-      strongs: "H7561",
-      transliteration: "rasha",
-      original: "רָשַׁע"
-    }
-  },
-  "стоїть": {
-    strongs: "5975 (amad)",
-    original: "עָמַד",
-    transliteration: "amad",
-    pronunciation: "aw-MAD",
-    partOfSpeech: "Дієслово",
-    semanticRange: ["стояти", "залишатися", "бути стійким"],
-    definition: "Займати позицію. Вказує на більш сталу участь у чомусь, ніж «ходити».",
-    usages: [
-      { ref: "Псалми 130:3", text: "Хто встоїть, Господи?" }
-    ]
-  },
-  "шляху": {
-    strongs: "1870 (derek)",
-    original: "דֶּרֶךְ",
-    transliteration: "derek",
-    pronunciation: "DEH-rek",
-    partOfSpeech: "Іменник чоловічий рід",
-    semanticRange: ["дорога", "шлях", "спосіб життя"],
-    definition: "Протоптана стежка. Метафорично — звичний спосіб життя або поведінки.",
-    usages: [
-      { ref: "Псалми 119:1", text: "Блаженні непорочні в дорозі..." }
-    ],
-    origin: {
-      strongs: "H1869",
-      transliteration: "darak",
-      original: "דָּרַךְ"
-    }
-  },
-  "грішних": {
-    strongs: "2400 (chatta)",
-    original: "חַטָּא",
-    transliteration: "chatta",
-    pronunciation: "khat-TAW",
-    partOfSpeech: "Іменник",
-    semanticRange: ["грішник", "той, хто хибить"],
-    definition: "Той, хто збивається зі шляху або не влучає в ціль (Божу волю).",
-    usages: [
-      { ref: "Псалми 51:5", text: "В гріху породила мене мати моя..." }
-    ],
-    origin: {
-      strongs: "H2398",
-      transliteration: "chata",
-      original: "חָטָא"
-    }
-  },
-  "сидить": {
-    strongs: "3427 (yashab)",
-    original: "יָשַׁב",
-    transliteration: "yashab",
-    pronunciation: "yaw-SHAB",
-    partOfSpeech: "Дієслово",
-    semanticRange: ["сидіти", "проживати", "мешкати"],
-    definition: "Повне ототожнення та осілість. Найглибший рівень залучення до гріха в цій прогресії.",
-    usages: [
-      { ref: "Псалми 2:4", text: "Той, Хто на небесах сидить..." }
-    ]
-  },
-  "зборищі": {
-    strongs: "4186 (moshab)",
-    original: "מוֹשָׁב",
-    transliteration: "moshab",
-    pronunciation: "mo-SHAB",
-    partOfSpeech: "Іменник",
-    semanticRange: ["сидіння", "місце зборів", "поселення"],
-    definition: "Місце, де люди збираються або живуть. Вказує на спільноту.",
-    usages: [
-      { ref: "Вихід 12:40", text: "Час перебування синів Ізраїлевих..." }
-    ],
-    origin: {
-      strongs: "H3427",
-      transliteration: "yashab",
-      original: "יָשַׁב"
-    }
-  },
-  "злорік": {
-    strongs: "3887 (litz)",
-    original: "לִיץ",
-    transliteration: "litz",
-    pronunciation: "leets",
-    partOfSpeech: "Дієслово (партицип)",
-    definition: "Насмішники, циніки, які відкрито глузують з праведності.",
-    semanticRange: ["насмішник", "глузій"],
-    usages: [{ ref: "Приповісті 3:34", text: "З насмішників Він насміхається..." }]
-  },
-
-  // --- VERSE 2 ---
-  "законі": {
-    strongs: "8451 (torah)",
-    original: "תּוֹרָה",
-    transliteration: "torah",
-    pronunciation: "to-RAH",
-    partOfSpeech: "Іменник жіночий рід",
-    semanticRange: ["навчання", "інструкція", "закон"],
-    definition: "Божественна інструкція або вчення. Вказує на напрямок, який Бог дає людині.",
-    usages: [{ ref: "Псалми 19:7", text: "Закон Господній досконалий..." }],
-    origin: {
-      strongs: "H3384",
-      transliteration: "yarah",
-      original: "יָרָה"
-    }
-  },
-  "господнім": {
-    strongs: "3068 (YHWH)",
-    original: "יהוה",
-    transliteration: "Yahweh",
-    pronunciation: "yah-WEH",
-    partOfSpeech: "Власна назва",
-    definition: "Особисте ім'я Бога Заповіту. Я Є Той, Хто Є.",
-    semanticRange: ["Господь", "Яхве", "Сущий"],
-    usages: [{ ref: "Вихід 3:14", text: "І сказав Бог Мойсеєві: Я є Той, Хто є." }]
-  },
-  "насолода": {
-    strongs: "2656 (chephets)",
-    original: "חֵפֶץ",
-    transliteration: "chephets",
-    pronunciation: "KHAY-fets",
-    partOfSpeech: "Іменник",
-    definition: "Глибоке бажання, задоволення, радість від чогось.",
-    semanticRange: ["бажання", "радість", "уподобання"],
-    usages: [{ ref: "Ісая 53:10", text: "Воля (уподобання) Господнє рукою його здійсниться..." }]
-  },
-  "розмірковує": { 
-    strongs: "1897 (hagah)",
-    original: "הָגָה",
-    transliteration: "hagah",
-    pronunciation: "haw-GAH",
-    partOfSpeech: "Дієслово",
-    definition: "Бурмотіти, читати напівголосно, глибоко роздумувати. Звук низького тону (як гарчання лева).",
-    semanticRange: ["роздумувати", "говорити", "задумувати"],
-    usages: [{ ref: "Ісуса Навина 1:8", text: "Нехай не відходить ця книга... але роздумуй про неї..." }]
-  },
-  "вдень": {
-    strongs: "3117 (yom)",
-    original: "יוֹם",
-    transliteration: "yom",
-    pronunciation: "yome",
-    partOfSpeech: "Іменник",
-    definition: "Період світла, день. Метафорично - час активності або життя.",
-    semanticRange: ["день", "час", "доба"],
-    usages: [{ ref: "Буття 1:5", text: "І назвав Бог світло днем..." }]
-  },
-  "вночі": {
-    strongs: "3915 (laylah)",
-    original: "לַיְלָה",
-    transliteration: "laylah",
-    pronunciation: "lay-LAW",
-    partOfSpeech: "Іменник",
-    definition: "Ніч, час темряви. Метафорично - час спокою або випробувань.",
-    semanticRange: ["ніч", "темрява"],
-    usages: [{ ref: "Псалми 19:2", text: "І ніч ночі звіщає знання." }]
-  },
-
-  // --- VERSE 3 ---
-  "буде": {
-    strongs: "1961 (hayah)",
-    original: "הָיָה",
-    transliteration: "hayah",
-    pronunciation: "haw-YAH",
-    partOfSpeech: "Дієслово",
-    definition: "Ставати, бути, траплятися.",
-    semanticRange: ["бути", "ставати"]
-  },
-  "дерево": {
-    strongs: "6086 (ets)",
-    original: "עֵץ",
-    transliteration: "ets",
-    pronunciation: "ayts",
-    partOfSpeech: "Іменник",
-    definition: "Рослина з твердим стовбуром; також деревина.",
-    semanticRange: ["дерево", "деревина"]
-  },
-  "посаджене": {
-    strongs: "8362 (shathal)",
-    original: "שָׁתַל",
-    transliteration: "shathal",
-    pronunciation: "shaw-THAL",
-    partOfSpeech: "Дієслово (пасив)",
-    definition: "Пересаджене. Вказує на те, що дерево не виросло там само по собі, а було цілеспрямовано поміщене туди.",
-    semanticRange: ["саджати", "пересаджувати"]
-  },
-  "потоків": {
-    strongs: "6388 (peleg)",
-    original: "פֶּלֶג",
-    transliteration: "peleg",
-    pronunciation: "PEH-leg",
-    partOfSpeech: "Іменник",
-    definition: "Штучні зрошувальні канали або природні струмки, що забезпечують постійне живлення.",
-    semanticRange: ["потік", "канал", "струмок"]
-  },
-  "вод": {
-    strongs: "4325 (mayim)",
-    original: "מַיִם",
-    transliteration: "mayim",
-    pronunciation: "MAH-yim",
-    partOfSpeech: "Іменник",
-    definition: "Вода, джерело життя. Часто символізує Боже благословення або Духа.",
-    semanticRange: ["вода", "води"],
-    usages: [{ ref: "Ісая 55:1", text: "О, всі спраглі, йдіть до води!" }]
-  },
-  "приносить": {
-    strongs: "5414 (nathan)",
-    original: "נָתַן",
-    transliteration: "nathan",
-    pronunciation: "naw-THAN",
-    partOfSpeech: "Дієслово",
-    definition: "Давати, виробляти, приносити.",
-    semanticRange: ["давати", "приносити"]
-  },
-  "плід": {
-    strongs: "6529 (peri)",
-    original: "פְּרִי",
-    transliteration: "peri",
-    pronunciation: "peh-REE",
-    partOfSpeech: "Іменник",
-    definition: "Результат, урожай, нащадок.",
-    semanticRange: ["фрукт", "плід", "наслідок"]
-  },
-  "своєчасно": {
-    strongs: "6256 (eth)",
-    original: "עֵת",
-    transliteration: "eth",
-    pronunciation: "ayth",
-    partOfSpeech: "Іменник",
-    definition: "Час, пора, сезон.",
-    semanticRange: ["час", "сезон"]
-  },
-  "в'яне": {
-    strongs: "5034 (nabel)",
-    original: "נָבֵל",
-    transliteration: "nabel",
-    pronunciation: "naw-BEL",
-    partOfSpeech: "Дієслово",
-    definition: "В'янути, сохнути, занепадати.",
-    semanticRange: ["в'янути", "сохнути"]
-  },
-  "робить": {
-    strongs: "6213 (asah)",
-    original: "עָשָׂה",
-    transliteration: "asah",
-    pronunciation: "aw-SAH",
-    partOfSpeech: "Дієслово",
-    definition: "Робити, творити, виконувати.",
-    semanticRange: ["робити", "творити"]
-  },
-  "успіх": {
-    strongs: "6743 (tsalach)",
-    original: "צָלַח",
-    transliteration: "tsalach",
-    pronunciation: "tsaw-LAKH",
-    partOfSpeech: "Дієслово",
-    definition: "Процвітати, досягати мети, бути успішним.",
-    semanticRange: ["процвітати", "вдаватися"]
-  },
-  
-  // --- VERSE 4 ---
-  "так": {
-    strongs: "3651 (ken)",
-    original: "כֵּן",
-    transliteration: "ken",
-    pronunciation: "ken",
-    partOfSpeech: "Прислівник",
-    definition: "Таким чином, правильно, чесно.",
-    semanticRange: ["так", "таким чином"]
-  },
-  "полова": {
-    strongs: "4671 (mots)",
-    original: "מֹץ",
-    transliteration: "mots",
-    pronunciation: "mose",
-    partOfSpeech: "Іменник",
-    definition: "Лушпиння від зерна, яке легко здувається вітром. Символ нікчемності та нестійкості.",
-    semanticRange: ["лушпиння", "полова"],
-    usages: [{ ref: "Осія 13:3", text: "...і як полова, що вітер з току розвіває." }]
-  },
-  "вітер": {
-    strongs: "7307 (ruach)",
-    original: "רוּחַ",
-    transliteration: "ruach",
-    pronunciation: "ROO-akh",
-    partOfSpeech: "Іменник",
-    definition: "Дихання, вітер, дух. Сила, що приводить в рух.",
-    semanticRange: ["вітер", "дух", "подих"]
-  },
-  "розвіває": {
-    strongs: "5086 (nadaph)",
-    original: "נָדַף",
-    transliteration: "nadaph",
-    pronunciation: "naw-DAF",
-    partOfSpeech: "Дієслово",
-    definition: "Розганяти, розвіювати, гнати.",
-    semanticRange: ["розвіювати", "гнати"]
-  },
-
-  // --- VERSE 5 ---
-  "встоять": {
-    strongs: "6965 (qum)",
-    original: "קוּם",
-    transliteration: "qum",
-    pronunciation: "koom",
-    partOfSpeech: "Дієслово",
-    definition: "Вставати, стояти, підніматися.",
-    semanticRange: ["вставати", "стояти"]
-  },
-  "суді": {
-    strongs: "4941 (mishpat)",
-    original: "מִשְׁפָּט",
-    transliteration: "mishpat",
-    pronunciation: "mish-PAT",
-    partOfSpeech: "Іменник",
-    definition: "Суд, справедливість, вирок, правосуддя.",
-    semanticRange: ["суд", "справедливість", "закон"]
-  },
-  "праведних": {
-    strongs: "6662 (tsaddiq)",
-    original: "צַדִּיק",
-    transliteration: "tsaddiq",
-    pronunciation: "tsad-DEEK",
-    partOfSpeech: "Прикметник",
-    definition: "Той, хто правий, справедливий, виправданий Богом.",
-    semanticRange: ["праведний", "справедливий"]
-  },
-  
-  // --- VERSE 6 ---
-  "знає": {
-    strongs: "3045 (yada)",
-    original: "יָדַע",
-    transliteration: "yada",
-    pronunciation: "yaw-DAH",
-    partOfSpeech: "Дієслово",
-    definition: "Знати, пізнавати. Включає в себе особистий досвід та стосунки.",
-    semanticRange: ["знати", "пізнавати"],
-    usages: [{ ref: "Буття 4:1", text: "І пізнав Адам Єву..." }]
-  },
-  "путь": {
-    strongs: "1870 (derek)",
-    original: "דֶּרֶךְ",
-    transliteration: "derek",
-    pronunciation: "DEH-rek",
-    partOfSpeech: "Іменник",
-    definition: "Дорога, шлях, спосіб життя.",
-    semanticRange: ["шлях", "дорога"]
-  },
-  "загине": {
-    strongs: "6 (abad)",
-    original: "אָבַד",
-    transliteration: "abad",
-    pronunciation: "aw-BAD",
-    partOfSpeech: "Дієслово",
-    definition: "Гинути, зникати, бути знищеним.",
-    semanticRange: ["гинути", "зникати"]
-  }
-};
+export { WORD_STUDY_DB };
 
 export const PARALLEL_VERSES_DATA: Record<string, string> = {
   "Єремія 17:7-8": "Блаженна людина, що на Господа покладається... Бо вона буде як дерево, над водним потоком посаджене...",
@@ -721,9 +202,30 @@ export const PARALLEL_VERSES_DATA: Record<string, string> = {
 };
 
 const COMMON_COMMENTARIES = [
-  { author: "Жан Кальвін", title: "Коментар до Псалмів", image: "https://images.unsplash.com/photo-1535905557558-afc4877a26fc?auto=format&fit=crop&q=80&w=100" },
-  { author: "Метью Генрі", title: "Коментар до Псалмів", image: "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=100" },
-  { author: "Чарльз Сперджен", title: "Скарбниця Давида", image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=100" }
+  {
+    author: "Жан Кальвін",
+    title: "Коментар до Псалмів",
+    image: "/images/authors/calvin.png",
+    subtitle: "XVI ст. • Текст і богослов’я",
+    preview: "Кальвін підкреслює, що «блаженний муж» – це насамперед людина, чия радість укорінена в Божому Слові, а не в обставинах.",
+    body: "Кальвін звертає увагу, що псалом відкривається не заповіддю, а описом стану: блаженний. Мова не про емоцію, а про об'єктивну реальність, у яку Бог вводить людину.\n\n«Блаженний муж» не означає безгрішний або безпроблемний. Це людина, яка відокремлена від поради нечестивих, способу життя грішників і спільноти насмішників. Вона не знаходить у цьому джерела ідентичності або радості.\n\nДля Кальвіна ключовою є думка, що істинне щастя пов'язане з постійним зануренням у Закон Господній. Таке читання та роздумування не є сухим обов'язком, а джерелом насолоди, яка формує характер і напрямок життя."
+  },
+  {
+    author: "Меттью Генрі",
+    title: "Коментар до Псалмів",
+    image: "/images/authors/henry.png",
+    subtitle: "XVIII ст. • Серце і застосування",
+    preview: "Генрі читає цей псалом як запрошення перевірити, чим насправді наповнене серце та щоденні звички людини.",
+    body: "Меттью Генрі бачить у першому псалмі своєрідні двері до всієї книги Псалмів. Тут представлено два шляхи – шлях благословення і шлях загибелі.\n\nДля Генрі важливо, що праведний не просто уникає зла, а активно шукає Божу присутність у Слові. Він проводить чітку різницю між тим, щоб випадково зіткнутися з гріховним впливом, і тим, щоб свідомо «ходити, стояти і сидіти» в ньому.\n\nГенрі заохочує читача поставити собі практичні запитання: з ким я по-справжньому по дорозі? Хто формує моє мислення? Де моє серце знаходить насолоду – у швидких розвагах чи в тихому роздумуванні над Божим Словом?"
+  },
+  {
+    author: "Чарльз Сперджен",
+    title: "Скарбниця Давида",
+    image: "/images/authors/spurgeon.png",
+    subtitle: "XIX ст. • Проповідь і образи",
+    preview: "Сперджен бачить у цьому псалмі портрет дерева, яке стоїть проти вітру завдяки невидимим кореням у Божій благодаті.",
+    body: "Чарльз Сперджен наголошує, що блаженство праведного не в тому, що навколо немає вітрів і бур, а в тому, де знаходяться корені. Людина, яка вкорінена біля потоків Божого Слова, може витримати те, що зламає поверхневу побожність.\n\nСперджен яскраво описує прогресію гріха: від прогулянки поруч із нечестивими до стійкого стояння з ними і, зрештою, до сидіння в їхньому колі. Кожен крок робить серце більш байдужим до Бога.\n\nУ своїх проповідях він закликає читачів не задовольнятися формальним читанням Біблії, а дозволити їй стати живим потоком, який постійно омиває думки, бажання і рішення людини."
+  }
 ];
 
 export const VERSE_STUDY_DB: Record<number, VerseStudyData> = {
@@ -732,7 +234,9 @@ export const VERSE_STUDY_DB: Record<number, VerseStudyData> = {
     parallels: ["Єремія 17:7-8", "Ісуса Навина 1:8"],
     translations: [
       { name: "Огієнко", text: "Блаженний муж, що за радою несправедливих не ходить, і не стоїть на дорозі грішних, і не сидить на сидінні злоріків." },
-      { name: "Турконяк", text: "Блаженна людина, яка не пішла за радою нечестивих, яка не стала на шлях грішних і не сіла на зборищі губителів." }
+      { name: "Турконяк", text: "Блаженна людина, яка не пішла за радою нечестивих, яка не стала на шлях грішних і не сіла на зборищі губителів." },
+      { name: "King James", text: "Blessed is the man that walketh not in the counsel of the ungodly, nor standeth in the way of sinners, nor sitteth in the seat of the scornful." },
+      { name: "American Standard", text: "Blessed is the man that walketh not in the counsel of the wicked, Nor standeth in the way of sinners, Nor sitteth in the seat of scoffers:" }
     ],
     commentaries: COMMON_COMMENTARIES,
     originalTokens: [
@@ -758,7 +262,9 @@ export const VERSE_STUDY_DB: Record<number, VerseStudyData> = {
     parallels: ["Ісуса Навина 1:8", "Псалми 119:1", "Псалми 119:97"],
     translations: [
       { name: "Огієнко", text: "Але в Законі Господнім його насолода, і про Закон Його вдень та вночі він роздумує!" },
-      { name: "Турконяк", text: "Але в Законі Господньому його воля, і про Його Закон він розмірковуватиме вдень і вночі." }
+      { name: "Турконяк", text: "Але в Законі Господньому його воля, і про Його Закон він розмірковуватиме вдень і вночі." },
+      { name: "King James", text: "But his delight is in the law of the LORD; and in his law doth he meditate day and night." },
+      { name: "American Standard", text: "But his delight is in the law of Jehovah; And on his law doth he meditate day and night." }
     ],
     commentaries: COMMON_COMMENTARIES,
     originalTokens: [
@@ -777,8 +283,10 @@ export const VERSE_STUDY_DB: Record<number, VerseStudyData> = {
     verseId: 3,
     parallels: ["Єремія 17:8", "Об'явлення 22:2", "Єзекіїль 47:12"],
     translations: [
-       { name: "Огієнко", text: "І він буде, як дерево, над водним потоком посаджене, що родить свій плід своєчасно, і що листя не в'яне його, і все, що він чинить, щаститься йому!" },
-       { name: "Турконяк", text: "Він буде наче дерево, посаджене біля водних потоків, яке віддає свій плід у свій час, і листя якого не опаде. У всьому, що тільки робить, він матиме успіх." }
+      { name: "Огієнко", text: "І він буде, як дерево, над водним потоком посаджене, що родить свій плід своєчасно, і що листя не в'яне його, і все, що він чинить, щаститься йому!" },
+      { name: "Турконяк", text: "Він буде наче дерево, посаджене біля водних потоків, яке віддає свій плід у свій час, і листя якого не опаде. У всьому, що тільки робить, він матиме успіх." },
+      { name: "King James", text: "And he shall be like a tree planted by the rivers of water, that bringeth forth his fruit in his season; his leaf also shall not wither; and whatsoever he doeth shall prosper." },
+      { name: "American Standard", text: "And he shall be like a tree planted by the streams of water, That bringeth forth its fruit in its season, Whose leaf also doth not wither; And whatsoever he doeth shall prosper." }
     ],
     commentaries: COMMON_COMMENTARIES,
     originalTokens: [
@@ -805,8 +313,10 @@ export const VERSE_STUDY_DB: Record<number, VerseStudyData> = {
     verseId: 4,
     parallels: ["Матвія 3:12", "Йова 21:18", "Псалми 35:5"],
     translations: [
-       { name: "Огієнко", text: "Не так нечестиві, бо вони як полова, що вітер її розвіває!" },
-       { name: "Турконяк", text: "Не так нечестиві, [не так]! Вони — наче порох, який вітер змітає [з лиця землі]." }
+      { name: "Огієнко", text: "Не так нечестиві, бо вони як полова, що вітер її розвіває!" },
+      { name: "Турконяк", text: "Не так нечестиві, [не так]! Вони — наче порох, який вітер змітає [з лиця землі]." },
+      { name: "King James", text: "The ungodly are not so: but are like the chaff which the wind driveth away." },
+      { name: "American Standard", text: "The wicked are not so, But are like the chaff which the wind driveth away." }
     ],
     commentaries: COMMON_COMMENTARIES,
     originalTokens: [
@@ -825,8 +335,10 @@ export const VERSE_STUDY_DB: Record<number, VerseStudyData> = {
     verseId: 5,
     parallels: ["Псалми 5:5", "Псалми 24:3"],
     translations: [
-       { name: "Огієнко", text: "Ось тому то не встоять безбожні на суді, ані грішники у зборі праведних!" },
-       { name: "Турконяк", text: "Тому нечестиві не встоять на суді, ані грішники — на раді праведних." }
+      { name: "Огієнко", text: "Ось тому то не встоять безбожні на суді, ані грішники у зборі праведних!" },
+      { name: "Турконяк", text: "Тому нечестиві не встоять на суді, ані грішники — на раді праведних." },
+      { name: "King James", text: "Therefore the ungodly shall not stand in the judgment, nor sinners in the congregation of the righteous." },
+      { name: "American Standard", text: "Therefore the wicked shall not stand in the judgment, Nor sinners in the congregation of the righteous." }
     ],
     commentaries: COMMON_COMMENTARIES,
     originalTokens: [
@@ -845,8 +357,10 @@ export const VERSE_STUDY_DB: Record<number, VerseStudyData> = {
     verseId: 6,
     parallels: ["Псалми 37:18", "Івана 10:14", "2 Тимофію 2:19"],
     translations: [
-       { name: "Огієнко", text: "Дорогу бо праведних знає Господь, а дорога безбожних загине!" },
-       { name: "Турконяк", text: "Адже Господь знає шлях праведних, а шлях нечестивих загине." }
+      { name: "Огієнко", text: "Дорогу бо праведних знає Господь, а дорога безбожних загине!" },
+      { name: "Турконяк", text: "Адже Господь знає шлях праведних, а шлях нечестивих загине." },
+      { name: "King James", text: "For the LORD knoweth the way of the righteous: but the way of the ungodly shall perish." },
+      { name: "American Standard", text: "For Jehovah knoweth the way of the righteous; But the way of the wicked shall perish." }
     ],
     commentaries: COMMON_COMMENTARIES,
     originalTokens: [

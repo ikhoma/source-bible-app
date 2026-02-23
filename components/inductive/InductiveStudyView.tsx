@@ -11,7 +11,7 @@ interface InductiveStudyViewProps {
 export const InductiveStudyView: React.FC<InductiveStudyViewProps> = ({ onOpenWord, onSearch }) => {
   const data = INDUCTIVE_STUDY_DB[1]; // Hardcoded Psalm 1 for now
 
-  if (!data) return <div className="p-8 text-center text-stone-500">Інформація відсутня</div>;
+  if (!data) return <div className="p-8 text-center text-muted">Інформація відсутня</div>;
 
   return (
     <div className="flex flex-col h-full bg-stone-50 animate-in fade-in duration-300">
@@ -24,8 +24,8 @@ export const InductiveStudyView: React.FC<InductiveStudyViewProps> = ({ onOpenWo
         
         {/* Page Title (moved from header) */}
         <div className="px-4 pt-6 pb-2">
-           <h1 className="text-xl font-bold text-stone-900 leading-tight">Псалом 1 — Індуктивне вивчення</h1>
-           <p className="text-xs text-stone-500 font-medium tracking-wide mt-1 uppercase opacity-80">
+           <h1 className="text-xl font-bold text-primary leading-tight">Псалом 1 — Індуктивне вивчення</h1>
+           <p className="text-xs text-muted font-medium tracking-wide mt-1 uppercase opacity-80">
              Observation · Interpretation · Application
            </p>
         </div>
@@ -38,18 +38,18 @@ export const InductiveStudyView: React.FC<InductiveStudyViewProps> = ({ onOpenWo
               <div className="bg-blue-50 p-1.5 rounded-lg text-blue-600">
                 <Search size={18} strokeWidth={2.5} />
               </div>
-              <h2 className="text-sm font-bold text-stone-900 uppercase tracking-wide">Observation — Що я бачу?</h2>
+              <h2 className="text-sm font-bold text-primary uppercase tracking-wide">Observation — Що я бачу?</h2>
             </div>
             
             <ul className="space-y-3">
               {data.observationPoints.map((point, i) => (
-                <li key={i} className="flex gap-3 text-[15px] leading-relaxed text-stone-800">
+                <li key={i} className="flex gap-3 text-[15px] leading-relaxed text-primary">
                   <span className="text-blue-300 font-bold">•</span>
                   <span>{point}</span>
                 </li>
               ))}
             </ul>
-            <p className="mt-4 text-[10px] text-stone-400 font-medium uppercase tracking-wider">
+            <p className="mt-4 text-[10px] text-muted font-medium uppercase tracking-wider">
               Фокус: факти, повтори, структура
             </p>
           </section>
@@ -61,17 +61,17 @@ export const InductiveStudyView: React.FC<InductiveStudyViewProps> = ({ onOpenWo
                 <div className="bg-amber-50 p-1.5 rounded-lg text-amber-600">
                   <BookOpen size={18} strokeWidth={2.5} />
                 </div>
-                <h2 className="text-sm font-bold text-stone-900 uppercase tracking-wide">Спостереження зі слів</h2>
+                <h2 className="text-sm font-bold text-primary uppercase tracking-wide">Спостереження зі слів</h2>
               </div>
               
               <div className="space-y-3 mb-4">
                  {data.wordInsights.map((item, i) => (
-                   <div key={i} className="flex gap-3 text-[15px] text-stone-800">
+                   <div key={i} className="flex gap-3 text-[15px] text-primary">
                       <span className="text-amber-200 font-bold shrink-0">•</span>
                       <div>
                          <span className="font-bold">{item.word}</span>
-                         <span className="text-stone-400 font-serif mx-1" dir="rtl">{item.original}</span>
-                         <span className="text-stone-600">— {item.text}</span>
+                         <span className="text-muted font-serif mx-1" dir="rtl">{item.original}</span>
+                         <span className="text-muted">— {item.text}</span>
                       </div>
                    </div>
                  ))}
@@ -81,8 +81,8 @@ export const InductiveStudyView: React.FC<InductiveStudyViewProps> = ({ onOpenWo
                 onClick={() => onOpenWord(data.wordInsights[0].refKey || 'блаженний')}
                 className="w-full flex items-center justify-between p-3 rounded-xl bg-stone-50 hover:bg-stone-100 active:bg-stone-200 transition-colors group"
               >
-                <span className="text-sm font-semibold text-stone-700">Переглянути слова</span>
-                <ArrowRight size={16} className="text-stone-400 group-hover:text-stone-600" />
+                <span className="text-sm font-semibold text-muted">Переглянути слова</span>
+                <ArrowRight size={16} className="text-muted group-hover:text-muted" />
               </button>
             </section>
           )}
@@ -93,15 +93,15 @@ export const InductiveStudyView: React.FC<InductiveStudyViewProps> = ({ onOpenWo
               <div className="bg-purple-50 p-1.5 rounded-lg text-purple-600">
                 <Lightbulb size={18} strokeWidth={2.5} />
               </div>
-              <h2 className="text-sm font-bold text-stone-900 uppercase tracking-wide">Interpretation — Що це означає?</h2>
+              <h2 className="text-sm font-bold text-primary uppercase tracking-wide">Interpretation — Що це означає?</h2>
             </div>
             
-            <div className="space-y-3 text-[15px] leading-relaxed text-stone-800">
+            <div className="space-y-3 text-[15px] leading-relaxed text-primary">
               {data.interpretationPoints.map((point, i) => (
-                <p key={i} className="text-stone-800">{point}</p>
+                <p key={i} className="text-primary">{point}</p>
               ))}
             </div>
-            <p className="mt-4 text-[10px] text-stone-400 font-medium uppercase tracking-wider">
+            <p className="mt-4 text-[10px] text-muted font-medium uppercase tracking-wider">
               Фокус: авторський намір і богословська логіка
             </p>
           </section>
@@ -112,19 +112,19 @@ export const InductiveStudyView: React.FC<InductiveStudyViewProps> = ({ onOpenWo
               <div className="bg-emerald-50 p-1.5 rounded-lg text-emerald-600">
                 <PenLine size={18} strokeWidth={2.5} />
               </div>
-              <h2 className="text-sm font-bold text-stone-900 uppercase tracking-wide">Application — Як це стосується мене?</h2>
+              <h2 className="text-sm font-bold text-primary uppercase tracking-wide">Application — Як це стосується мене?</h2>
             </div>
 
             <ul className="space-y-3 mb-5">
               {data.applicationQuestions.map((q, i) => (
-                <li key={i} className="flex gap-3 text-[15px] leading-relaxed text-stone-800 font-medium italic">
+                <li key={i} className="flex gap-3 text-[15px] leading-relaxed text-primary font-medium italic">
                   <span className="text-emerald-300 font-bold not-italic">?</span>
                   <span>{q}</span>
                 </li>
               ))}
             </ul>
 
-            <button className="w-full py-3 text-sm font-semibold text-stone-600 border border-stone-200 rounded-xl hover:bg-stone-50 active:bg-stone-100 transition-colors">
+            <button className="w-full py-3 text-sm font-semibold text-muted border border-stone-200 rounded-xl hover:bg-stone-50 active:bg-stone-100 transition-colors">
               Додати нотатку
             </button>
           </section>
@@ -135,12 +135,12 @@ export const InductiveStudyView: React.FC<InductiveStudyViewProps> = ({ onOpenWo
               <div className="bg-rose-50 p-1.5 rounded-lg text-rose-600">
                 <Users size={18} strokeWidth={2.5} />
               </div>
-              <h2 className="text-sm font-bold text-stone-900 uppercase tracking-wide">Для домашньої групи</h2>
+              <h2 className="text-sm font-bold text-primary uppercase tracking-wide">Для домашньої групи</h2>
             </div>
 
              <ul className="space-y-3">
               {data.groupQuestions.map((q, i) => (
-                <li key={i} className="flex gap-3 text-[15px] leading-relaxed text-stone-800">
+                <li key={i} className="flex gap-3 text-[15px] leading-relaxed text-primary">
                   <span className="text-rose-300 font-bold">•</span>
                   <span>{q}</span>
                 </li>

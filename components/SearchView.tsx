@@ -270,7 +270,7 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
         <div className="flex items-center gap-3">
           <button 
             onClick={onBack}
-            className="p-2 -ml-2 rounded-full text-stone-500 hover:bg-stone-100 transition-colors"
+            className="p-2 -ml-2 rounded-full text-muted hover:bg-stone-100 transition-colors"
           >
             <ChevronLeft size={24} />
           </button>
@@ -285,7 +285,7 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
               }}
               onKeyDown={handleKeyDown}
               placeholder={mode === 'ai' ? (isListening ? "Слухаю..." : "Запитайте про ідею...") : "Пошук слова..."}
-              className={`w-full bg-stone-100 text-stone-900 pl-4 py-2.5 rounded-xl outline-none focus:ring-2 focus:ring-blue-100 transition-all font-medium placeholder:text-stone-400 ${mode === 'ai' ? 'pr-20' : 'pr-4'}`}
+              className={`w-full bg-stone-100 text-primary pl-4 py-2.5 rounded-xl outline-none focus:ring-2 focus:ring-blue-100 transition-all font-medium placeholder:text-muted ${mode === 'ai' ? 'pr-20' : 'pr-4'}`}
             />
             
             {mode === 'ai' && (
@@ -295,7 +295,7 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
                  ) : (
                    <button 
                     onClick={toggleVoiceInput}
-                    className="p-1.5 rounded-lg text-stone-400 hover:text-stone-600 hover:bg-stone-200 transition-all"
+                    className="p-1.5 rounded-lg text-muted hover:text-muted hover:bg-stone-200 transition-all"
                   >
                     <Mic size={18} strokeWidth={2} />
                   </button>
@@ -317,14 +317,14 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
         <div className="flex bg-stone-100 p-1 rounded-xl">
           <button
             onClick={() => { setMode('keyword'); handleKeywordSearch(query); stopListening(); }}
-            className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-all ${mode === 'keyword' ? 'bg-white text-stone-900 shadow-sm' : 'text-stone-500 hover:text-stone-700'}`}
+            className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-all ${mode === 'keyword' ? 'bg-white text-primary shadow-sm' : 'text-muted hover:text-muted'}`}
           >
             <Search size={16} />
             За словом
           </button>
           <button
             onClick={() => { setMode('ai'); setKeywordResults([]); }}
-            className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-all ${mode === 'ai' ? 'bg-white text-stone-900 shadow-sm' : 'text-stone-500 hover:text-stone-700'}`}
+            className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-all ${mode === 'ai' ? 'bg-white text-primary shadow-sm' : 'text-muted hover:text-muted'}`}
           >
             <Sparkles size={16} className={mode === 'ai' ? "text-blue-500" : ""} />
             Розумний пошук
@@ -339,7 +339,7 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
         {mode === 'keyword' && (
           <div className="space-y-4">
             {query && keywordResults.length === 0 && (
-              <div className="text-center py-10 text-stone-400">
+              <div className="text-center py-10 text-muted">
                 Нічого не знайдено
               </div>
             )}
@@ -350,12 +350,12 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
                 className="p-4 rounded-xl border border-stone-100 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.02)] active:bg-stone-50 transition-colors cursor-pointer"
               >
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-xs font-bold text-stone-400 uppercase tracking-wider">Псалом 1:{verse.id}</span>
+                  <span className="text-xs font-bold text-muted uppercase tracking-wider">Псалом 1:{verse.id}</span>
                 </div>
-                <p className="text-stone-800 leading-relaxed">
+                <p className="text-primary leading-relaxed">
                   {verse.text.split(new RegExp(`(${query})`, 'gi')).map((part, i) => 
                     part.toLowerCase() === query.toLowerCase() 
-                      ? <span key={i} className="bg-yellow-100 text-stone-900 font-medium">{part}</span>
+                      ? <span key={i} className="bg-yellow-100 text-primary font-medium">{part}</span>
                       : part
                   )}
                 </p>
@@ -372,8 +372,8 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
                 <div className="w-12 h-12 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Sparkles size={24} />
                 </div>
-                <h3 className="text-stone-900 font-bold mb-2">Запитайте про ідеї</h3>
-                <p className="text-sm text-stone-500 leading-relaxed">
+                <h3 className="text-primary font-bold mb-2">Запитайте про ідеї</h3>
+                <p className="text-sm text-muted leading-relaxed">
                   Спробуйте: «Де говориться про успіх?», «Що сказано про нечестивих?», або натисніть мікрофон.
                 </p>
               </div>
@@ -394,13 +394,13 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
                     <Sparkles size={16} className="text-blue-500 mt-1 shrink-0" />
                     <span className="text-xs font-bold text-blue-600 uppercase tracking-wide mt-1">AI Відповідь</span>
                   </div>
-                  <p className="text-stone-800 text-sm leading-relaxed">
+                  <p className="text-primary text-sm leading-relaxed">
                     {aiResults.explanation}
                   </p>
                 </div>
 
                 <div className="space-y-4">
-                   <h3 className="text-xs font-bold text-stone-400 uppercase tracking-wider pl-1">Знайдені вірші</h3>
+                   <h3 className="text-xs font-bold text-muted uppercase tracking-wider pl-1">Знайдені вірші</h3>
                    {aiResults.verseIds.map(id => {
                      const verse = PSALM_1.find(v => v.id === id);
                      if (!verse) return null;
@@ -410,11 +410,11 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
                         onClick={() => onNavigateToVerse(id)}
                         className="p-4 rounded-xl border border-stone-100 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.02)] active:bg-stone-50 transition-colors cursor-pointer flex gap-3"
                       >
-                         <div className="mt-1 bg-stone-100 text-stone-500 w-6 h-6 rounded flex items-center justify-center text-xs font-bold shrink-0">
+                         <div className="mt-1 bg-stone-100 text-muted w-6 h-6 rounded flex items-center justify-center text-xs font-bold shrink-0">
                            {id}
                          </div>
                          <div>
-                            <p className="text-stone-800 leading-relaxed text-[15px]">
+                            <p className="text-primary leading-relaxed text-[15px]">
                               {verse.text}
                             </p>
                             <div className="mt-2 flex items-center gap-1 text-xs text-blue-600 font-medium">

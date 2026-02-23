@@ -76,7 +76,14 @@ export interface VerseStudyData {
   verseId: number;
   parallels: string[];
   translations: { name: string; text: string }[];
-  commentaries: { author: string; title: string; image: string }[];
+  commentaries: { 
+    author: string; 
+    title: string; 
+    image: string;
+    subtitle?: string;
+    preview?: string;
+    body?: string;
+  }[];
   originalTokens?: OriginalToken[];
 }
 

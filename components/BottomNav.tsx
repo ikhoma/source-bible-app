@@ -35,10 +35,10 @@ export const BottomNav: React.FC<BottomNavProps> = ({ activeTab, onTabChange }) 
 const NavItem: React.FC<{ icon: React.ReactNode; label: string; active?: boolean; onClick: () => void }> = ({ icon, label, active, onClick }) => (
   <button 
     onClick={onClick}
-    className={`flex flex-col items-center gap-1 p-2 w-16 transition-colors duration-200 ${active ? 'text-stone-900' : 'text-stone-400'}`}
+    className={`flex flex-col items-center gap-1 p-2 w-16 transition-colors duration-200 ${active ? 'text-primary' : 'text-muted'}`}
   >
     <div className={`rounded-full px-4 py-1 mb-1 transition-colors ${active ? 'bg-blue-100' : 'bg-transparent'}`}>
-       {React.cloneElement(icon as React.ReactElement, { className: active ? 'text-stone-900 stroke-[2.5px]' : 'stroke-[2px]' })}
+       {React.cloneElement(icon as React.ReactElement, { className: active ? 'text-primary stroke-[2.5px]' : 'stroke-[2px]' })}
     </div>
     <span className="text-[10px] font-medium tracking-wide">{label}</span>
   </button>
