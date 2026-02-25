@@ -14,9 +14,9 @@ export interface Verse {
 }
 
 export interface WordData {
-  id: string; 
+  id: string;
   text: string;
-  cleanText: string; 
+  cleanText: string;
   strongs?: string;
   lemma?: string;
 }
@@ -26,12 +26,12 @@ export type SelectionType = 'word' | 'verse' | null;
 export interface SelectionCoordinates {
   x: number;
   y: number;
-  yTop: number; 
+  yTop: number;
 }
 
 export interface SelectionState {
   type: SelectionType;
-  id: string | number | null; 
+  id: string | number | null;
   text: string; // Display text of the selection
   dataKey?: string; // The anchor key for DB lookup (e.g. "блаженний")
   coordinates?: SelectionCoordinates | null;
@@ -42,7 +42,7 @@ export enum Tab {
   Word = 'WORD'
 }
 
-export type NavTab = 'bible' | 'notes' | 'menu';
+export type NavTab = 'bible' | 'notes' | 'settings';
 
 export interface WordStudyData {
   strongs?: string;
@@ -60,7 +60,7 @@ export interface WordStudyData {
     transliteration: string;
     original: string;
   };
-  isFunctional?: boolean; 
+  isFunctional?: boolean;
 }
 
 export interface OriginalToken {
@@ -76,9 +76,9 @@ export interface VerseStudyData {
   verseId: number;
   parallels: string[];
   translations: { name: string; text: string }[];
-  commentaries: { 
-    author: string; 
-    title: string; 
+  commentaries: {
+    author: string;
+    title: string;
     image: string;
     subtitle?: string;
     preview?: string;

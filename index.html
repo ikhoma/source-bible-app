@@ -1,37 +1,81 @@
 <!DOCTYPE html>
 <html lang="uk">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <meta name="theme-color" content="#FFFFFF" />
-    <title>Bible Study App</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: '#1c1917', // stone-900
-              muted: '#78716c', // stone-500
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="theme-color" content="#1c1917" />
+  <title>Bible Study App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@100..900&display=swap"
+    rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['var(--font-sans)', 'sans-serif'],
+            serif: ['var(--font-serif)', 'serif'],
+            mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace'],
+          },
+          fontSize: {
+            'xs': ['var(--text-xs-size)', { lineHeight: 'var(--text-xs-lh)' }],
+            'sm': ['var(--text-sm-size)', { lineHeight: 'var(--text-sm-lh)' }],
+            'base': ['var(--text-base-size)', { lineHeight: 'var(--text-base-lh)' }],
+            'lg': ['var(--text-lg-size)', { lineHeight: 'var(--text-lg-lh)' }],
+            'xl': ['var(--text-xl-size)', { lineHeight: 'var(--text-xl-lh)' }],
+            '2xl': ['var(--text-2xl-size)', { lineHeight: 'var(--text-2xl-lh)' }],
+            '3xl': ['var(--text-3xl-size)', { lineHeight: 'var(--text-3xl-lh)' }],
+            '4xl': ['var(--text-4xl-size)', { lineHeight: 'var(--text-4xl-lh)' }],
+          },
+          colors: {
+            primary: 'rgb(var(--color-primary) / <alpha-value>)',
+            muted: 'rgb(var(--color-muted) / <alpha-value>)',
+            white: 'rgb(var(--color-bg) / <alpha-value>)',
+            stone: {
+              50: 'rgb(var(--color-stone-50) / <alpha-value>)',
+              100: 'rgb(var(--color-stone-100) / <alpha-value>)',
+              200: 'rgb(var(--color-stone-200) / <alpha-value>)',
+              300: 'rgb(var(--color-stone-300) / <alpha-value>)',
+              400: 'rgb(var(--color-stone-400) / <alpha-value>)',
+              500: 'rgb(var(--color-stone-500) / <alpha-value>)',
+              600: 'rgb(var(--color-stone-600) / <alpha-value>)',
+              700: 'rgb(var(--color-stone-700) / <alpha-value>)',
+              800: 'rgb(var(--color-stone-800) / <alpha-value>)',
+              900: 'rgb(var(--color-stone-900) / <alpha-value>)',
+            },
+            blue: {
+              50: 'rgb(var(--color-blue-50) / <alpha-value>)',
+              100: 'rgb(var(--color-blue-100) / <alpha-value>)',
+              600: 'rgb(var(--color-blue-600) / <alpha-value>)',
+              700: 'rgb(var(--color-blue-700) / <alpha-value>)',
+              800: 'rgb(var(--color-blue-800) / <alpha-value>)',
+              900: 'rgb(var(--color-blue-900) / <alpha-value>)',
             }
           }
         }
       }
-    </script>
-    <style>
-      /* Custom scrollbar hiding for clean UI */
-      .no-scrollbar::-webkit-scrollbar {
-        display: none;
-      }
-      .no-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-      }
-      body {
-        -webkit-tap-highlight-color: transparent;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      }
-    </style>
+    }
+  </script>
+  <style>
+    /* Custom scrollbar hiding for clean UI */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    body {
+      -webkit-tap-highlight-color: transparent;
+      font-family: var(--font-sans);
+    }
+  </style>
   <script type="importmap">
 {
   "imports": {
@@ -43,10 +87,12 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
+  <link rel="stylesheet" href="/index.css">
 </head>
-  <body class="bg-stone-100 text-primary overflow-hidden select-none">
-    <div id="root" class="h-full w-full"></div>
+
+<body class="bg-white text-primary overflow-hidden select-none transition-colors duration-300">
+  <div id="root" class="h-full w-full"></div>
   <script type="module" src="/index.tsx"></script>
 </body>
+
 </html>

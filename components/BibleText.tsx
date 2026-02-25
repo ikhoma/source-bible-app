@@ -80,7 +80,7 @@ export const BibleText: React.FC<BibleTextProps> = ({
           <span
             key={token.id}
             id={`token-${token.id}`}
-            className={`inline py-0.5 box-decoration-clone ${isHighlighted ? 'bg-yellow-100' : ''}`}
+            className={`inline py-0.5 box-decoration-clone ${isHighlighted ? 'bg-yellow-900 text-white' : ''}`}
           >
             {token.text}
           </span>
@@ -93,7 +93,7 @@ export const BibleText: React.FC<BibleTextProps> = ({
           id={`token-${token.id}`}
           className={`
             inline py-0.5 px-[1px] rounded-[3px] transition-colors duration-200 cursor-pointer select-none box-decoration-clone
-            ${isSelected ? 'bg-blue-200' : (isHighlighted ? 'bg-yellow-100' : 'active:bg-stone-200')}
+            ${isSelected ? 'bg-blue-500 !text-white' : (isHighlighted ? 'bg-yellow-600 text-primary' : 'active:bg-stone-200')}
           `}
           onClick={handleClick}
           onTouchStart={handleTouchStart}
@@ -129,7 +129,7 @@ export const BibleText: React.FC<BibleTextProps> = ({
                 ${isVerseSelected ? 'bg-blue-50 border-blue-400' : ''}
                 ${containsSelectedWord ? 'bg-blue-50 border-blue-400' : ''}
                 ${!isVerseSelected && !containsSelectedWord ? 'border-transparent' : ''}
-                ${!isVerseSelected && !containsSelectedWord && isVerseHighlighted ? 'bg-yellow-50' : ''}
+                ${!isVerseSelected && !containsSelectedWord && isVerseHighlighted ? 'bg-yellow-900/30 border-yellow-700/50' : ''}
               `}
               onClick={(e) => {
                 const rect = e.currentTarget.getBoundingClientRect();
@@ -151,7 +151,7 @@ export const BibleText: React.FC<BibleTextProps> = ({
 
               {/* Verse Text */}
               <p className={`
-                text-[19px] leading-[1.1] text-primary font-normal whitespace-pre-wrap
+                text-lg leading-[1.25] text-primary font-normal whitespace-pre-wrap
                 ${isVerseSelected ? 'text-primary' : ''}
               `}>
                 {renderVerseTokens(verse)}

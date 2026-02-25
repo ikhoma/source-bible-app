@@ -4,7 +4,6 @@ import { SelectionState } from '../types';
 
 interface FloatingActionBarProps {
     isVisible: boolean;
-    sheetHeight: number; // in pixels or vh? Let's use percentage of viewport or simplified State
     isExpanded: boolean;
     selection: SelectionState;
     onToggleHighlight: (selection: SelectionState) => void;
@@ -37,7 +36,7 @@ export const FloatingActionBar: React.FC<FloatingActionBarProps> = ({
         ${isVisible ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4'}
       `}
         >
-            <div className="bg-white/30 backdrop-blur-xl border border-white/30 shadow-lg rounded-full px-2 py-1.5 flex items-center gap-1 pointer-events-auto max-w-fit">
+            <div className="bg-stone-200/60 backdrop-blur-xl border border-stone-300/50 shadow-lg rounded-full px-2 py-1.5 flex items-center gap-1 pointer-events-auto max-w-fit">
                 <ActionButton
                     icon={<Highlighter size={20} className={isHighlighted ? 'text-blue-600' : 'text-muted'} />}
                     label="Відмітити"
@@ -77,7 +76,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({ icon, label, onClick, disab
             disabled={disabled}
             className={`
         flex flex-col items-center justify-center min-w-[70px] py-1 px-2 rounded-2xl transition-all duration-200
-        ${disabled ? 'opacity-30 grayscale cursor-not-allowed' : 'active:scale-90 active:bg-stone-100/50'}
+        ${disabled ? 'opacity-30 grayscale cursor-not-allowed' : 'active:scale-90 active:bg-stone-300/50'}
         ${isActive ? 'bg-blue-100/40' : ''}
       `}
             aria-label={label}

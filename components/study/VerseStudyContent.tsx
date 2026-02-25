@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { VERSE_STUDY_DB, PARALLEL_VERSES_DATA, WORD_STUDY_DB } from '../../constants';
 import { ActionButton } from '../ui/ActionButton';
+import { useScrollToTop } from '../BottomSheet';
 
 import crossRefsEn from '../../data/cross-references.json';
 import crossRefsUk from '../../data/cross-references-ukrainian.json';
@@ -28,6 +29,12 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
   const [activeParallel, setActiveParallel] = useState<string | null>(null);
   const [commentaryMode, setCommentaryMode] = useState<'list' | 'detail'>('list');
   const [activeCommentaryIndex, setActiveCommentaryIndex] = useState<number | null>(null);
+
+  const scrollToTop = useScrollToTop();
+
+  useEffect(() => {
+    scrollToTop();
+  }, [activeSection, verseId, scrollToTop]);
 
   useEffect(() => {
     // Reset parallel state when verse changes
@@ -83,7 +90,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
         <ChevronRight size={14} className="text-muted group-hover:text-muted transition-colors" />
       </div>
       <p className="text-primary leading-relaxed text-[15px]">{text}</p>
-      <div className="h-[1px] bg-stone-100 mt-4" />
+      <div className="h-[1px] bg-stone-200 mt-4" />
     </div>
   );
 
@@ -132,15 +139,15 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
   return (
     <div className="pb-24 px-4 animate-in fade-in duration-300">
       {/* Section Pills (Cross-Refs / Commentary / Translations / Original) */}
-      <div className="sticky top-0 z-10 bg-white mb-4 -mx-4 px-4 pt-5 pb-4 font-sans border-b border-stone-100">
+      <div className="sticky top-0 z-10 bg-stone-100 mb-4 -mx-4 px-4 pt-5 pb-4 font-sans border-b border-stone-200 shadow-sm">
         <div className="flex overflow-x-auto no-scrollbar gap-2">
           <button
             onClick={() => setActiveSection('crossRefs')}
             className={`
-              px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0
+              px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 border
               ${activeSection === 'crossRefs'
-                ? 'bg-stone-900 text-white shadow-sm'
-                : 'bg-stone-100 text-muted hover:bg-stone-200 active:scale-95'}
+                ? 'bg-stone-900 text-white border-stone-800 shadow-sm'
+                : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'}
             `}
           >
             Паралельні
@@ -148,10 +155,10 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
           <button
             onClick={() => setActiveSection('translations')}
             className={`
-              px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0
+              px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 border
               ${activeSection === 'translations'
-                ? 'bg-stone-900 text-white shadow-sm'
-                : 'bg-stone-100 text-muted hover:bg-stone-200 active:scale-95'}
+                ? 'bg-stone-900 text-white border-stone-800 shadow-sm'
+                : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'}
             `}
           >
             Переклади
@@ -159,10 +166,10 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
           <button
             onClick={() => setActiveSection('original')}
             className={`
-              px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0
+              px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 border
               ${activeSection === 'original'
-                ? 'bg-stone-900 text-white shadow-sm'
-                : 'bg-stone-100 text-muted hover:bg-stone-200 active:scale-95'}
+                ? 'bg-stone-900 text-white border-stone-800 shadow-sm'
+                : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'}
             `}
           >
             Оригінал
@@ -170,10 +177,10 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
           <button
             onClick={() => setActiveSection('commentary')}
             className={`
-              px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0
+              px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 border
               ${activeSection === 'commentary'
-                ? 'bg-stone-900 text-white shadow-sm'
-                : 'bg-stone-100 text-muted hover:bg-stone-200 active:scale-95'}
+                ? 'bg-stone-900 text-white border-stone-800 shadow-sm'
+                : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'}
             `}
           >
             Коментарі
@@ -219,7 +226,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
                 : 'opacity-0 -translate-x-4 pointer-events-none absolute inset-0'}
             `}
           >
-            <div className="divide-y divide-stone-100">
+            <div className="divide-y divide-stone-200">
               {data.commentaries.map((c, idx) => (
                 <button
                   key={c.author}
@@ -251,7 +258,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
           >
             {commentaryMode === 'detail' && activeCommentaryIndex !== null && data.commentaries[activeCommentaryIndex] && (
               <div className="pt-0">
-                <div className="sticky top-[44px] -mx-4 px-4 bg-white z-10 py-3 mb-2 border-b border-stone-100 flex items-center justify-between">
+                <div className="sticky top-[44px] -mx-4 px-4 bg-stone-100 z-10 py-3 mb-2 border-b border-stone-200 flex items-center justify-between">
                   <button
                     onClick={() => {
                       setCommentaryMode('list');
@@ -350,8 +357,8 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
                 <div
                   key={idx}
                   className={`
-                    group rounded-xl p-4 border border-stone-100 bg-white shadow-sm transition-all text-left
-                    ${token.refKey ? 'active:bg-stone-50 cursor-pointer' : ''}
+                    group rounded-xl p-4 border border-stone-300/50 bg-transparent transition-colors text-left
+                    ${token.refKey ? 'active:bg-stone-100 cursor-pointer' : ''}
                   `}
                   onClick={() => token.refKey && onOpenWord(token.refKey)}
                 >
@@ -359,7 +366,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
                     <div>
                       {/* Token Header */}
                       <div className="flex items-baseline gap-3 mb-1">
-                        <span className="text-2xl font-serif font-bold text-primary" dir="rtl">{token.original}</span>
+                        <span className="text-2xl font-serif text-primary" dir="rtl">{token.original}</span>
                         <span className="text-sm text-muted font-mono tracking-tight">{token.transliteration}</span>
                       </div>
 
@@ -384,7 +391,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
                   </div>
 
                   {/* Extended Definition */}
-                  <div className="text-sm leading-relaxed text-primary border-t border-stone-100 pt-3 mt-1">
+                  <div className="text-sm leading-relaxed text-primary border-t border-stone-300/50 pt-3 mt-1">
                     {/* Primary Gloss */}
                     <p className="font-semibold mb-1">{token.gloss}</p>
 

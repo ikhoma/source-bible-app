@@ -49,7 +49,7 @@ const VoiceVisualizer: React.FC<{ stream: MediaStream; onClick: () => void }> = 
           getVal(2), // Mid-Low duplicate
           getVal(4)  // Low duplicate
         ]);
-        
+
         rafRef.current = requestAnimationFrame(animate);
       };
 
@@ -67,15 +67,15 @@ const VoiceVisualizer: React.FC<{ stream: MediaStream; onClick: () => void }> = 
   }, [stream]);
 
   return (
-    <div 
+    <div
       onClick={onClick}
       className="flex items-center gap-2 h-9 px-3 bg-red-50 rounded-full cursor-pointer mr-1 hover:bg-red-100 transition-colors border border-red-100 animate-in fade-in zoom-in duration-200"
     >
       {/* Wave Bars */}
       <div className="flex items-center gap-[3px] h-4">
         {heights.map((h, i) => (
-          <div 
-            key={i} 
+          <div
+            key={i}
             className="w-[3px] bg-red-500 rounded-full transition-all duration-75 ease-out"
             style={{ height: `${h}%` }}
           />
@@ -93,7 +93,7 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
   const [keywordResults, setKeywordResults] = useState<Verse[]>([]);
   const [aiResults, setAiResults] = useState<{ verseIds: number[], explanation: string } | null>(null);
   const [isAiLoading, setIsAiLoading] = useState(false);
-  
+
   // Voice Input State
   const [isListening, setIsListening] = useState(false);
   const [audioStream, setAudioStream] = useState<MediaStream | null>(null);
@@ -113,10 +113,10 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
       setKeywordResults([]);
       return;
     }
-    
+
     const lower = text.toLowerCase();
-    const results = PSALM_1.filter(v => 
-      v.text.toLowerCase().includes(lower) || 
+    const results = PSALM_1.filter(v =>
+      v.text.toLowerCase().includes(lower) ||
       v.tokens.some(t => t.text.toLowerCase().includes(lower))
     );
     setKeywordResults(results);
@@ -157,7 +157,7 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
         // We do NOT clear the query here to allow appending, 
         // but for a fresh search prompt, usually clearing is expected.
         // Let's clear for a fresh "voice prompt".
-        setQuery(''); 
+        setQuery('');
       };
 
       recognition.onend = () => {
@@ -166,8 +166,8 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
         // If the browser stops it automatically (timeout), we update UI.
         setIsListening(false);
         if (stream.active) {
-            stream.getTracks().forEach(track => track.stop());
-            setAudioStream(null);
+          stream.getTracks().forEach(track => track.stop());
+          setAudioStream(null);
         }
       };
 
@@ -185,11 +185,11 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
         for (let i = 0; i < event.results.length; ++i) {
           fullTranscript += event.results[i][0].transcript;
         }
-        
+
         // Update input live
         setQuery(fullTranscript);
       };
-      
+
       recognitionRef.current = recognition;
       recognition.start();
 
@@ -219,9 +219,9 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
 
     try {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-      
+
       const context = PSALM_1.map(v => `Verse ${v.id}: ${v.text}`).join('\n');
-      
+
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
         contents: `Context (Psalm 1):\n${context}\n\nUser Question: "${query}"\n\nTask: Find the verses in the provided text that answer the question or relate to the idea. Explain why briefly.`,
@@ -231,10 +231,10 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
             type: Type.OBJECT,
             properties: {
               explanation: { type: Type.STRING, description: "A brief explanation of where the idea is found." },
-              verseIds: { 
-                type: Type.ARRAY, 
+              verseIds: {
+                type: Type.ARRAY,
                 items: { type: Type.INTEGER },
-                description: "List of verse numbers that match." 
+                description: "List of verse numbers that match."
               }
             }
           }
@@ -264,11 +264,11 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
 
   return (
     <div className="absolute inset-0 bg-white z-50 flex flex-col animate-in slide-in-from-bottom-2 duration-300">
-      
+
       {/* Header & Input */}
-      <header className="sticky top-0 z-10 bg-white border-b border-stone-100 p-4 gap-4 flex flex-col">
+      <header className="sticky top-0 z-10 bg-white border-b border-stone-200 p-4 gap-4 flex flex-col">
         <div className="flex items-center gap-3">
-          <button 
+          <button
             onClick={onBack}
             className="p-2 -ml-2 rounded-full text-muted hover:bg-stone-100 transition-colors"
           >
@@ -285,26 +285,26 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
               }}
               onKeyDown={handleKeyDown}
               placeholder={mode === 'ai' ? (isListening ? "Слухаю..." : "Запитайте про ідею...") : "Пошук слова..."}
-              className={`w-full bg-stone-100 text-primary pl-4 py-2.5 rounded-xl outline-none focus:ring-2 focus:ring-blue-100 transition-all font-medium placeholder:text-muted ${mode === 'ai' ? 'pr-20' : 'pr-4'}`}
+              className={`w-full bg-stone-100 border border-stone-200 text-primary pl-4 py-2.5 rounded-xl outline-none focus:ring-2 focus:ring-blue-100 transition-all font-medium placeholder:text-muted ${mode === 'ai' ? 'pr-20' : 'pr-4'}`}
             />
-            
+
             {mode === 'ai' && (
               <div className="absolute right-1 top-1 flex items-center gap-1">
-                 {isListening && audioStream ? (
-                   <VoiceVisualizer stream={audioStream} onClick={toggleVoiceInput} />
-                 ) : (
-                   <button 
+                {isListening && audioStream ? (
+                  <VoiceVisualizer stream={audioStream} onClick={toggleVoiceInput} />
+                ) : (
+                  <button
                     onClick={toggleVoiceInput}
                     className="p-1.5 rounded-lg text-muted hover:text-muted hover:bg-stone-200 transition-all"
                   >
                     <Mic size={18} strokeWidth={2} />
                   </button>
-                 )}
+                )}
 
-                <button 
+                <button
                   onClick={handleAiSearch}
                   disabled={isAiLoading || !query.trim()}
-                  className="p-1.5 bg-blue-600 text-white rounded-lg shadow-sm hover:bg-blue-700 disabled:opacity-50 disabled:bg-stone-300 transition-all"
+                  className="p-1.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 active:bg-blue-700 disabled:opacity-50 disabled:bg-stone-300 transition-all"
                 >
                   {isAiLoading ? <Sparkles size={18} className="animate-pulse" /> : <ArrowRight size={18} />}
                 </button>
@@ -314,17 +314,17 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
         </div>
 
         {/* Mode Toggle */}
-        <div className="flex bg-stone-100 p-1 rounded-xl">
+        <div className="flex bg-stone-100 p-1 rounded-xl border border-stone-200 shadow-inner">
           <button
             onClick={() => { setMode('keyword'); handleKeywordSearch(query); stopListening(); }}
-            className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-all ${mode === 'keyword' ? 'bg-white text-primary shadow-sm' : 'text-muted hover:text-muted'}`}
+            className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-all ${mode === 'keyword' ? 'bg-stone-200 text-primary shadow-sm border border-stone-300/50' : 'text-muted hover:text-muted'}`}
           >
             <Search size={16} />
             За словом
           </button>
           <button
             onClick={() => { setMode('ai'); setKeywordResults([]); }}
-            className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-all ${mode === 'ai' ? 'bg-white text-primary shadow-sm' : 'text-muted hover:text-muted'}`}
+            className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-all ${mode === 'ai' ? 'bg-stone-200 text-primary shadow-sm border border-stone-300/50' : 'text-muted hover:text-muted'}`}
           >
             <Sparkles size={16} className={mode === 'ai' ? "text-blue-500" : ""} />
             Розумний пошук
@@ -334,7 +334,7 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
 
       {/* Results */}
       <div className="flex-1 overflow-y-auto no-scrollbar p-4">
-        
+
         {/* KEYWORD MODE */}
         {mode === 'keyword' && (
           <div className="space-y-4">
@@ -344,17 +344,17 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
               </div>
             )}
             {keywordResults.map(verse => (
-              <div 
+              <div
                 key={verse.id}
                 onClick={() => onNavigateToVerse(verse.id)}
-                className="p-4 rounded-xl border border-stone-100 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.02)] active:bg-stone-50 transition-colors cursor-pointer"
+                className="p-4 rounded-xl border border-stone-200 bg-stone-100 shadow-[0_2px_8px_rgba(0,0,0,0.02)] active:bg-stone-200 transition-colors cursor-pointer"
               >
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-xs font-bold text-muted uppercase tracking-wider">Псалом 1:{verse.id}</span>
                 </div>
                 <p className="text-primary leading-relaxed">
-                  {verse.text.split(new RegExp(`(${query})`, 'gi')).map((part, i) => 
-                    part.toLowerCase() === query.toLowerCase() 
+                  {verse.text.split(new RegExp(`(${query})`, 'gi')).map((part, i) =>
+                    part.toLowerCase() === query.toLowerCase()
                       ? <span key={i} className="bg-yellow-100 text-primary font-medium">{part}</span>
                       : part
                   )}
@@ -400,30 +400,30 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
                 </div>
 
                 <div className="space-y-4">
-                   <h3 className="text-xs font-bold text-muted uppercase tracking-wider pl-1">Знайдені вірші</h3>
-                   {aiResults.verseIds.map(id => {
-                     const verse = PSALM_1.find(v => v.id === id);
-                     if (!verse) return null;
-                     return (
-                      <div 
+                  <h3 className="text-xs font-bold text-muted uppercase tracking-wider pl-1">Знайдені вірші</h3>
+                  {aiResults.verseIds.map(id => {
+                    const verse = PSALM_1.find(v => v.id === id);
+                    if (!verse) return null;
+                    return (
+                      <div
                         key={id}
                         onClick={() => onNavigateToVerse(id)}
-                        className="p-4 rounded-xl border border-stone-100 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.02)] active:bg-stone-50 transition-colors cursor-pointer flex gap-3"
+                        className="p-4 rounded-xl border border-stone-200 bg-stone-100 shadow-[0_2px_8px_rgba(0,0,0,0.02)] active:bg-stone-200 transition-colors cursor-pointer flex gap-3"
                       >
-                         <div className="mt-1 bg-stone-100 text-muted w-6 h-6 rounded flex items-center justify-center text-xs font-bold shrink-0">
-                           {id}
-                         </div>
-                         <div>
-                            <p className="text-primary leading-relaxed text-[15px]">
-                              {verse.text}
-                            </p>
-                            <div className="mt-2 flex items-center gap-1 text-xs text-blue-600 font-medium">
-                              Перейти до вірша <ArrowRight size={12} />
-                            </div>
-                         </div>
+                        <div className="mt-1 bg-stone-200 text-muted w-6 h-6 rounded flex items-center justify-center text-xs font-bold shrink-0 border border-stone-300/30">
+                          {id}
+                        </div>
+                        <div>
+                          <p className="text-primary leading-relaxed text-[15px]">
+                            {verse.text}
+                          </p>
+                          <div className="mt-2 flex items-center gap-1 text-xs text-blue-600 font-medium">
+                            Перейти до вірша <ArrowRight size={12} />
+                          </div>
+                        </div>
                       </div>
-                     );
-                   })}
+                    );
+                  })}
                 </div>
               </div>
             )}

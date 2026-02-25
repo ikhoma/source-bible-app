@@ -7,6 +7,8 @@ import { BottomSheet } from './components/BottomSheet';
 import { VerseStudyContent } from './components/study/VerseStudyContent';
 import { WordStudyContent } from './components/study/WordStudyContent';
 import { SearchView } from './components/SearchView';
+import { ThemeProvider } from './components/ThemeProvider';
+import { SettingsView } from './components/SettingsView';
 import { PSALM_1 } from './constants';
 import { SelectionState, Tab, SelectionCoordinates, NavTab } from './types';
 
@@ -337,8 +339,8 @@ export default function App() {
       return <div className="flex items-center justify-center h-full text-muted">Нотатки (в розробці)</div>;
     }
 
-    if (activeNavTab === 'menu') {
-      return <div className="flex items-center justify-center h-full text-muted">Меню (в розробці)</div>;
+    if (activeNavTab === 'settings') {
+      return <SettingsView />;
     }
 
     // Standard Bible Text
@@ -371,59 +373,61 @@ export default function App() {
   };
 
   return (
-    <div className="h-screen bg-[#FFFFFF] max-w-md mx-auto shadow-2xl overflow-hidden relative font-sans text-primary flex flex-col">
+    <ThemeProvider>
+      <div className="h-screen bg-white max-w-md mx-auto shadow-2xl overflow-hidden relative font-sans text-primary flex flex-col transition-colors duration-300">
 
-      <div className="flex-1 overflow-hidden flex flex-col relative pb-20">
-        {renderMainContent()}
+        <div className="flex-1 overflow-hidden flex flex-col relative pb-20">
+          {renderMainContent()}
 
-        {/* Search Overlay */}
-        {isSearchOpen && (
-          <SearchView
-            onBack={() => setIsSearchOpen(false)}
-            onNavigateToVerse={handleNavigateToVerse}
+          {/* Search Overlay */}
+          {isSearchOpen && (
+            <SearchView
+              onBack={() => setIsSearchOpen(false)}
+              onNavigateToVerse={handleNavigateToVerse}
+            />
+          )}
+        </div>
+
+        {activeNavTab === 'bible' && selection.type && !isSearchOpen && (
+          <FloatingActionBar
+            isVisible={isSheetOpen}
+            isExpanded={isSheetExpanded}
+            selection={selection}
+            onToggleHighlight={handleToggleHighlight}
+            onOpenStudy={() => { }} // Already in bottom sheet
+            onCreateNote={handleCreateNote}
+            onShare={handleShare}
+            isHighlighted={selection.id ? highlights.has(selection.id) : false}
           />
         )}
-      </div>
 
-      {activeNavTab === 'bible' && selection.type && !isSearchOpen && (
-        <FloatingActionBar
-          isVisible={isSheetOpen}
+        <BottomNav activeTab={activeNavTab} onTabChange={setActiveNavTab} />
+
+        <BottomSheet
+          isOpen={isSheetOpen}
+          onClose={handleSheetClose}
+          title={sheetTitle}
+          activeTab={activeSheetTab}
+          onTabChange={handleTabChange}
+          onNavigate={handleNavigate}
+          canNavigatePrev={canPrev}
+          canNavigateNext={canNext}
           isExpanded={isSheetExpanded}
-          selection={selection}
-          onToggleHighlight={handleToggleHighlight}
-          onOpenStudy={() => { }} // Already in bottom sheet
-          onCreateNote={handleCreateNote}
-          onShare={handleShare}
-          isHighlighted={selection.id ? highlights.has(selection.id) : false}
-        />
-      )}
-
-      <BottomNav activeTab={activeNavTab} onTabChange={setActiveNavTab} />
-
-      <BottomSheet
-        isOpen={isSheetOpen}
-        onClose={handleSheetClose}
-        title={sheetTitle}
-        activeTab={activeSheetTab}
-        onTabChange={handleTabChange}
-        onNavigate={handleNavigate}
-        canNavigatePrev={canPrev}
-        canNavigateNext={canNext}
-        isExpanded={isSheetExpanded}
-        onToggleExpand={setIsSheetExpanded}
-        expandedHeight={expandedSheetHeight}
-      >
-        {activeSheetTab === Tab.Verse ?
-          <VerseStudyContent
-            verseId={currentVerseId}
-            onOpenWord={handleOpenWordFromStudy}
-          /> :
-          <WordStudyContent
-            word={selection.dataKey || sheetTitle}
-            onNavigateToWord={handleOpenWordFromStudy}
-          />
-        }
-      </BottomSheet>
-    </div>
+          onToggleExpand={setIsSheetExpanded}
+          expandedHeight={expandedSheetHeight}
+        >
+          {activeSheetTab === Tab.Verse ?
+            <VerseStudyContent
+              verseId={currentVerseId}
+              onOpenWord={handleOpenWordFromStudy}
+            /> :
+            <WordStudyContent
+              word={selection.dataKey || sheetTitle}
+              onNavigateToWord={handleOpenWordFromStudy}
+            />
+          }
+        </BottomSheet>
+      </div>
+    </ThemeProvider>
   );
 }
