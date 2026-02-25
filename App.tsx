@@ -106,9 +106,18 @@ export default function App() {
     }
   }, [isSheetOpen, isSheetExpanded, selection.id, selection.type, expandedSheetHeight]);
 
-  const handleSelectWord = useCallback((id: string, text: string, coords: SelectionCoordinates, anchorKey?: string) => {
-    setSelection({ type: 'word', id, text, coordinates: coords, dataKey: anchorKey });
+  const clearSelection = useCallback(() => {
+    setSelection({ type: null, id: null, text: '' });
+    setIsSheetOpen(false);
   }, []);
+
+  const handleSelectWord = useCallback((id: string, text: string, coords: SelectionCoordinates, anchorKey?: string) => {
+    if (selection.type === 'word' && selection.id === id && isSheetOpen) {
+      clearSelection();
+    } else {
+      setSelection({ type: 'word', id, text, coordinates: coords, dataKey: anchorKey });
+    }
+  }, [selection, isSheetOpen, clearSelection]);
 
   const handleLongPressWord = useCallback((id: string, text: string, coords: SelectionCoordinates, anchorKey?: string) => {
     // On long press we behave the same as tap: select word;
@@ -117,15 +126,12 @@ export default function App() {
   }, []);
 
   const handleSelectVerse = useCallback((id: number, text: string, coords: SelectionCoordinates) => {
-    setSelection(prev => {
-      return { type: 'verse', id, text, coordinates: coords };
-    });
-  }, []);
-
-  const clearSelection = useCallback(() => {
-    setSelection({ type: null, id: null, text: '' });
-    setIsSheetOpen(false);
-  }, []);
+    if (selection.type === 'verse' && selection.id === id && isSheetOpen) {
+      clearSelection();
+    } else {
+      setSelection({ type: 'verse', id, text, coordinates: coords });
+    }
+  }, [selection, isSheetOpen, clearSelection]);
 
   // Updated to explicitly clear selection when sheet closes
   const handleSheetClose = useCallback(() => {
