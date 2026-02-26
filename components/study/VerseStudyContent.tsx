@@ -146,7 +146,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
             className={`
               px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 border
               ${activeSection === 'crossRefs'
-                ? 'bg-stone-900 dark:bg-stone-300 text-white dark:text-primary border-stone-800 dark:border-stone-400 shadow-sm'
+                ? 'bg-[#CFCBC9] text-primary border-[#C5C2BE] dark:bg-stone-300 dark:text-primary dark:border-stone-400'
                 : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'}
             `}
           >
@@ -157,7 +157,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
             className={`
               px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 border
               ${activeSection === 'translations'
-                ? 'bg-stone-900 dark:bg-stone-300 text-white dark:text-primary border-stone-800 dark:border-stone-400 shadow-sm'
+                ? 'bg-[#CFCBC9] text-primary border-[#C5C2BE] dark:bg-stone-300 dark:text-primary dark:border-stone-400'
                 : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'}
             `}
           >
@@ -168,7 +168,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
             className={`
               px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 border
               ${activeSection === 'original'
-                ? 'bg-stone-900 dark:bg-stone-300 text-white dark:text-primary border-stone-800 dark:border-stone-400 shadow-sm'
+                ? 'bg-[#CFCBC9] text-primary border-[#C5C2BE] dark:bg-stone-300 dark:text-primary dark:border-stone-400'
                 : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'}
             `}
           >
@@ -179,7 +179,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
             className={`
               px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 border
               ${activeSection === 'commentary'
-                ? 'bg-stone-900 dark:bg-stone-300 text-white dark:text-primary border-stone-800 dark:border-stone-400 shadow-sm'
+                ? 'bg-[#CFCBC9] text-primary border-[#C5C2BE] dark:bg-stone-300 dark:text-primary dark:border-stone-400'
                 : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'}
             `}
           >
