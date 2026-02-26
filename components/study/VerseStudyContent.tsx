@@ -139,14 +139,14 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
   return (
     <div className="pb-24 px-4 animate-in fade-in duration-300">
       {/* Section Pills (Cross-Refs / Commentary / Translations / Original) */}
-      <div className="sticky top-0 z-10 bg-stone-100 mb-4 -mx-4 px-4 pt-5 pb-4 font-sans border-b border-stone-200 shadow-sm">
+      <div className="sticky top-0 z-10 bg-stone-100 mb-4 -mx-4 px-4 pt-2 pb-4 font-sans border-b border-stone-200 shadow-sm">
         <div className="flex overflow-x-auto no-scrollbar gap-2">
           <button
             onClick={() => setActiveSection('crossRefs')}
             className={`
               px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 border
               ${activeSection === 'crossRefs'
-                ? 'bg-stone-900 text-white border-stone-800 shadow-sm'
+                ? 'bg-stone-900 dark:bg-stone-300 text-white dark:text-primary border-stone-800 dark:border-stone-400 shadow-sm'
                 : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'}
             `}
           >
@@ -157,7 +157,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
             className={`
               px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 border
               ${activeSection === 'translations'
-                ? 'bg-stone-900 text-white border-stone-800 shadow-sm'
+                ? 'bg-stone-900 dark:bg-stone-300 text-white dark:text-primary border-stone-800 dark:border-stone-400 shadow-sm'
                 : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'}
             `}
           >
@@ -168,7 +168,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
             className={`
               px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 border
               ${activeSection === 'original'
-                ? 'bg-stone-900 text-white border-stone-800 shadow-sm'
+                ? 'bg-stone-900 dark:bg-stone-300 text-white dark:text-primary border-stone-800 dark:border-stone-400 shadow-sm'
                 : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'}
             `}
           >
@@ -179,7 +179,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
             className={`
               px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 border
               ${activeSection === 'commentary'
-                ? 'bg-stone-900 text-white border-stone-800 shadow-sm'
+                ? 'bg-stone-900 dark:bg-stone-300 text-white dark:text-primary border-stone-800 dark:border-stone-400 shadow-sm'
                 : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'}
             `}
           >
@@ -197,9 +197,13 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
               const fallbackText = PARALLEL_VERSES_DATA[ref] || "Текст вірша...";
               const displayTitle = translateReferenceTitle(ref);
 
-              // Remove all verse numbers (e.g. "12. " at start, or " 15. " inside the text)
+              // Remove standalone verse numbers (like "12.", "15", or "6\n7")
               let displayText = ukText || fallbackText;
-              displayText = displayText.replace(/(?:^|\s)\d+\.\s*/g, ' ').trim();
+              displayText = displayText
+                .split(/\s+/)
+                .filter(word => !/^\d+\.?$/.test(word))
+                .join(' ')
+                .trim();
 
               return (
                 <ReferenceRow

@@ -109,7 +109,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
       >
         {/* Handle Area - Drag Zone */}
         <div
-          className="w-full flex justify-center pt-3 pb-1 shrink-0 cursor-grab active:cursor-grabbing touch-none"
+          className="w-full flex justify-center pt-2 pb-1 shrink-0 cursor-grab active:cursor-grabbing touch-none"
           onPointerDown={handlePointerDown}
           onPointerUp={handlePointerUp}
         >
@@ -118,7 +118,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
 
         {/* Header */}
         <div className="px-4 pb-2 shrink-0">
-          <div className="flex items-center justify-between mb-4 mt-2">
+          <div className="flex items-center justify-between mb-3">
             <h2 className="text-2xl font-bold text-primary tracking-tight">{title}</h2>
             <div className="flex gap-2">
               <button
@@ -139,18 +139,17 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
           </div>
 
           {/* Tabs */}
-          <div className="bg-stone-200 p-1 rounded-xl flex font-medium relative shadow-inner">
-            <div
-              className={`absolute top-1 bottom-1 w-[calc(50%-4px)] bg-stone-100 rounded-lg shadow-sm border border-stone-300/30 transition-all duration-300 ease-out ${activeTab === Tab.Verse ? 'left-1' : 'left-[50%]'}`}
-            />
+          <div className="flex bg-stone-200/50 p-1 rounded-xl">
             <button
-              className={`flex-1 py-2 text-sm z-10 transition-colors duration-200 ${activeTab === Tab.Verse ? 'text-primary' : 'text-muted'}`}
+              className={`flex-1 px-3 py-1.5 text-sm font-medium rounded-lg transition-all border ${activeTab === Tab.Verse ? 'bg-white dark:bg-stone-900 text-primary dark:text-white shadow-sm border-stone-200/50 dark:border-stone-800' : 'text-muted hover:text-primary border-transparent'
+                }`}
               onClick={() => onTabChange(Tab.Verse)}
             >
               Вірш
             </button>
             <button
-              className={`flex-1 py-2 text-sm z-10 transition-colors duration-200 ${activeTab === Tab.Word ? 'text-primary' : 'text-muted'}`}
+              className={`flex-1 px-3 py-1.5 text-sm font-medium rounded-lg transition-all border ${activeTab === Tab.Word ? 'bg-white dark:bg-stone-900 text-primary dark:text-white shadow-sm border-stone-200/50 dark:border-stone-800' : 'text-muted hover:text-primary border-transparent'
+                }`}
               onClick={() => onTabChange(Tab.Word)}
             >
               Слово

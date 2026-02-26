@@ -27,7 +27,7 @@ export const FloatingActionBar: React.FC<FloatingActionBarProps> = ({
 
     // Calculate position: 
     // Anchored at the bottom center, floating above the sheet content
-    const bottomPosition = 'bottom-8';
+    const bottomPosition = 'bottom-5';
 
     return (
         <div
