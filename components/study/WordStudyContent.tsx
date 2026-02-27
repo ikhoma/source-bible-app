@@ -83,8 +83,8 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
     <div className="pb-24 px-4 animate-in fade-in duration-300">
 
       {/* Section Pills (Meaning / Usage) */}
-      <div className="sticky top-0 z-10 bg-stone-100 mb-4 -mx-4 px-4 pt-2 pb-4 font-sans border-b border-stone-200 shadow-sm">
-        <div className="flex overflow-x-auto no-scrollbar gap-2">
+      <div className="sticky top-0 z-10 bg-stone-100 mb-4 -mx-4 pt-2 pb-4 font-sans border-b border-stone-200 shadow-sm">
+        <div className="flex overflow-x-auto no-scrollbar gap-2 px-4">
           <button
             onClick={() => setActiveSection('meaning')}
             className={`

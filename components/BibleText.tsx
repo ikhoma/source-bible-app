@@ -80,7 +80,7 @@ export const BibleText: React.FC<BibleTextProps> = ({
           <span
             key={token.id}
             id={`token-${token.id}`}
-            className={`inline py-0.5 box-decoration-clone ${isHighlighted ? 'bg-yellow-900 text-white' : ''}`}
+            className={`inline py-0.5 box-decoration-clone ${isHighlighted ? 'bg-lime-300 dark:bg-lime-300/20 text-primary' : ''}`}
           >
             {token.text}
           </span>
@@ -93,7 +93,7 @@ export const BibleText: React.FC<BibleTextProps> = ({
           id={`token-${token.id}`}
           className={`
             inline py-0.5 px-[1px] rounded-[3px] transition-colors duration-200 cursor-pointer select-none box-decoration-clone
-            ${isSelected ? 'bg-blue-500 !text-[#fff]' : (isHighlighted ? 'bg-yellow-600 text-primary' : 'active:bg-stone-200')}
+            ${isSelected ? 'bg-blue-500 !text-[#fff]' : (isHighlighted ? 'bg-lime-300 dark:bg-lime-300/20 text-primary' : 'active:bg-stone-200')}
           `}
           onClick={handleClick}
           onTouchStart={handleTouchStart}
@@ -129,7 +129,6 @@ export const BibleText: React.FC<BibleTextProps> = ({
                 ${isVerseSelected ? 'bg-blue-50 border-blue-400' : ''}
                 ${containsSelectedWord ? 'bg-blue-50 border-blue-400' : ''}
                 ${!isVerseSelected && !containsSelectedWord ? 'border-transparent' : ''}
-                ${!isVerseSelected && !containsSelectedWord && isVerseHighlighted ? 'bg-yellow-900/30 border-yellow-700/50' : ''}
               `}
               onClick={(e) => {
                 const rect = e.currentTarget.getBoundingClientRect();
@@ -149,12 +148,14 @@ export const BibleText: React.FC<BibleTextProps> = ({
                 {verse.id}
               </span>
 
-              {/* Verse Text */}
               <p className={`
                 text-lg leading-[1.25] text-primary font-normal whitespace-pre-wrap
-                ${isVerseSelected ? 'text-primary' : ''}
               `}>
-                {renderVerseTokens(verse)}
+                <span className={`
+                  ${isVerseHighlighted ? 'bg-yellow-300 dark:bg-yellow-300/20 box-decoration-clone py-0.5 rounded-[3px]' : ''}
+                `}>
+                  {renderVerseTokens(verse)}
+                </span>
               </p>
             </div>
           );

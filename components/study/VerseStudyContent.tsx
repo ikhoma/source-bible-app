@@ -139,8 +139,8 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
   return (
     <div className="pb-24 px-4 animate-in fade-in duration-300">
       {/* Section Pills (Cross-Refs / Commentary / Translations / Original) */}
-      <div className="sticky top-0 z-10 bg-stone-100 mb-4 -mx-4 px-4 pt-2 pb-4 font-sans border-b border-stone-200 shadow-sm">
-        <div className="flex overflow-x-auto no-scrollbar gap-2">
+      <div className="sticky top-0 z-20 bg-stone-100 -mx-4 pt-2 pb-4 font-sans border-b border-stone-200 shadow-sm">
+        <div className="flex overflow-x-auto no-scrollbar gap-2 px-4">
           <button
             onClick={() => setActiveSection('crossRefs')}
             className={`
@@ -190,7 +190,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
 
       {/* CROSS-REFS TAB */}
       {activeSection === 'crossRefs' && (
-        <section className="pt-5">
+        <section className="pt-4">
           <div className="space-y-4">
             {currentRefs.map((ref: string) => {
               const ukText = ukData[ref]?.fullText;
@@ -262,7 +262,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
           >
             {commentaryMode === 'detail' && activeCommentaryIndex !== null && data.commentaries[activeCommentaryIndex] && (
               <div className="pt-0">
-                <div className="sticky top-[44px] -mx-4 px-4 bg-stone-100 z-10 py-3 mb-2 border-b border-stone-200 flex items-center justify-between">
+                <div className="sticky top-[57px] -mx-4 px-4 bg-stone-100 z-10 py-3 mb-2 border-b border-stone-200 flex items-center justify-between">
                   <button
                     onClick={() => {
                       setCommentaryMode('list');
@@ -279,7 +279,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
                 </div>
 
                 <div className="text-[15px] leading-relaxed text-primary space-y-3 mt-2">
-                  {['Метью Генрі', 'Жан Кальвін', 'Чарльз Сперджен'].includes(data.commentaries[activeCommentaryIndex].author) ? (
+                  {['Меттью Генрі', 'Жан Кальвін', 'Чарльз Сперджен'].includes(data.commentaries[activeCommentaryIndex].author) ? (
                     <div className="space-y-4">
                       <ReactMarkdown
                         components={{
@@ -337,7 +337,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
 
       {/* TRANSLATIONS TAB */}
       {activeSection === 'translations' && (
-        <section className="pt-5">
+        <section className="pt-4">
           <div className="space-y-4">
             {data.translations.map((t) => (
               <ReferenceRow
@@ -352,7 +352,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
 
       {/* ORIGINAL LANGUAGE TAB */}
       {activeSection === 'original' && data.originalTokens && (
-        <section className="pt-5">
+        <section className="pt-4">
           <div className="space-y-4">
             {data.originalTokens.map((token, idx) => {
               const wordData = token.refKey ? (WORD_STUDY_DB[token.refKey] || null) : null;

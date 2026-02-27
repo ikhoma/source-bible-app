@@ -218,35 +218,26 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
     setAiResults(null);
 
     try {
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
       const context = PSALM_1.map(v => `Verse ${v.id}: ${v.text}`).join('\n');
 
-      const response = await ai.models.generateContent({
-        model: 'gemini-3-flash-preview',
-        contents: `Context (Psalm 1):\n${context}\n\nUser Question: "${query}"\n\nTask: Find the verses in the provided text that answer the question or relate to the idea. Explain why briefly.`,
-        config: {
-          responseMimeType: "application/json",
-          responseSchema: {
-            type: Type.OBJECT,
-            properties: {
-              explanation: { type: Type.STRING, description: "A brief explanation of where the idea is found." },
-              verseIds: {
-                type: Type.ARRAY,
-                items: { type: Type.INTEGER },
-                description: "List of verse numbers that match."
-              }
-            }
-          }
-        }
+      const response = await fetch('/api/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ query, context })
       });
 
-      if (response.text) {
-        const result = JSON.parse(response.text);
-        setAiResults(result);
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.error || `Сервер повернув помилку: ${response.status}`);
       }
-    } catch (error) {
+
+      const result = await response.json();
+      setAiResults(result);
+    } catch (error: any) {
       console.error("AI Search Error", error);
+      alert(`Помилка AI пошуку: ${error?.message || 'Невідома помилка'}`);
     } finally {
       setIsAiLoading(false);
     }
@@ -263,173 +254,176 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
   };
 
   return (
-    <div className="absolute inset-0 bg-white z-50 flex flex-col animate-in slide-in-from-bottom-2 duration-300">
+    <div className="absolute inset-0 bg-stone-50 z-50 flex flex-col animate-in slide-in-from-bottom-2 duration-300 overflow-y-auto w-full transition-colors">
 
-      {/* Header & Input */}
-      <header className="sticky top-0 z-10 bg-white border-b border-stone-200 p-4 gap-4 flex flex-col">
-        <div className="flex items-center gap-3">
+      {/* Header */}
+      <div className="sticky top-0 bg-stone-50/90 backdrop-blur-md z-20 border-b border-stone-200/50 pt-safe transition-colors duration-300">
+        <div className="h-16 flex items-center px-4 gap-2">
           <button
             onClick={onBack}
-            className="p-2 -ml-2 rounded-full text-muted hover:bg-stone-100 transition-colors"
+            className="p-2 -ml-2 rounded-full text-muted hover:bg-stone-200/50 transition-colors"
           >
             <ChevronLeft size={24} />
           </button>
-          <div className="flex-1 relative">
-            <input
-              autoFocus
-              type="text"
-              value={query}
-              onChange={(e) => {
-                if (mode === 'keyword') handleKeywordSearch(e.target.value);
-                else setQuery(e.target.value);
-              }}
-              onKeyDown={handleKeyDown}
-              placeholder={mode === 'ai' ? (isListening ? "Слухаю..." : "Запитайте про ідею...") : "Пошук слова..."}
-              className={`w-full bg-stone-100 border border-stone-200 text-primary pl-4 py-2.5 rounded-xl outline-none focus:ring-2 focus:ring-blue-100 transition-all font-medium placeholder:text-muted ${mode === 'ai' ? 'pr-20' : 'pr-4'}`}
-            />
-
-            {mode === 'ai' && (
-              <div className="absolute right-1 top-1 flex items-center gap-1">
-                {isListening && audioStream ? (
-                  <VoiceVisualizer stream={audioStream} onClick={toggleVoiceInput} />
-                ) : (
-                  <button
-                    onClick={toggleVoiceInput}
-                    className="p-1.5 rounded-lg text-muted hover:text-muted hover:bg-stone-200 transition-all"
-                  >
-                    <Mic size={18} strokeWidth={2} />
-                  </button>
-                )}
-
-                <button
-                  onClick={handleAiSearch}
-                  disabled={isAiLoading || !query.trim()}
-                  className="p-1.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 active:bg-blue-700 disabled:opacity-50 disabled:bg-stone-300 transition-all"
-                >
-                  {isAiLoading ? <Sparkles size={18} className="animate-pulse" /> : <ArrowRight size={18} />}
-                </button>
-              </div>
-            )}
-          </div>
+          <h1 className="text-xl font-bold text-primary tracking-tight">Пошук</h1>
         </div>
+      </div>
 
+      <div className="p-4 space-y-6 pb-32">
         {/* Mode Toggle */}
-        <div className="flex bg-stone-100 p-1 rounded-xl border border-stone-200 shadow-inner">
+        <div className="flex bg-stone-200/50 p-1 rounded-xl">
           <button
             onClick={() => { setMode('keyword'); handleKeywordSearch(query); stopListening(); }}
-            className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-all ${mode === 'keyword' ? 'bg-stone-200 text-primary shadow-sm border border-stone-300/50' : 'text-muted hover:text-muted'}`}
+            className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-all ${mode === 'keyword' ? 'bg-white text-primary shadow-sm' : 'text-muted hover:text-primary'}`}
           >
             <Search size={16} />
             За словом
           </button>
           <button
             onClick={() => { setMode('ai'); setKeywordResults([]); }}
-            className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-all ${mode === 'ai' ? 'bg-stone-200 text-primary shadow-sm border border-stone-300/50' : 'text-muted hover:text-muted'}`}
+            className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-all ${mode === 'ai' ? 'bg-white text-primary shadow-sm' : 'text-muted hover:text-primary'}`}
           >
             <Sparkles size={16} className={mode === 'ai' ? "text-blue-500" : ""} />
             Розумний пошук
           </button>
         </div>
-      </header>
 
-      {/* Results */}
-      <div className="flex-1 overflow-y-auto no-scrollbar p-4">
+        {/* Input */}
+        <div className="relative">
+          <input
+            autoFocus
+            type="text"
+            value={query}
+            onChange={(e) => {
+              if (mode === 'keyword') handleKeywordSearch(e.target.value);
+              else setQuery(e.target.value);
+            }}
+            onKeyDown={handleKeyDown}
+            placeholder={mode === 'ai' ? (isListening ? "Слухаю..." : "Запитайте про ідею...") : "Пошук слова..."}
+            className={`w-full bg-white border border-stone-200 text-primary pl-4 py-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-100 transition-all font-medium placeholder:text-muted shadow-sm ${mode === 'ai' ? 'pr-20' : 'pr-4'}`}
+          />
 
-        {/* KEYWORD MODE */}
-        {mode === 'keyword' && (
-          <div className="space-y-4">
-            {query && keywordResults.length === 0 && (
-              <div className="text-center py-10 text-muted">
-                Нічого не знайдено
-              </div>
-            )}
-            {keywordResults.map(verse => (
-              <div
-                key={verse.id}
-                onClick={() => onNavigateToVerse(verse.id)}
-                className="p-4 rounded-xl border border-stone-200 bg-stone-100 shadow-[0_2px_8px_rgba(0,0,0,0.02)] active:bg-stone-200 transition-colors cursor-pointer"
+          {mode === 'ai' && (
+            <div className="absolute right-1 top-1.5 flex items-center gap-1">
+              {isListening && audioStream ? (
+                <VoiceVisualizer stream={audioStream} onClick={toggleVoiceInput} />
+              ) : (
+                <button
+                  onClick={toggleVoiceInput}
+                  className="p-1.5 rounded-lg text-muted hover:text-muted hover:bg-stone-100 transition-all"
+                >
+                  <Mic size={18} strokeWidth={2} />
+                </button>
+              )}
+
+              <button
+                onClick={handleAiSearch}
+                disabled={isAiLoading || !query.trim()}
+                className="p-1.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 active:bg-blue-700 disabled:opacity-50 disabled:bg-stone-300 transition-all"
               >
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-xs font-bold text-muted uppercase tracking-wider">Псалом 1:{verse.id}</span>
+                {isAiLoading ? <Sparkles size={18} className="animate-pulse" /> : <ArrowRight size={18} />}
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* Results */}
+        <div className="space-y-4">
+          {/* KEYWORD MODE */}
+          {mode === 'keyword' && (
+            <>
+              {query && keywordResults.length === 0 && (
+                <div className="text-center py-10 text-muted">
+                  Нічого не знайдено
                 </div>
-                <p className="text-primary leading-relaxed">
-                  {verse.text.split(new RegExp(`(${query})`, 'gi')).map((part, i) =>
-                    part.toLowerCase() === query.toLowerCase()
-                      ? <span key={i} className="bg-yellow-100 text-primary font-medium">{part}</span>
-                      : part
-                  )}
-                </p>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* AI MODE */}
-        {mode === 'ai' && (
-          <div className="space-y-6">
-            {!aiResults && !isAiLoading && (
-              <div className="text-center py-12 px-6">
-                <div className="w-12 h-12 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Sparkles size={24} />
-                </div>
-                <h3 className="text-primary font-bold mb-2">Запитайте про ідеї</h3>
-                <p className="text-sm text-muted leading-relaxed">
-                  Спробуйте: «Де говориться про успіх?», «Що сказано про нечестивих?», або натисніть мікрофон.
-                </p>
-              </div>
-            )}
-
-            {isAiLoading && (
-              <div className="space-y-4 animate-pulse">
-                <div className="h-4 bg-stone-100 rounded w-3/4"></div>
-                <div className="h-32 bg-stone-100 rounded-xl"></div>
-                <div className="h-32 bg-stone-100 rounded-xl"></div>
-              </div>
-            )}
-
-            {aiResults && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                <div className="bg-blue-50/50 p-4 rounded-xl mb-6 border border-blue-100">
-                  <div className="flex gap-2 items-start mb-2">
-                    <Sparkles size={16} className="text-blue-500 mt-1 shrink-0" />
-                    <span className="text-xs font-bold text-blue-600 uppercase tracking-wide mt-1">AI Відповідь</span>
+              )}
+              {keywordResults.map(verse => (
+                <div
+                  key={verse.id}
+                  onClick={() => onNavigateToVerse(verse.id)}
+                  className="p-4 rounded-xl border border-stone-200 bg-white shadow-sm active:bg-stone-100 transition-colors cursor-pointer"
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-xs font-bold text-muted uppercase tracking-wider">Псалом 1:{verse.id}</span>
                   </div>
-                  <p className="text-primary text-sm leading-relaxed">
-                    {aiResults.explanation}
+                  <p className="text-primary leading-relaxed">
+                    {verse.text.split(new RegExp(`(${query})`, 'gi')).map((part, i) =>
+                      part.toLowerCase() === query.toLowerCase()
+                        ? <span key={i} className="bg-yellow-200 text-primary font-medium px-0.5 rounded-sm">{part}</span>
+                        : part
+                    )}
                   </p>
                 </div>
+              ))}
+            </>
+          )}
 
-                <div className="space-y-4">
-                  <h3 className="text-xs font-bold text-muted uppercase tracking-wider pl-1">Знайдені вірші</h3>
-                  {aiResults.verseIds.map(id => {
-                    const verse = PSALM_1.find(v => v.id === id);
-                    if (!verse) return null;
-                    return (
-                      <div
-                        key={id}
-                        onClick={() => onNavigateToVerse(id)}
-                        className="p-4 rounded-xl border border-stone-200 bg-stone-100 shadow-[0_2px_8px_rgba(0,0,0,0.02)] active:bg-stone-200 transition-colors cursor-pointer flex gap-3"
-                      >
-                        <div className="mt-1 bg-stone-200 text-muted w-6 h-6 rounded flex items-center justify-center text-xs font-bold shrink-0 border border-stone-300/30">
-                          {id}
-                        </div>
-                        <div>
-                          <p className="text-primary leading-relaxed text-[15px]">
-                            {verse.text}
-                          </p>
-                          <div className="mt-2 flex items-center gap-1 text-xs text-blue-600 font-medium">
-                            Перейти до вірша <ArrowRight size={12} />
+          {/* AI MODE */}
+          {mode === 'ai' && (
+            <div className="space-y-6">
+              {!aiResults && !isAiLoading && (
+                <div className="text-center py-12 px-6">
+                  <div className="w-12 h-12 bg-white text-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm border border-stone-100">
+                    <Sparkles size={24} />
+                  </div>
+                  <h3 className="text-primary font-bold mb-2">Запитайте про ідеї</h3>
+                  <p className="text-sm text-muted leading-relaxed">
+                    Спробуйте: «Де говориться про успіх?», «Що сказано про нечестивих?», або натисніть мікрофон.
+                  </p>
+                </div>
+              )}
+
+              {isAiLoading && (
+                <div className="space-y-4 animate-pulse">
+                  <div className="h-4 bg-stone-200/50 rounded w-3/4"></div>
+                  <div className="h-32 bg-stone-200/50 rounded-xl"></div>
+                  <div className="h-32 bg-stone-200/50 rounded-xl"></div>
+                </div>
+              )}
+
+              {aiResults && (
+                <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                  <div className="bg-blue-50/50 p-4 rounded-xl mb-6 border border-blue-100/50 shadow-sm">
+                    <div className="flex gap-2 items-start mb-2">
+                      <Sparkles size={16} className="text-blue-500 mt-1 shrink-0" />
+                      <span className="text-xs font-bold text-blue-600 uppercase tracking-wide mt-1">AI Відповідь</span>
+                    </div>
+                    <p className="text-primary text-sm leading-relaxed">
+                      {aiResults.explanation}
+                    </p>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h3 className="text-xs font-bold text-muted uppercase tracking-wider pl-1 mb-3">Знайдені вірші</h3>
+                    {aiResults.verseIds.map(id => {
+                      const verse = PSALM_1.find(v => v.id === id);
+                      if (!verse) return null;
+                      return (
+                        <div
+                          key={id}
+                          onClick={() => onNavigateToVerse(id)}
+                          className="p-4 rounded-xl border border-stone-200 bg-white shadow-sm active:bg-stone-100 transition-colors cursor-pointer flex gap-3"
+                        >
+                          <div className="mt-1 bg-stone-100 text-muted w-6 h-6 rounded flex items-center justify-center text-xs font-bold shrink-0 border border-stone-200/50">
+                            {id}
+                          </div>
+                          <div>
+                            <p className="text-primary leading-relaxed text-[15px]">
+                              {verse.text}
+                            </p>
+                            <div className="mt-2 flex items-center gap-1 text-xs text-blue-600 font-medium">
+                              Перейти до вірша <ArrowRight size={12} />
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
-        )}
-
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
