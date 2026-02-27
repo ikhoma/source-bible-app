@@ -34,7 +34,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
 
   useEffect(() => {
     scrollToTop();
-  }, [activeSection, verseId, scrollToTop]);
+  }, [activeSection, verseId, commentaryMode, activeParallel, scrollToTop]);
 
   useEffect(() => {
     // Reset parallel state when verse changes
