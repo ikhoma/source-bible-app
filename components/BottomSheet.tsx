@@ -32,7 +32,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
   canNavigateNext = false,
   isExpanded,
   onToggleExpand,
-  expandedHeight = '92vh'
+  expandedHeight = '92dvh'
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const startY = useRef<number | null>(null);
@@ -105,7 +105,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
             ? 'translate-y-0 duration-500 ease-[cubic-bezier(0.175,0.885,0.32,1.1)]'
             : 'translate-y-full duration-300 ease-in'} 
         `}
-        style={{ height: isExpanded ? expandedHeight : '50vh' }}
+        style={{ height: isExpanded ? expandedHeight : '50dvh' }}
       >
         {/* Handle Area - Drag Zone */}
         <div

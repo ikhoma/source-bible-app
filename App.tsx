@@ -41,7 +41,7 @@ export default function App() {
   // Search State
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  const [expandedSheetHeight, setExpandedSheetHeight] = useState('92vh');
+  const [expandedSheetHeight, setExpandedSheetHeight] = useState('92dvh');
 
   const mainViewportRef = useRef<HTMLDivElement>(null);
 
@@ -67,9 +67,12 @@ export default function App() {
           const headerHeight = 64; // Approx top bar height
 
           // Sheet top position dynamically based on expansion
-          // Collapsed: 50vh (top is 0.5), Expanded: calculated height or 92vh fallback
+          // Collapsed: 50dvh (top is 0.5), Expanded: calculated height or 92dvh fallback
           const defaultExpandedHeight = viewportHeight * 0.92;
-          const sheetTop = isSheetExpanded ? (viewportHeight - parseFloat(expandedSheetHeight)) : viewportHeight * 0.5;
+          const parsedHeight = String(expandedSheetHeight).includes('vh') || String(expandedSheetHeight).includes('dvh')
+            ? (parseFloat(expandedSheetHeight) / 100) * viewportHeight
+            : parseFloat(expandedSheetHeight);
+          const sheetTop = isSheetExpanded ? (viewportHeight - parsedHeight) : viewportHeight * 0.5;
           const visibleHeight = sheetTop - headerHeight;
 
           // Target positions
@@ -81,14 +84,13 @@ export default function App() {
           if (isSheetExpanded || rect.height >= visibleHeight) {
             delta = rect.top - targetTop;
 
-            // If expanding, calculate how much space is left below the verse to anchor the sheet
             if (isSheetExpanded) {
               const rectAfterScroll = {
                 bottom: rect.bottom - delta,
                 top: rect.top - delta
               };
               const spaceBelow = viewportHeight - rectAfterScroll.bottom - 12; // Subtract 12px to reveal margin
-              // Limit height to max 92vh and min 30vh to keep it usable
+              // Limit height to max 92dvh and min 30dvh to keep it usable
               const finalHeight = Math.min(viewportHeight * 0.92, Math.max(viewportHeight * 0.3, spaceBelow));
               setExpandedSheetHeight(`${finalHeight}px`);
             }
@@ -358,7 +360,7 @@ export default function App() {
           className={`
             flex-1 overflow-y-auto bg-white relative w-full no-scrollbar transition-all duration-500
             ${isSheetOpen
-              ? (isSheetExpanded ? 'pb-[92vh]' : 'pb-[50vh]')
+              ? (isSheetExpanded ? 'pb-[92dvh]' : 'pb-[50dvh]')
               : 'pb-24'}
           `}
           onClick={() => {
