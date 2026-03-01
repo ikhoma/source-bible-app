@@ -146,8 +146,8 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
             className={`
               px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 border
               ${activeSection === 'crossRefs'
-                ? 'bg-stone-300 text-primary border-stone-400'
-                : 'bg-stone-100 text-muted hover:bg-stone-200 active:scale-95 border-stone-200'}
+                ? 'bg-stone-300 text-primary border-stone-400/30'
+                : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'}
             `}
           >
             Паралельні
@@ -157,8 +157,8 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
             className={`
               px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 border
               ${activeSection === 'translations'
-                ? 'bg-stone-300 text-primary border-stone-400'
-                : 'bg-stone-100 text-muted hover:bg-stone-200 active:scale-95 border-stone-200'}
+                ? 'bg-stone-300 text-primary border-stone-400/30'
+                : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'}
             `}
           >
             Переклади
@@ -168,8 +168,8 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
             className={`
               px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 border
               ${activeSection === 'original'
-                ? 'bg-stone-300 text-primary border-stone-400'
-                : 'bg-stone-100 text-muted hover:bg-stone-200 active:scale-95 border-stone-200'}
+                ? 'bg-stone-300 text-primary border-stone-400/30'
+                : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'}
             `}
           >
             Оригінал
@@ -179,8 +179,8 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
             className={`
               px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 border
               ${activeSection === 'commentary'
-                ? 'bg-stone-300 text-primary border-stone-400'
-                : 'bg-stone-100 text-muted hover:bg-stone-200 active:scale-95 border-stone-200'}
+                ? 'bg-stone-300 text-primary border-stone-400/30'
+                : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'}
             `}
           >
             Коментарі

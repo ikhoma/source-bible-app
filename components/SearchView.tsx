@@ -304,22 +304,22 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
           />
 
           {mode === 'ai' && (
-            <div className="absolute right-1 top-1.5 flex items-center gap-1">
+            <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center gap-1.5">
               {isListening && audioStream ? (
                 <VoiceVisualizer stream={audioStream} onClick={toggleVoiceInput} />
               ) : (
                 <button
                   onClick={toggleVoiceInput}
-                  className="p-1.5 rounded-lg text-muted hover:text-muted hover:bg-stone-100 transition-all"
+                  className="w-10 h-10 flex items-center justify-center rounded-xl text-muted hover:text-primary hover:bg-stone-100 transition-all"
                 >
-                  <Mic size={18} strokeWidth={2} />
+                  <Mic size={20} strokeWidth={2} />
                 </button>
               )}
 
               <button
                 onClick={handleAiSearch}
                 disabled={isAiLoading || !query.trim()}
-                className="p-1.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 active:bg-blue-700 disabled:opacity-50 disabled:bg-stone-300 transition-all"
+                className="w-10 h-10 flex items-center justify-center bg-blue-500 text-white rounded-xl shadow-sm hover:bg-blue-600 active:bg-blue-700 disabled:opacity-50 disabled:bg-stone-300 transition-all"
               >
                 {isAiLoading ? <Sparkles size={18} className="animate-pulse" /> : <ArrowRight size={18} />}
               </button>
