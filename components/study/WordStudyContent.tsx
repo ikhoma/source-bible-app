@@ -83,14 +83,14 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
     <div className="pb-24 px-4 animate-in fade-in duration-300">
 
       {/* Section Pills (Meaning / Usage) */}
-      <div className="sticky top-0 z-10 bg-stone-100 mb-4 -mx-4 pt-2 pb-4 font-sans border-b border-stone-200 shadow-sm">
+      <div className="sticky top-0 z-10 bg-white dark:bg-stone-100 mb-4 -mx-4 pt-2 pb-4 font-sans border-b border-stone-200/50 shadow-sm">
         <div className="flex overflow-x-auto no-scrollbar gap-2 px-4">
           <button
             onClick={() => setActiveSection('meaning')}
             className={`
               px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 border
               ${activeSection === 'meaning'
-                ? 'bg-[#CFCBC9] text-primary border-[#C5C2BE] dark:bg-stone-300 dark:text-primary dark:border-stone-400'
+                ? 'bg-stone-300 text-primary border-stone-400/30'
                 : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'
               }
             `}
@@ -102,7 +102,7 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
             className={`
               px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 border
               ${activeSection === 'usage'
-                ? 'bg-[#CFCBC9] text-primary border-[#C5C2BE] dark:bg-stone-300 dark:text-primary dark:border-stone-400'
+                ? 'bg-stone-300 text-primary border-stone-400/30'
                 : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'
               }
             `}
@@ -117,7 +117,7 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
         <div className="animate-in fade-in duration-300">
           {/* Strong's Header */}
           {wordData.strongs && (
-            <section className="pt-2 mt-2 border-t border-stone-200/50 first:border-0 first:mt-0 first:pt-0">
+            <section className="pt-2 mt-2 border-t border-stone-200/40 first:border-0 first:mt-0 first:pt-0">
               <h3 className="text-xs font-bold uppercase tracking-wider text-muted mb-3">Номер Стронга</h3>
               <div className="flex items-baseline gap-3">
                 <span className="text-2xl font-serif font-bold text-primary">{wordData.strongs}</span>
@@ -130,7 +130,7 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
 
           {/* Semantic Range */}
           {wordData.semanticRange && wordData.semanticRange.length > 0 && (
-            <section className="pt-6 mt-6 border-t border-stone-200/50 first:border-0 first:mt-0 first:pt-0">
+            <section className="pt-6 mt-6 border-t border-stone-200/40 first:border-0 first:mt-0 first:pt-0">
               <h3 className="text-xs font-bold uppercase tracking-wider text-muted mb-3">Семантичний діапазон</h3>
               <div className="leading-[1.4] text-primary text-base">
                 {wordData.semanticRange.map((item, i) => (
@@ -214,7 +214,7 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
 
           {/* Lexical Insight */}
           {wordData.definition && (
-            <section className="pt-6 mt-6 border-t border-stone-200/50 first:border-0 first:mt-0 first:pt-0">
+            <section className="pt-6 mt-6 border-t border-stone-200/40 first:border-0 first:mt-0 first:pt-0">
               <h3 className="text-xs font-bold uppercase tracking-wider text-muted mb-3">Лексичний інсайт</h3>
               <div className="space-y-4">
                 <div className="flex gap-3">
@@ -244,13 +244,13 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
         <div className="animate-in fade-in duration-300">
           {/* Concordance */}
           {hasMoreUsages ? (
-            <section className="pt-2 mt-2 border-t border-stone-200/50 first:border-0 first:mt-0 first:pt-0">
+            <section className="pt-2 mt-2 border-t border-stone-200/40 first:border-0 first:mt-0 first:pt-0">
               <h3 className="text-xs font-bold uppercase tracking-wider text-muted mb-3">
                 {getUsageLabel(displayedUsages.length)}
               </h3>
               <div className="space-y-3">
                 {displayedUsages.map((u, i) => (
-                  <div key={i} className="pb-4 mt-4 border-b border-stone-200/50 last:border-0 first:mt-0">
+                  <div key={i} className="pb-4 mt-4 border-b border-stone-200/40 last:border-0 first:mt-0">
                     <p className="text-xs font-bold text-muted mb-1">{u.ref}</p>
                     <p className="text-primary leading-[1.4] text-base">
                       {renderHighlightedText(u.text)}

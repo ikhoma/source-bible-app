@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ChevronLeft, Search, Sparkles, ArrowRight, BookOpen, Mic, X, Square } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Search, Sparkles, ArrowRight, BookOpen, Mic, X, Square } from 'lucide-react';
 import { GoogleGenAI, Type } from "@google/genai";
 import { PSALM_1 } from '../constants';
 import { Verse } from '../types';
@@ -341,18 +341,20 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
                 <div
                   key={verse.id}
                   onClick={() => onNavigateToVerse(verse.id)}
-                  className="p-4 rounded-xl border border-stone-200 bg-white shadow-sm active:bg-stone-100 transition-colors cursor-pointer"
+                  className="group cursor-pointer"
                 >
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-xs font-bold text-muted uppercase tracking-wider">Псалом 1:{verse.id}</span>
+                  <div className="flex items-baseline justify-between mb-1">
+                    <span className="text-xs font-bold text-muted">Псалом 1:{verse.id}</span>
+                    <ChevronRight size={14} className="text-muted group-hover:text-primary transition-colors" />
                   </div>
-                  <p className="text-primary leading-[1.4]">
+                  <p className="text-primary leading-[1.4] text-base">
                     {verse.text.split(new RegExp(`(${query})`, 'gi')).map((part, i) =>
                       part.toLowerCase() === query.toLowerCase()
                         ? <span key={i} className="bg-yellow-200 text-primary font-medium px-0.5 rounded-sm">{part}</span>
                         : part
                     )}
                   </p>
+                  <div className="h-[1px] bg-stone-200/50 mt-4" />
                 </div>
               ))}
             </>
@@ -402,19 +404,16 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
                         <div
                           key={id}
                           onClick={() => onNavigateToVerse(id)}
-                          className="p-4 rounded-xl border border-stone-200 bg-white shadow-sm active:bg-stone-100 transition-colors cursor-pointer flex gap-3"
+                          className="group cursor-pointer"
                         >
-                          <div className="mt-1 bg-stone-100 text-muted w-6 h-6 rounded flex items-center justify-center text-xs font-bold shrink-0 border border-stone-200/50">
-                            {id}
+                          <div className="flex items-baseline justify-between mb-1">
+                            <span className="text-xs font-bold text-muted">Псалом 1:{id}</span>
+                            <ChevronRight size={14} className="text-muted group-hover:text-primary transition-colors" />
                           </div>
-                          <div>
-                            <p className="text-primary leading-[1.4] text-base">
-                              {verse.text}
-                            </p>
-                            <div className="mt-2 flex items-center gap-1 text-xs text-blue-600 font-medium">
-                              Перейти до вірша <ArrowRight size={12} />
-                            </div>
-                          </div>
+                          <p className="text-primary leading-[1.4] text-base">
+                            {verse.text}
+                          </p>
+                          <div className="h-[1px] bg-stone-200/50 mt-4" />
                         </div>
                       );
                     })}

@@ -139,14 +139,14 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
   return (
     <div className="pb-24 px-4 animate-in fade-in duration-300">
       {/* Section Pills (Cross-Refs / Commentary / Translations / Original) */}
-      <div className="sticky top-0 z-20 bg-stone-100 -mx-4 pt-2 pb-4 font-sans border-b border-stone-200 shadow-sm">
+      <div className="sticky top-0 z-20 bg-white dark:bg-stone-100 -mx-4 pt-2 pb-4 font-sans border-b border-stone-200/50 shadow-sm">
         <div className="flex overflow-x-auto no-scrollbar gap-2 px-4">
           <button
             onClick={() => setActiveSection('crossRefs')}
             className={`
               px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 border
               ${activeSection === 'crossRefs'
-                ? 'bg-[#CFCBC9] text-primary border-[#C5C2BE] dark:bg-stone-300 dark:text-primary dark:border-stone-400'
+                ? 'bg-stone-300 text-primary border-stone-400/30'
                 : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'}
             `}
           >
@@ -157,7 +157,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
             className={`
               px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 border
               ${activeSection === 'translations'
-                ? 'bg-[#CFCBC9] text-primary border-[#C5C2BE] dark:bg-stone-300 dark:text-primary dark:border-stone-400'
+                ? 'bg-stone-300 text-primary border-stone-400/30'
                 : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'}
             `}
           >
@@ -168,7 +168,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
             className={`
               px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 border
               ${activeSection === 'original'
-                ? 'bg-[#CFCBC9] text-primary border-[#C5C2BE] dark:bg-stone-300 dark:text-primary dark:border-stone-400'
+                ? 'bg-stone-300 text-primary border-stone-400/30'
                 : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'}
             `}
           >
@@ -179,7 +179,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
             className={`
               px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 border
               ${activeSection === 'commentary'
-                ? 'bg-[#CFCBC9] text-primary border-[#C5C2BE] dark:bg-stone-300 dark:text-primary dark:border-stone-400'
+                ? 'bg-stone-300 text-primary border-stone-400/30'
                 : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'}
             `}
           >
@@ -262,7 +262,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
           >
             {commentaryMode === 'detail' && activeCommentaryIndex !== null && data.commentaries[activeCommentaryIndex] && (
               <div className="pt-0">
-                <div className="sticky top-[57px] -mx-4 px-4 bg-stone-100 z-10 py-3 mb-2 border-b border-stone-200 flex items-center justify-between">
+                <div className="sticky top-[57px] -mx-4 px-4 bg-white dark:bg-stone-100 z-10 py-3 mb-2 border-b border-stone-200/50 flex items-center justify-between">
                   <button
                     onClick={() => {
                       setCommentaryMode('list');
@@ -299,7 +299,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
                             return <strong className="font-semibold text-primary" {...props} />;
                           },
                           em: ({ node, ...props }) => <em className="italic text-muted" {...props} />,
-                          hr: ({ node, ...props }) => <hr className="my-6 border-stone-200" {...props} />
+                          hr: ({ node, ...props }) => <hr className="my-6 border-stone-200/50" {...props} />
                         }}
                       >
                         {(() => {

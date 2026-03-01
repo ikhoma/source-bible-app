@@ -99,7 +99,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
       {/* Sheet */}
       <div
         className={`
-          fixed inset-x-0 bottom-0 z-50 bg-stone-100 rounded-t-3xl shadow-[0_-8px_40px_rgba(0,0,0,0.15)] 
+          fixed inset-x-0 bottom-0 z-50 bg-white dark:bg-stone-100 rounded-t-3xl shadow-[0_-8px_40px_rgba(0,0,0,0.15)] 
           flex flex-col max-w-md mx-auto transform transition-all border-t border-x border-stone-200
           ${isOpen
             ? 'translate-y-0 duration-500 ease-[cubic-bezier(0.175,0.885,0.32,1.1)]'
