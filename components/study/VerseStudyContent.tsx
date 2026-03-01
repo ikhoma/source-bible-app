@@ -89,7 +89,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
         <span className="text-xs font-bold text-muted">{title}</span>
         <ChevronRight size={14} className="text-muted group-hover:text-muted transition-colors" />
       </div>
-      <p className="text-primary leading-relaxed text-[15px]">{text}</p>
+      <p className="text-primary leading-[1.4] text-base">{text}</p>
       <div className="h-[1px] bg-stone-200 mt-4" />
     </div>
   );
@@ -278,12 +278,12 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
                   </button>
                 </div>
 
-                <div className="text-[15px] leading-relaxed text-primary space-y-3 mt-2">
+                <div className="text-base leading-[1.4] text-primary space-y-3 mt-2">
                   {['Меттью Генрі', 'Жан Кальвін', 'Чарльз Сперджен'].includes(data.commentaries[activeCommentaryIndex].author) ? (
                     <div className="space-y-4">
                       <ReactMarkdown
                         components={{
-                          p: ({ node, ...props }) => <p className="mb-3 leading-relaxed" {...props} />,
+                          p: ({ node, ...props }) => <p className="mb-3 leading-[1.4]" {...props} />,
                           ul: ({ node, ...props }) => <ul className="list-disc pl-5 mb-3 space-y-2" {...props} />,
                           ol: ({ node, ...props }) => <ol className="list-decimal pl-5 mb-3 space-y-2" {...props} />,
                           li: ({ node, ...props }) => <li {...props} />,
@@ -395,13 +395,13 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
                   </div>
 
                   {/* Extended Definition */}
-                  <div className="text-sm leading-relaxed text-primary border-t border-stone-300/50 pt-3 mt-1">
+                  <div className="text-base leading-[1.4] text-primary border-t border-stone-300/50 pt-3 mt-1">
                     {/* Primary Gloss */}
                     <p className="font-semibold mb-1">{token.gloss}</p>
 
                     {/* Lexical Data */}
                     {wordData && wordData.definition ? (
-                      <p className="text-muted font-normal leading-relaxed mt-1">
+                      <p className="text-muted font-normal leading-[1.4] mt-1">
                         {wordData.definition}
                       </p>
                     ) : (

@@ -142,7 +142,7 @@ export const BibleText: React.FC<BibleTextProps> = ({
             >
               {/* Verse Number */}
               <span className={`
-                absolute left-0 top-3 text-[10px] font-bold select-none w-4 text-center transition-colors
+                absolute left-0 top-3 text-xs font-bold select-none w-4 text-center transition-colors
                 ${isVerseSelected ? 'text-blue-600' : 'text-muted'}
               `}>
                 {verse.id}

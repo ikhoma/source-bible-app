@@ -40,6 +40,6 @@ const NavItem: React.FC<{ icon: React.ReactNode; label: string; active?: boolean
     <div className={`rounded-full px-4 py-1 mb-1 transition-colors ${active ? 'bg-blue-100' : 'bg-transparent'}`}>
       {React.cloneElement(icon as React.ReactElement<any>, { className: active ? 'text-primary stroke-[2.5px]' : 'stroke-[2px]' })}
     </div>
-    <span className="text-[10px] font-medium tracking-wide">{label}</span>
+    <span className="text-xs font-medium tracking-wide">{label}</span>
   </button>
 );

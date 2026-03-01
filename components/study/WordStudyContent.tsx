@@ -60,7 +60,7 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
     return (
       <div className="p-12 text-center text-muted flex flex-col items-center justify-center h-full">
         <p className="font-medium text-lg mb-2">Інформація відсутня</p>
-        <p className="text-sm opacity-70">Для цього слова ще немає детального розбору.</p>
+        <p className="text-base opacity-70">Для цього слова ще немає детального розбору.</p>
       </div>
     );
   }
@@ -132,7 +132,7 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
           {wordData.semanticRange && wordData.semanticRange.length > 0 && (
             <section className="pt-6 mt-6 border-t border-stone-200/50 first:border-0 first:mt-0 first:pt-0">
               <h3 className="text-xs font-bold uppercase tracking-wider text-muted mb-3">Семантичний діапазон</h3>
-              <div className="leading-relaxed text-primary text-[15px]">
+              <div className="leading-[1.4] text-primary text-base">
                 {wordData.semanticRange.map((item, i) => (
                   <span key={item} className="inline-block">
                     <span className="font-medium">{item}</span>
@@ -221,7 +221,7 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
                   <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
                   <div>
                     <span className="font-bold text-primary text-sm">Означає:</span>
-                    <p className="text-sm text-muted mt-1 leading-relaxed">{wordData.definition}</p>
+                    <p className="text-base text-muted mt-1 leading-[1.4]">{wordData.definition}</p>
                   </div>
                 </div>
                 {wordData.notDefinition && (
@@ -229,7 +229,7 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
                     <XCircle className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
                     <div>
                       <span className="font-bold text-primary text-sm">Не означає:</span>
-                      <p className="text-sm text-muted mt-1 leading-relaxed">{wordData.notDefinition}</p>
+                      <p className="text-base text-muted mt-1 leading-[1.4]">{wordData.notDefinition}</p>
                     </div>
                   </div>
                 )}
@@ -252,7 +252,7 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
                 {displayedUsages.map((u, i) => (
                   <div key={i} className="pb-4 mt-4 border-b border-stone-200/50 last:border-0 first:mt-0">
                     <p className="text-xs font-bold text-muted mb-1">{u.ref}</p>
-                    <p className="text-primary leading-relaxed text-[15px]">
+                    <p className="text-primary leading-[1.4] text-base">
                       {renderHighlightedText(u.text)}
                     </p>
                   </div>
@@ -263,7 +263,7 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
             </section>
           ) : (
             <div className="pt-8 text-center text-muted flex flex-col items-center justify-center">
-              <p className="text-sm opacity-70">Немає збережених вживань для цього слова.</p>
+              <p className="text-base opacity-70">Немає збережених вживань для цього слова.</p>
             </div>
           )}
         </div>

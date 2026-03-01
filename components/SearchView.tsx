@@ -346,7 +346,7 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
                   <div className="flex items-center gap-2 mb-2">
                     <span className="text-xs font-bold text-muted uppercase tracking-wider">Псалом 1:{verse.id}</span>
                   </div>
-                  <p className="text-primary leading-relaxed">
+                  <p className="text-primary leading-[1.4]">
                     {verse.text.split(new RegExp(`(${query})`, 'gi')).map((part, i) =>
                       part.toLowerCase() === query.toLowerCase()
                         ? <span key={i} className="bg-yellow-200 text-primary font-medium px-0.5 rounded-sm">{part}</span>
@@ -367,7 +367,7 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
                     <Sparkles size={24} />
                   </div>
                   <h3 className="text-primary font-bold mb-2">Запитайте про ідеї</h3>
-                  <p className="text-sm text-muted leading-relaxed">
+                  <p className="text-base text-muted leading-[1.4]">
                     Спробуйте: «Де говориться про успіх?», «Що сказано про нечестивих?», або натисніть мікрофон.
                   </p>
                 </div>
@@ -388,7 +388,7 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
                       <Sparkles size={16} className="text-blue-500 mt-1 shrink-0" />
                       <span className="text-xs font-bold text-blue-600 uppercase tracking-wide mt-1">AI Відповідь</span>
                     </div>
-                    <p className="text-primary text-sm leading-relaxed">
+                    <p className="text-primary text-base leading-[1.4]">
                       {aiResults.explanation}
                     </p>
                   </div>
@@ -408,7 +408,7 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
                             {id}
                           </div>
                           <div>
-                            <p className="text-primary leading-relaxed text-[15px]">
+                            <p className="text-primary leading-[1.4] text-base">
                               {verse.text}
                             </p>
                             <div className="mt-2 flex items-center gap-1 text-xs text-blue-600 font-medium">
