@@ -36,7 +36,7 @@ export const FloatingActionBar: React.FC<FloatingActionBarProps> = ({
         ${isVisible ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4'}
       `}
         >
-            <div className="bg-stone-200/60 backdrop-blur-xl border border-stone-300/50 shadow-lg rounded-full px-2 py-1.5 flex items-center gap-1 pointer-events-auto max-w-fit">
+            <div className="bg-stone-100/90 backdrop-blur-xl border border-stone-200/50 shadow-lg rounded-full px-2 py-1.5 flex items-center gap-1 pointer-events-auto max-w-fit">
                 <ActionButton
                     icon={<Highlighter size={20} className={isHighlighted ? 'text-blue-600' : 'text-muted'} />}
                     label="Відмітити"

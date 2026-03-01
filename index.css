@@ -23,33 +23,33 @@
   --text-4xl-size: 2.25rem;
   --text-4xl-lh: 2.5rem;
 
-  /* LIGHT MODE (The Quietus version) */
-  --color-primary: 39 34 35;
-  /* #272223 true primary gray-black */
-  --color-muted: 108 117 125;
-  /* #6c757d muted gray */
+  /* LIGHT MODE (Figma fine-tuned version) */
+  --color-primary: 43 39 40;
+  /* #2B2728 true primary text */
+  --color-muted: 113 104 91;
+  /* #71685B muted text */
   --color-bg: 255 255 255;
-  /* #ffffff pure white body/content bg */
-  --color-stone-50: 248 249 250;
-  /* #f8f9fa neutral 50 */
-  --color-stone-100: 236 234 230;
-  /* #eceae6 The Quietus signature beige bg */
-  --color-stone-200: 221 221 221;
-  /* #dddddd neutral 200 */
-  --color-stone-300: 199 199 199;
-  /* #c7c7c7 neutral 300 */
-  --color-stone-400: 148 148 148;
-  /* #949494 neutral 400 */
-  --color-stone-500: 108 117 125;
-  /* #6c757d neutral 500 */
-  --color-stone-600: 73 80 87;
-  /* #495057 neutral 600 */
-  --color-stone-700: 33 37 41;
-  /* #212529 neutral 700 */
-  --color-stone-800: 39 34 35;
-  /* #272223 neutral 800 */
-  --color-stone-900: 0 0 0;
-  /* #000000 black */
+  /* #ffffff pure white body bg */
+  --color-stone-50: 246 245 242;
+  /* #f6f5f2 neutral 50 */
+  --color-stone-100: 235 233 230;
+  /* #ebe9e6 passive pill bg */
+  --color-stone-200: 223 220 215;
+  /* #dfdcd7 passive pill border / hover */
+  --color-stone-300: 192 185 176;
+  /* #c0b9b0 active pill bg */
+  --color-stone-400: 203 198 190;
+  /* #cbc6be active pill border */
+  --color-stone-500: 113 104 91;
+  /* #71685b muted */
+  --color-stone-600: 92 85 75;
+  /* #5c554b */
+  --color-stone-700: 64 59 52;
+  /* #403b34 */
+  --color-stone-800: 43 39 40;
+  /* #2b2728 primary */
+  --color-stone-900: 24 22 22;
+  /* #181616 black */
 
   --color-blue-50: 239 246 255;
   --color-blue-100: 219 234 254;
