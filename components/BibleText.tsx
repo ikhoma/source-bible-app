@@ -29,9 +29,10 @@ export const BibleText: React.FC<BibleTextProps> = ({
       const isSelected = selection.type === 'word' && selection.id === token.id;
       const isHighlighted = highlights.has(token.id);
 
-      const handleTouchStart = (e: React.TouchEvent) => {
+      const handlePressStart = (e: React.TouchEvent | React.MouseEvent) => {
         if (!isInteractive) return;
         isDragging.current = false;
+
         const target = e.currentTarget as HTMLElement;
         const rect = target.getBoundingClientRect();
         const coords: SelectionCoordinates = {
@@ -40,13 +41,14 @@ export const BibleText: React.FC<BibleTextProps> = ({
           yTop: rect.top
         };
 
+        // Start long press timer
         longPressTimer.current = window.setTimeout(() => {
           onLongPressWord(token.id, token.text, coords, token.anchorKey);
-          isDragging.current = true; // prevent click trigger after long press
-        }, 500);
+          isDragging.current = true; // Mark as dragged so click/touchend doesn't fire verse selection
+        }, 400); // 400ms simulate long press
       };
 
-      const handleTouchEnd = () => {
+      const handlePressEnd = (e: React.TouchEvent | React.MouseEvent) => {
         if (longPressTimer.current) {
           clearTimeout(longPressTimer.current);
           longPressTimer.current = null;
@@ -57,22 +59,20 @@ export const BibleText: React.FC<BibleTextProps> = ({
         if (longPressTimer.current) {
           clearTimeout(longPressTimer.current);
           longPressTimer.current = null;
-          isDragging.current = true;
+          isDragging.current = true; // They are scrolling/moving, cancel long press
         }
       };
 
       const handleClick = (e: React.MouseEvent) => {
-        if (!isInteractive) return;
-        e.stopPropagation();
-        if (isDragging.current) return;
+        // If it was a long press or drag, prevent the click from bubbling up to the verse
+        if (isDragging.current) {
+          e.stopPropagation();
+          isDragging.current = false; // Reset for next interaction
+          return;
+        }
 
-        const rect = e.currentTarget.getBoundingClientRect();
-        const coords: SelectionCoordinates = {
-          x: rect.left + rect.width / 2,
-          y: rect.bottom,
-          yTop: rect.top
-        };
-        onSelectWord(token.id, token.text, coords, token.anchorKey);
+        // Let it bubble up to the verse container to handle "tap to select verse"
+        // No e.stopPropagation() here!
       };
 
       if (!isInteractive) {
@@ -93,13 +93,15 @@ export const BibleText: React.FC<BibleTextProps> = ({
           id={`token-${token.id}`}
           className={`
             inline py-0.5 px-[1px] rounded-[3px] transition-colors duration-200 cursor-pointer select-none box-decoration-clone
-            ${isSelected ? 'bg-blue-500 !text-[#fff]' : (isHighlighted ? 'bg-lime-300 dark:bg-lime-300/20 text-primary' : 'active:bg-stone-200')}
+            ${isSelected ? 'bg-blue-500 !text-[#fff]' : (isHighlighted ? 'bg-lime-300 dark:bg-lime-300/20 text-primary' : '')}
           `}
           onClick={handleClick}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
+          onTouchStart={handlePressStart}
+          onTouchEnd={handlePressEnd}
           onTouchMove={handleTouchMove}
-          onMouseDown={() => { isDragging.current = false; }}
+          onMouseDown={handlePressStart}
+          onMouseUp={handlePressEnd}
+          onMouseLeave={handlePressEnd}
         >
           {token.text}
         </span>
@@ -131,6 +133,10 @@ export const BibleText: React.FC<BibleTextProps> = ({
                 ${!isVerseSelected && !containsSelectedWord ? 'border-transparent' : ''}
               `}
               onClick={(e) => {
+                if (isDragging.current) {
+                  isDragging.current = false;
+                  return;
+                }
                 const rect = e.currentTarget.getBoundingClientRect();
                 const coords: SelectionCoordinates = {
                   x: rect.left + rect.width / 2,
