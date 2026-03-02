@@ -93,7 +93,7 @@ export const BibleText: React.FC<BibleTextProps> = ({
           id={`token-${token.id}`}
           className={`
             inline py-0.5 px-[1px] rounded-[3px] transition-colors duration-200 cursor-pointer select-none box-decoration-clone
-            ${isSelected ? 'bg-blue-500 !text-[#fff]' : (isHighlighted ? 'bg-lime-300 dark:bg-lime-300/20 text-primary' : '')}
+            ${isSelected ? (isHighlighted ? 'bg-lime-500 !text-[#fff] dark:bg-lime-600' : 'bg-blue-500 !text-[#fff]') : (isHighlighted ? 'bg-lime-300 dark:bg-lime-300/20 text-primary' : '')}
           `}
           onClick={handleClick}
           onTouchStart={handlePressStart}
