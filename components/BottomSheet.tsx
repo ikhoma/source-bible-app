@@ -18,6 +18,7 @@ interface BottomSheetProps {
   isExpanded: boolean;
   onToggleExpand: (expanded: boolean) => void;
   expandedHeight?: string;
+  bottomContent?: React.ReactNode;
 }
 
 export const BottomSheet: React.FC<BottomSheetProps> = ({
@@ -32,7 +33,8 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
   canNavigateNext = false,
   isExpanded,
   onToggleExpand,
-  expandedHeight = '92dvh'
+  expandedHeight = '92dvh',
+  bottomContent
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const startY = useRef<number | null>(null);
@@ -49,13 +51,14 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
   }, [activeTab, scrollToTop]);
 
   useEffect(() => {
+    let timer: NodeJS.Timeout;
     if (isOpen) {
-      setIsVisible(true);
+      timer = setTimeout(() => setIsVisible(true), 10);
       onToggleExpand(false);
     } else {
-      const timer = setTimeout(() => setIsVisible(false), 500);
-      return () => clearTimeout(timer);
+      timer = setTimeout(() => setIsVisible(false), 500);
     }
+    return () => clearTimeout(timer);
   }, [isOpen]);
 
   const handlePointerDown = (e: React.PointerEvent) => {
@@ -101,8 +104,8 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
         className={`
           fixed inset-x-0 bottom-0 z-50 bg-white dark:bg-stone-100 rounded-t-3xl shadow-[0_-8px_40px_rgba(0,0,0,0.15)] 
           flex flex-col max-w-md mx-auto transform transition-all border-t border-x border-stone-200
-          ${isOpen
-            ? 'translate-y-0 duration-500 ease-[cubic-bezier(0.175,0.885,0.32,1.1)]'
+          ${isOpen && isVisible
+            ? 'translate-y-0 duration-500 ease-out'
             : 'translate-y-full duration-300 ease-in'} 
         `}
         style={{ height: isExpanded ? expandedHeight : '50dvh' }}
@@ -163,6 +166,9 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
             {children}
           </div>
         </ScrollToTopContext.Provider>
+
+        {/* Fixed Bottom Action Bar */}
+        {bottomContent}
       </div>
     </>
   );

@@ -2,7 +2,7 @@ import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { TopBar } from './components/TopBar';
 import { BottomNav } from './components/BottomNav';
 import { BibleText } from './components/BibleText';
-import { FloatingActionBar } from './components/FloatingActionBar';
+import { SheetActionBar } from './components/SheetActionBar';
 import { BottomSheet } from './components/BottomSheet';
 import { VerseStudyContent } from './components/study/VerseStudyContent';
 import { WordStudyContent } from './components/study/WordStudyContent';
@@ -398,19 +398,6 @@ export default function App() {
           )}
         </div>
 
-        {activeNavTab === 'bible' && selection.type && !isSearchOpen && (
-          <FloatingActionBar
-            isVisible={isSheetOpen}
-            isExpanded={isSheetExpanded}
-            selection={selection}
-            onToggleHighlight={handleToggleHighlight}
-            onOpenStudy={() => { }} // Already in bottom sheet
-            onCreateNote={handleCreateNote}
-            onShare={handleShare}
-            isHighlighted={selection.id ? highlights.has(selection.id) : false}
-          />
-        )}
-
         <BottomNav activeTab={activeNavTab} onTabChange={setActiveNavTab} />
 
         <BottomSheet
@@ -425,6 +412,17 @@ export default function App() {
           isExpanded={isSheetExpanded}
           onToggleExpand={setIsSheetExpanded}
           expandedHeight={expandedSheetHeight}
+          bottomContent={
+            activeNavTab === 'bible' && !isSearchOpen ? (
+              <SheetActionBar
+                selection={selection}
+                onToggleHighlight={handleToggleHighlight}
+                onCreateNote={handleCreateNote}
+                onShare={handleShare}
+                isHighlighted={selection.id ? highlights.has(selection.id) : false}
+              />
+            ) : undefined
+          }
         >
           {activeSheetTab === Tab.Verse ?
             <VerseStudyContent

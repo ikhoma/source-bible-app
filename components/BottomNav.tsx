@@ -9,25 +9,27 @@ interface BottomNavProps {
 
 export const BottomNav: React.FC<BottomNavProps> = ({ activeTab, onTabChange }) => {
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-stone-100 border-t border-stone-200 shadow-[0_-4px_20px_-4px_rgba(0,0,0,0.03)] pb-safe h-[49px] box-content px-6 flex justify-between items-center z-40 max-w-md mx-auto">
-      <NavItem
-        icon={<BookOpen size={24} />}
-        label="Біблія"
-        active={activeTab === 'bible'}
-        onClick={() => onTabChange('bible')}
-      />
-      <NavItem
-        icon={<PenLine size={24} />}
-        label="Нотатки"
-        active={activeTab === 'notes'}
-        onClick={() => onTabChange('notes')}
-      />
-      <NavItem
-        icon={<ToggleLeft size={24} />}
-        label="Налаштування"
-        active={activeTab === 'settings'}
-        onClick={() => onTabChange('settings')}
-      />
+    <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-stone-100 border-t border-stone-200 shadow-[0_-4px_20px_-4px_rgba(0,0,0,0.03)] pb-safe z-40">
+      <div className="w-full h-[49px] px-6 flex justify-between items-center">
+        <NavItem
+          icon={<BookOpen size={24} />}
+          label="Біблія"
+          active={activeTab === 'bible'}
+          onClick={() => onTabChange('bible')}
+        />
+        <NavItem
+          icon={<PenLine size={24} />}
+          label="Нотатки"
+          active={activeTab === 'notes'}
+          onClick={() => onTabChange('notes')}
+        />
+        <NavItem
+          icon={<ToggleLeft size={24} />}
+          label="Налаштування"
+          active={activeTab === 'settings'}
+          onClick={() => onTabChange('settings')}
+        />
+      </div>
     </div>
   );
 };

@@ -139,7 +139,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
   return (
     <div className="pb-24 px-4 animate-in fade-in duration-300">
       {/* Section Pills (Cross-Refs / Commentary / Translations / Original) */}
-      <div className="sticky top-0 z-20 bg-white dark:bg-stone-100 -mx-4 pt-2 pb-4 font-sans border-b border-stone-200/50 shadow-sm">
+      <div className="sticky top-0 z-20 bg-white dark:bg-stone-100 -mx-4 pt-2 pb-4 font-sans border-b border-stone-200/50 dark:border-[#312E2B] shadow-sm">
         <div className="flex overflow-x-auto no-scrollbar gap-2 px-4">
           <button
             onClick={() => setActiveSection('crossRefs')}
