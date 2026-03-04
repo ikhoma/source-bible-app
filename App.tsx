@@ -64,7 +64,7 @@ export default function App() {
         if (el && mainViewportRef.current) {
           const rect = el.getBoundingClientRect();
           const viewportHeight = window.innerHeight;
-          const headerHeight = 64; // Approx top bar height
+          const headerHeight = 44; // Exact TopBar height
 
           // Sheet top position dynamically based on expansion
           // Collapsed: 50dvh (top is 0.5), Expanded: calculated height or 92dvh fallback
@@ -77,7 +77,7 @@ export default function App() {
 
           // Target positions
           const targetTop = headerHeight + 16;
-          const targetBottom = sheetTop - 16;
+          const visibleCenter = headerHeight + (visibleHeight / 2);
 
           let delta = 0;
 
@@ -95,7 +95,9 @@ export default function App() {
               setExpandedSheetHeight(`${finalHeight}px`);
             }
           } else {
-            delta = rect.bottom - targetBottom;
+            // Center the verse vertically in the available visible height
+            const rectCenter = rect.top + (rect.height / 2);
+            delta = rectCenter - visibleCenter;
           }
 
           mainViewportRef.current.scrollBy({
