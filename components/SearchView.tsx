@@ -274,14 +274,14 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
         <div className="flex bg-stone-200/50 p-1 rounded-xl">
           <button
             onClick={() => { setMode('keyword'); handleKeywordSearch(query); stopListening(); }}
-            className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-all ${mode === 'keyword' ? 'bg-white text-primary shadow-sm' : 'text-muted hover:text-primary'}`}
+            className={`flex-1 flex items-center justify-center gap-2 py-1.5 rounded-lg text-sm font-medium transition-all ${mode === 'keyword' ? 'bg-white text-primary shadow-sm' : 'text-muted hover:text-primary'}`}
           >
             <Search size={16} />
             За словом
           </button>
           <button
             onClick={() => { setMode('ai'); setKeywordResults([]); }}
-            className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-all ${mode === 'ai' ? 'bg-white text-primary shadow-sm' : 'text-muted hover:text-primary'}`}
+            className={`flex-1 flex items-center justify-center gap-2 py-1.5 rounded-lg text-sm font-medium transition-all ${mode === 'ai' ? 'bg-white text-primary shadow-sm' : 'text-muted hover:text-primary'}`}
           >
             <Sparkles size={16} className={mode === 'ai' ? "text-blue-500" : ""} />
             Розумний пошук

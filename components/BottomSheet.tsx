@@ -141,14 +141,14 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
           {/* Tabs */}
           <div className="flex bg-stone-200/50 p-1 rounded-xl">
             <button
-              className={`flex-1 px-3 py-1.5 text-sm font-medium rounded-lg transition-all border ${activeTab === Tab.Verse ? 'bg-white dark:bg-stone-900 text-primary dark:text-white shadow-sm border-stone-200/50 dark:border-stone-800' : 'text-muted hover:text-primary border-transparent'
+              className={`flex-1 px-3 py-1 text-sm font-medium rounded-lg transition-all border ${activeTab === Tab.Verse ? 'bg-white dark:bg-stone-900 text-primary dark:text-white shadow-sm border-stone-200/50 dark:border-stone-800' : 'text-muted hover:text-primary border-transparent'
                 }`}
               onClick={() => onTabChange(Tab.Verse)}
             >
               Вірш
             </button>
             <button
-              className={`flex-1 px-3 py-1.5 text-sm font-medium rounded-lg transition-all border ${activeTab === Tab.Word ? 'bg-white dark:bg-stone-900 text-primary dark:text-white shadow-sm border-stone-200/50 dark:border-stone-800' : 'text-muted hover:text-primary border-transparent'
+              className={`flex-1 px-3 py-1 text-sm font-medium rounded-lg transition-all border ${activeTab === Tab.Word ? 'bg-white dark:bg-stone-900 text-primary dark:text-white shadow-sm border-stone-200/50 dark:border-stone-800' : 'text-muted hover:text-primary border-transparent'
                 }`}
               onClick={() => onTabChange(Tab.Word)}
             >

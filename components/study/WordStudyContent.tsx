@@ -88,7 +88,7 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
           <button
             onClick={() => setActiveSection('meaning')}
             className={`
-              px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 border
+              px-3 py-1 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 border
               ${activeSection === 'meaning'
                 ? 'bg-stone-300 text-primary border-stone-400/30'
                 : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'
@@ -100,7 +100,7 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
           <button
             onClick={() => setActiveSection('usage')}
             className={`
-              px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 border
+              px-3 py-1 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 border
               ${activeSection === 'usage'
                 ? 'bg-stone-300 text-primary border-stone-400/30'
                 : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'
