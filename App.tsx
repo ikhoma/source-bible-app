@@ -29,7 +29,6 @@ const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 export default function App() {
   const [selection, setSelection] = useState<SelectionState>({ type: null, id: null, text: '' });
   const [isSheetOpen, setIsSheetOpen] = useState(false);
-  const [isSheetExpanded, setIsSheetExpanded] = useState(false);
   const [activeSheetTab, setActiveSheetTab] = useState<Tab>(Tab.Verse);
   const [sheetTitle, setSheetTitle] = useState('');
 
@@ -45,7 +44,7 @@ export default function App() {
 
   const mainViewportRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll logic to keep selection visible when sheet opens/expands
+  // Auto-scroll logic to keep selection visible when sheet opens
   useEffect(() => {
     if (isSheetOpen && selection.id && mainViewportRef.current) {
       // Small delay to allow the sheet animation to start/layout to settle
@@ -66,39 +65,18 @@ export default function App() {
           const viewportHeight = window.innerHeight;
           const headerHeight = 44; // Exact TopBar height
 
-          // Sheet top position dynamically based on expansion
-          // Collapsed: 50dvh (top is 0.5), Expanded: calculated height or 92dvh fallback
-          const defaultExpandedHeight = viewportHeight * 0.92;
-          const parsedHeight = String(expandedSheetHeight).includes('vh') || String(expandedSheetHeight).includes('dvh')
-            ? (parseFloat(expandedSheetHeight) / 100) * viewportHeight
-            : parseFloat(expandedSheetHeight);
-          const sheetTop = isSheetExpanded ? (viewportHeight - parsedHeight) : viewportHeight * 0.5;
-          const visibleHeight = sheetTop - headerHeight;
-
           // Target positions
           const targetTop = headerHeight + 16;
-          const visibleCenter = headerHeight + (visibleHeight / 2);
+          const delta = rect.top - targetTop;
 
-          let delta = 0;
-
-          if (isSheetExpanded || rect.height >= visibleHeight) {
-            delta = rect.top - targetTop;
-
-            if (isSheetExpanded) {
-              const rectAfterScroll = {
-                bottom: rect.bottom - delta,
-                top: rect.top - delta
-              };
-              const spaceBelow = viewportHeight - rectAfterScroll.bottom - 12; // Subtract 12px to reveal margin
-              // Limit height to max 92dvh and min 30dvh to keep it usable
-              const finalHeight = Math.min(viewportHeight * 0.92, Math.max(viewportHeight * 0.3, spaceBelow));
-              setExpandedSheetHeight(`${finalHeight}px`);
-            }
-          } else {
-            // Center the verse vertically in the available visible height
-            const rectCenter = rect.top + (rect.height / 2);
-            delta = rectCenter - visibleCenter;
-          }
+          const rectAfterScroll = {
+            bottom: rect.bottom - delta,
+            top: rect.top - delta
+          };
+          const spaceBelow = viewportHeight - rectAfterScroll.bottom - 12; // Subtract 12px to reveal margin
+          // Limit height to max 92dvh and min 30dvh to keep it usable
+          const finalHeight = Math.min(viewportHeight * 0.92, Math.max(viewportHeight * 0.3, spaceBelow));
+          setExpandedSheetHeight(`${finalHeight}px`);
 
           mainViewportRef.current.scrollBy({
             top: delta,
@@ -108,7 +86,7 @@ export default function App() {
       }, 150);
       return () => clearTimeout(timer);
     }
-  }, [isSheetOpen, isSheetExpanded, selection.id, selection.type, expandedSheetHeight]);
+  }, [isSheetOpen, selection.id, selection.type]);
 
   const clearSelection = useCallback(() => {
     setSelection({ type: null, id: null, text: '' });
@@ -360,10 +338,10 @@ export default function App() {
         <main
           ref={mainViewportRef}
           className={`
-            flex-1 overflow-y-auto bg-white relative w-full no-scrollbar transition-all duration-500
+            flex-1 overflow-x-hidden bg-white relative w-full no-scrollbar transition-all duration-500
             ${isSheetOpen
-              ? (isSheetExpanded ? 'pb-[92dvh]' : 'pb-[50dvh]')
-              : 'pb-24'}
+              ? 'overflow-y-hidden pb-[92dvh]'
+              : 'overflow-y-auto pb-24'}
           `}
           onClick={() => {
             if (selection.type) clearSelection();
@@ -409,8 +387,6 @@ export default function App() {
           onNavigate={handleNavigate}
           canNavigatePrev={canPrev}
           canNavigateNext={canNext}
-          isExpanded={isSheetExpanded}
-          onToggleExpand={setIsSheetExpanded}
           expandedHeight={expandedSheetHeight}
           bottomContent={
             activeNavTab === 'bible' && !isSearchOpen ? (

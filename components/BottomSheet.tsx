@@ -15,8 +15,6 @@ interface BottomSheetProps {
   onNavigate?: (direction: 'prev' | 'next') => void;
   canNavigatePrev?: boolean;
   canNavigateNext?: boolean;
-  isExpanded: boolean;
-  onToggleExpand: (expanded: boolean) => void;
   expandedHeight?: string;
   bottomContent?: React.ReactNode;
 }
@@ -31,8 +29,6 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
   onNavigate,
   canNavigatePrev = false,
   canNavigateNext = false,
-  isExpanded,
-  onToggleExpand,
   expandedHeight = '92dvh',
   bottomContent
 }) => {
@@ -54,7 +50,6 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
     let timer: NodeJS.Timeout;
     if (isOpen) {
       timer = setTimeout(() => setIsVisible(true), 10);
-      onToggleExpand(false);
     } else {
       timer = setTimeout(() => setIsVisible(false), 500);
     }
@@ -78,20 +73,13 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
     startY.current = null;
 
     // Logic: 
-    // Small movement (< 10px) = Click/Tap -> Toggle Expansion
-    // Big movement Up (> 50px) -> Expand
-    // Big movement Down (> 50px) -> Collapse or Close
+    // Small movement (< 10px) = Click/Tap -> Close
+    // Big movement Down (> 50px) -> Close
 
     if (Math.abs(deltaY) < 10) {
-      onToggleExpand(!isExpanded);
-    } else if (deltaY < -50) {
-      onToggleExpand(true);
+      onClose();
     } else if (deltaY > 50) {
-      if (isExpanded) {
-        onToggleExpand(false);
-      } else {
-        onClose();
-      }
+      onClose();
     }
   };
 
@@ -108,7 +96,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
             ? 'translate-y-0 duration-500 ease-out'
             : 'translate-y-full duration-300 ease-in'} 
         `}
-        style={{ height: isExpanded ? expandedHeight : '50dvh' }}
+        style={{ height: expandedHeight }}
       >
         {/* Handle Area - Drag Zone */}
         <div
