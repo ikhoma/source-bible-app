@@ -5,6 +5,14 @@ import { Tab } from '../types';
 export const ScrollToTopContext = createContext<() => void>(() => { });
 export const useScrollToTop = () => useContext(ScrollToTopContext);
 
+export interface ScrollContextState {
+  scrollY: number;
+  direction: 'up' | 'down' | null;
+}
+
+export const ScrollContext = createContext<ScrollContextState>({ scrollY: 0, direction: null });
+export const useScroll = () => useContext(ScrollContext);
+
 interface BottomSheetProps {
   isOpen: boolean;
   onClose: () => void;
@@ -36,9 +44,30 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
   const startY = useRef<number | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  const [scrollState, setScrollState] = useState<ScrollContextState>({ scrollY: 0, direction: null });
+  const lastScrollY = useRef(0);
+
+  const handleScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
+    const currentY = e.currentTarget.scrollTop;
+    if (currentY < 0) return; // Ignore bounce
+
+    setScrollState(prev => {
+      // Small threshold to prevent overly eager direction changes
+      const diff = currentY - lastScrollY.current;
+      if (Math.abs(diff) < 5) return prev;
+
+      const direction = currentY > lastScrollY.current ? 'down' : 'up';
+      return { scrollY: currentY, direction };
+    });
+
+    lastScrollY.current = currentY;
+  }, []);
+
   const scrollToTop = useCallback(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = 0;
+      setScrollState({ scrollY: 0, direction: null });
+      lastScrollY.current = 0;
     }
   }, []);
 
@@ -150,9 +179,15 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
 
         {/* Content (Scrollable) */}
         <ScrollToTopContext.Provider value={scrollToTop}>
-          <div ref={scrollRef} className="overflow-y-auto overscroll-contain flex-1 no-scrollbar bg-transparent">
-            {children}
-          </div>
+          <ScrollContext.Provider value={scrollState}>
+            <div
+              ref={scrollRef}
+              onScroll={handleScroll}
+              className="overflow-y-auto overscroll-contain flex-1 no-scrollbar bg-transparent"
+            >
+              {children}
+            </div>
+          </ScrollContext.Provider>
         </ScrollToTopContext.Provider>
 
         {/* Fixed Bottom Action Bar */}

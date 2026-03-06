@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { VERSE_STUDY_DB, PARALLEL_VERSES_DATA, WORD_STUDY_DB } from '../../constants';
 import { ActionButton } from '../ui/ActionButton';
-import { useScrollToTop } from '../BottomSheet';
+import { useScrollToTop, useScroll } from '../BottomSheet';
 
 import crossRefsEn from '../../data/cross-references.json';
 import crossRefsUk from '../../data/cross-references-ukrainian.json';
@@ -31,6 +31,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
   const [activeCommentaryIndex, setActiveCommentaryIndex] = useState<number | null>(null);
 
   const scrollToTop = useScrollToTop();
+  const { scrollY, direction } = useScroll();
 
   useEffect(() => {
     scrollToTop();
@@ -262,7 +263,10 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
           >
             {commentaryMode === 'detail' && activeCommentaryIndex !== null && data.commentaries[activeCommentaryIndex] && (
               <div className="pt-0">
-                <div className="sticky top-[57px] -mx-4 px-4 bg-white dark:bg-stone-100 z-10 py-3 mb-2 border-b border-stone-200/50 flex items-center justify-between">
+                <div
+                  className={`sticky top-[57px] -mx-4 px-4 bg-white dark:bg-stone-100 z-10 py-3 mb-2 border-b border-stone-200/50 flex items-center justify-between transition-transform duration-300 ${direction === 'down' && scrollY > 60 ? '-translate-y-[calc(100%+16px)]' : 'translate-y-0'
+                    }`}
+                >
                   <button
                     onClick={() => {
                       setCommentaryMode('list');
@@ -271,7 +275,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
                     className="flex items-center gap-3 w-full text-left group"
                   >
                     <div className="p-1.5 -ml-1.5 rounded-full transition-colors text-muted group-hover:text-primary bg-transparent group-hover:bg-stone-50 shrink-0">
-                      <ChevronLeft size={24} />
+                      <ChevronLeft size={20} />
                     </div>
 
                     <CommentaryHeader item={data.commentaries[activeCommentaryIndex]} />
