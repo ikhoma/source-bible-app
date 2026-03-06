@@ -338,10 +338,10 @@ export default function App() {
         <main
           ref={mainViewportRef}
           className={`
-            flex-1 overflow-x-hidden bg-white relative w-full no-scrollbar transition-all duration-500
+            flex-1 overflow-x-hidden bg-white relative w-full no-scrollbar
             ${isSheetOpen
-              ? 'overflow-y-hidden pb-[92dvh]'
-              : 'overflow-y-auto pb-24'}
+              ? 'overflow-y-hidden pb-[100dvh]'
+              : 'overflow-y-auto pb-12'}
           `}
           onClick={() => {
             if (selection.type) clearSelection();
