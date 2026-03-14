@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# AI Configuration and Documentation
+CLAUDE.md
+ARCHITECTURE.md
+
+# Design System
+public/design-system.html
