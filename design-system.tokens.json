@@ -1,0 +1,620 @@
+{
+  "meta": {
+    "name": "Source Bible Design Tokens",
+    "version": "1.0.0",
+    "source": "/Users/ivan.khoma/Projects/source-bible-app/public/design-system.html",
+    "description": "Structured tokens and component metadata extracted from design-system.html for Figma styles, Tailwind configuration, and design system documentation."
+  },
+  "foundations": {
+    "colors": {
+      "primitives": {
+        "stone": {
+          "50": { "value": "#F8F9FA", "rgb": "248 249 250" },
+          "100": { "value": "#ECEAE6", "rgb": "236 234 230" },
+          "200": { "value": "#DDDDDD", "rgb": "221 221 221" },
+          "300": { "value": "#C7C7C7", "rgb": "199 199 199" },
+          "400": { "value": "#949494", "rgb": "148 148 148" },
+          "500": { "value": "#6C757D", "rgb": "108 117 125" },
+          "600": { "value": "#495057", "rgb": "73 80 87" },
+          "700": { "value": "#212529", "rgb": "33 37 41" },
+          "800": { "value": "#272223", "rgb": "39 34 35" },
+          "900": { "value": "#000000", "rgb": "0 0 0" }
+        },
+        "blue": {
+          "50": { "value": "#EFF6FF", "rgb": "239 246 255" },
+          "100": { "value": "#DBEAFE", "rgb": "219 234 254" },
+          "500": { "value": "#3B82F6", "rgb": "59 130 246" },
+          "600": { "value": "#2563EB", "rgb": "37 99 235" }
+        },
+        "accent": {
+          "interactive": { "value": "#2563EB" },
+          "highlight": { "value": "#84CC16" },
+          "search": { "value": "#FDE047" },
+          "recording": { "value": "#EF4444" }
+        }
+      },
+      "semantic": {
+        "light": {
+          "text": {
+            "primary": { "value": "#272223", "aliasOf": "stone.800" },
+            "muted": { "value": "#6C757D", "aliasOf": "stone.500" },
+            "inverse": { "value": "#FFFFFF" }
+          },
+          "surface": {
+            "page": { "value": "#F0EFED" },
+            "base": { "value": "#FFFFFF" },
+            "subtle": { "value": "#F8F9FA", "aliasOf": "stone.50" },
+            "raised": { "value": "#ECEAE6", "aliasOf": "stone.100" },
+            "muted": { "value": "#DDDDDD", "aliasOf": "stone.200" }
+          },
+          "border": {
+            "subtle": { "value": "#DDDDDD", "aliasOf": "stone.200" },
+            "default": { "value": "rgba(199,199,199,0.5)" },
+            "strong": { "value": "#949494", "aliasOf": "stone.400" },
+            "focus": { "value": "#93C5FD" }
+          },
+          "interactive": {
+            "primary": { "value": "#2563EB", "aliasOf": "blue.600" },
+            "primaryHover": { "value": "#3B82F6", "aliasOf": "blue.500" },
+            "selectedSurface": { "value": "#EFF6FF", "aliasOf": "blue.50" },
+            "selectedBorder": { "value": "#93C5FD" },
+            "ghost": { "value": "transparent" },
+            "disabled": { "value": "rgba(37,99,235,0.4)" }
+          },
+          "status": {
+            "highlight": { "value": "#84CC16" },
+            "search": { "value": "#FDE047" },
+            "recording": { "value": "#EF4444" }
+          }
+        },
+        "dark": {
+          "text": {
+            "primary": { "value": "#E7E5E4" },
+            "muted": { "value": "#A8A29E" }
+          },
+          "surface": {
+            "base": { "value": "#1C1917" },
+            "subtle": { "value": "#221F1E" },
+            "muted": { "value": "#312E2B" },
+            "raised": { "value": "#403B37" }
+          },
+          "border": {
+            "subtle": { "value": "#3F3A36" }
+          },
+          "interactive": {
+            "selectedSurface": { "value": "#1E3A8A" },
+            "primary": { "value": "#3B82F6" },
+            "primaryHover": { "value": "#60A5FA" }
+          }
+        }
+      },
+      "figmaStyles": {
+        "color/fg/primary": "#272223",
+        "color/fg/muted": "#6C757D",
+        "color/bg/base": "#FFFFFF",
+        "color/bg/page": "#F0EFED",
+        "color/bg/subtle": "#F8F9FA",
+        "color/bg/raised": "#ECEAE6",
+        "color/border/subtle": "#DDDDDD",
+        "color/interactive/primary": "#2563EB",
+        "color/interactive/selected-surface": "#EFF6FF",
+        "color/status/highlight": "#84CC16",
+        "color/status/search": "#FDE047",
+        "color/status/recording": "#EF4444"
+      }
+    },
+    "typography": {
+      "fontFamilies": {
+        "sans": {
+          "name": "Inter",
+          "fallback": "\"Inter\", ui-sans-serif, system-ui, sans-serif"
+        },
+        "serif": {
+          "name": "Cormorant Garamond",
+          "fallback": "\"Cormorant Garamond\", serif"
+        },
+        "mono": {
+          "name": "Monospace",
+          "fallback": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
+        }
+      },
+      "styles": {
+        "modern": {
+          "display": {
+            "fontFamily": "sans",
+            "fontSize": "36px",
+            "lineHeight": "40px",
+            "fontWeight": 700,
+            "figmaStyle": "Display/Modern"
+          },
+          "heading.h1": {
+            "fontFamily": "sans",
+            "fontSize": "30px",
+            "lineHeight": "36px",
+            "fontWeight": 700,
+            "figmaStyle": "Heading/H1 Modern"
+          },
+          "heading.h2": {
+            "fontFamily": "sans",
+            "fontSize": "24px",
+            "lineHeight": "32px",
+            "fontWeight": 700,
+            "figmaStyle": "Heading/H2 Modern"
+          },
+          "heading.h3": {
+            "fontFamily": "sans",
+            "fontSize": "20px",
+            "lineHeight": "28px",
+            "fontWeight": 700,
+            "figmaStyle": "Heading/H3 Modern"
+          },
+          "body.verse": {
+            "fontFamily": "sans",
+            "fontSize": "18px",
+            "lineHeight": "1.35",
+            "fontWeight": 400,
+            "figmaStyle": "Body/Verse Modern"
+          },
+          "body.default": {
+            "fontFamily": "sans",
+            "fontSize": "16px",
+            "lineHeight": "24px",
+            "fontWeight": 400,
+            "figmaStyle": "Body/Default Modern"
+          },
+          "ui.label": {
+            "fontFamily": "sans",
+            "fontSize": "14px",
+            "lineHeight": "20px",
+            "fontWeight": 500,
+            "figmaStyle": "UI/Label Modern"
+          },
+          "caption": {
+            "fontFamily": "sans",
+            "fontSize": "12px",
+            "lineHeight": "16px",
+            "fontWeight": 600,
+            "fontWeightRange": "500-700",
+            "figmaStyle": "Caption/Modern"
+          },
+          "eyebrow": {
+            "fontFamily": "sans",
+            "fontSize": "11px",
+            "lineHeight": "16px",
+            "fontWeight": 700,
+            "letterSpacing": "0.12em",
+            "textTransform": "uppercase",
+            "figmaStyle": "Label/Eyebrow"
+          },
+          "meta": {
+            "fontFamily": "mono",
+            "fontSize": "10px",
+            "lineHeight": "16px",
+            "fontWeight": 400,
+            "figmaStyle": "Meta/Mono"
+          }
+        },
+        "antique": {
+          "display": {
+            "fontFamily": "serif",
+            "fontSize": "40px",
+            "lineHeight": "48px",
+            "fontWeight": 700,
+            "figmaStyle": "Display/Antique"
+          },
+          "heading.h1": {
+            "fontFamily": "serif",
+            "fontSize": "32px",
+            "lineHeight": "40px",
+            "fontWeight": 700,
+            "figmaStyle": "Heading/H1 Antique"
+          },
+          "heading.h2": {
+            "fontFamily": "serif",
+            "fontSize": "26px",
+            "lineHeight": "34px",
+            "fontWeight": 700,
+            "figmaStyle": "Heading/H2 Antique"
+          },
+          "body.verse": {
+            "fontFamily": "serif",
+            "fontSize": "20px",
+            "lineHeight": "1.35",
+            "fontWeight": 400,
+            "figmaStyle": "Body/Verse Antique"
+          },
+          "body.default": {
+            "fontFamily": "serif",
+            "fontSize": "18px",
+            "lineHeight": "1.45",
+            "fontWeight": 400,
+            "figmaStyle": "Body/Default Antique"
+          },
+          "content.hebrew": {
+            "fontFamily": "serif",
+            "fontSize": "28px",
+            "lineHeight": "serif-default",
+            "fontWeight": 400,
+            "direction": "rtl",
+            "figmaStyle": "Content/Hebrew"
+          }
+        }
+      }
+    },
+    "spacing": {
+      "scale": {
+        "none": "0px",
+        "hairline": "1px",
+        "xxxs": "2px",
+        "xxs": "4px",
+        "xs": "6px",
+        "sm": "8px",
+        "md": "12px",
+        "lg": "16px",
+        "xl": "20px",
+        "2xl": "24px",
+        "3xl": "28px",
+        "4xl": "32px",
+        "5xl": "40px",
+        "6xl": "48px",
+        "7xl": "64px",
+        "8xl": "96px",
+        "9xl": "120px",
+        "10xl": "140px"
+      },
+      "derivedFrom": [
+        "body padding 48px",
+        "section gap 64px",
+        "component padding 4px, 8px, 12px, 16px, 20px, 24px, 28px, 32px, 40px",
+        "control widths and meta columns 96px, 120px, 140px"
+      ]
+    },
+    "radius": {
+      "none": "0px",
+      "sm": "3px",
+      "md": "4px",
+      "lg": "8px",
+      "xl": "10px",
+      "2xl": "12px",
+      "pill": "999px",
+      "round": "50%"
+    },
+    "elevation": {
+      "focusRing": "0 0 0 3px rgba(59,130,246,0.12)",
+      "raised": "0 1px 3px rgba(0,0,0,0.1)"
+    }
+  },
+  "components": {
+    "verseRow": {
+      "name": "Verse Row",
+      "parts": ["container", "verseNumber", "verseText", "selectedToken"],
+      "states": [
+        {
+          "name": "default",
+          "tokens": {
+            "padding": "sm sm sm 3xl",
+            "borderLeft": "4px transparent",
+            "radius": "lg",
+            "textStyle": "modern.body.verse"
+          }
+        },
+        {
+          "name": "activeVerse",
+          "tokens": {
+            "surface": "interactive.selectedSurface",
+            "borderLeftColor": "interactive.selectedBorder"
+          }
+        },
+        {
+          "name": "activeWord",
+          "tokens": {
+            "selectedTokenSurface": "interactive.primaryHover",
+            "selectedTokenText": "text.inverse",
+            "selectedTokenRadius": "sm"
+          }
+        }
+      ]
+    },
+    "sectionTabs": {
+      "name": "Section Tabs",
+      "parts": ["tabBar", "pill"],
+      "states": [
+        {
+          "name": "default",
+          "tokens": {
+            "pillSurface": "surface.muted",
+            "pillText": "text.muted",
+            "pillBorder": "border.default"
+          }
+        },
+        {
+          "name": "active",
+          "tokens": {
+            "pillSurface": "stone.300",
+            "pillText": "text.primary",
+            "pillBorder": "rgba(148,148,148,0.3)"
+          }
+        }
+      ]
+    },
+    "strongNumberCard": {
+      "name": "Strong Number Token",
+      "parts": ["card", "header", "hebrew", "transliteration", "morphology", "badge", "divider", "gloss", "definition"],
+      "states": [
+        {
+          "name": "default",
+          "tokens": {
+            "surface": "transparent",
+            "border": "border.default",
+            "badgeSurface": "interactive.primary",
+            "badgeText": "text.inverse"
+          }
+        },
+        {
+          "name": "badgeMuted",
+          "tokens": {
+            "badgeSurface": "text.muted",
+            "badgeText": "text.inverse"
+          }
+        }
+      ]
+    },
+    "commentaryCard": {
+      "name": "Commentary Card",
+      "parts": ["card", "listItem", "avatar", "meta", "author", "subtitle", "chevron", "expandedHeader", "backButton", "body"],
+      "states": [
+        {
+          "name": "listView",
+          "tokens": {
+            "surface": "surface.base",
+            "itemDivider": "border.subtle",
+            "avatarSurface": "surface.muted"
+          }
+        },
+        {
+          "name": "detailView",
+          "tokens": {
+            "headerSurface": "surface.raised",
+            "headerDivider": "border.default"
+          }
+        }
+      ]
+    },
+    "searchInput": {
+      "name": "Search Input",
+      "parts": ["wrapper", "input", "placeholder", "actions", "iconButton"],
+      "states": [
+        {
+          "name": "keywordEmpty",
+          "tokens": {
+            "surface": "surface.base",
+            "border": "border.subtle",
+            "textStyle": "modern.body.default",
+            "placeholder": "stone.400"
+          }
+        },
+        {
+          "name": "focused",
+          "tokens": {
+            "border": "border.focus",
+            "shadow": "focusRing"
+          }
+        },
+        {
+          "name": "aiEmpty",
+          "tokens": {
+            "mode": "ai",
+            "actionPrimary": "interactive.primary",
+            "actionGhost": "interactive.ghost",
+            "actionDisabled": "interactive.disabled"
+          }
+        },
+        {
+          "name": "aiActive",
+          "tokens": {
+            "mode": "ai",
+            "actionPrimary": "interactive.primary",
+            "focus": true
+          }
+        }
+      ]
+    },
+    "searchModeToggle": {
+      "name": "Search Mode Toggle",
+      "parts": ["container", "button", "icon", "label"],
+      "states": [
+        {
+          "name": "default",
+          "tokens": {
+            "containerSurface": "rgba(221,221,221,0.5)",
+            "buttonText": "text.muted"
+          }
+        },
+        {
+          "name": "active",
+          "tokens": {
+            "buttonSurface": "surface.base",
+            "buttonText": "text.primary",
+            "shadow": "raised"
+          }
+        }
+      ]
+    },
+    "bottomNavigation": {
+      "name": "Bottom Navigation",
+      "parts": ["bar", "item", "icon", "label"],
+      "states": [
+        {
+          "name": "default",
+          "tokens": {
+            "surface": "surface.base",
+            "borderTop": "border.subtle",
+            "icon": "stone.400",
+            "label": "text.muted"
+          }
+        },
+        {
+          "name": "active",
+          "tokens": {
+            "icon": "interactive.primary",
+            "label": "interactive.primary"
+          }
+        }
+      ]
+    },
+    "sheetActionBar": {
+      "name": "Sheet Action Bar",
+      "parts": ["bar", "item", "iconWrap", "icon", "label"],
+      "states": [
+        {
+          "name": "default",
+          "tokens": {
+            "borderTop": "border.subtle",
+            "icon": "stone.400",
+            "label": "text.muted"
+          }
+        },
+        {
+          "name": "highlightedActive",
+          "tokens": {
+            "iconWrapSurface": "blue.100",
+            "icon": "interactive.primary",
+            "label": "interactive.primary"
+          }
+        }
+      ]
+    }
+  },
+  "tailwind": {
+    "theme": {
+      "extend": {
+        "fontFamily": {
+          "sans": ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+          "serif": ["Cormorant Garamond", "serif"],
+          "mono": ["ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "monospace"]
+        },
+        "colors": {
+          "primary": "#272223",
+          "muted": "#6C757D",
+          "page": "#F0EFED",
+          "surface": {
+            "base": "#FFFFFF",
+            "subtle": "#F8F9FA",
+            "raised": "#ECEAE6",
+            "muted": "#DDDDDD"
+          },
+          "stone": {
+            "50": "#F8F9FA",
+            "100": "#ECEAE6",
+            "200": "#DDDDDD",
+            "300": "#C7C7C7",
+            "400": "#949494",
+            "500": "#6C757D",
+            "600": "#495057",
+            "700": "#212529",
+            "800": "#272223",
+            "900": "#000000"
+          },
+          "blue": {
+            "50": "#EFF6FF",
+            "100": "#DBEAFE",
+            "500": "#3B82F6",
+            "600": "#2563EB"
+          },
+          "accent": {
+            "interactive": "#2563EB",
+            "highlight": "#84CC16",
+            "search": "#FDE047",
+            "recording": "#EF4444"
+          }
+        },
+        "fontSize": {
+          "display-modern": ["36px", { "lineHeight": "40px", "fontWeight": "700" }],
+          "h1-modern": ["30px", { "lineHeight": "36px", "fontWeight": "700" }],
+          "h2-modern": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+          "h3-modern": ["20px", { "lineHeight": "28px", "fontWeight": "700" }],
+          "verse-modern": ["18px", { "lineHeight": "1.35", "fontWeight": "400" }],
+          "body-modern": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+          "ui-modern": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+          "caption-modern": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+          "display-antique": ["40px", { "lineHeight": "48px", "fontWeight": "700" }],
+          "h1-antique": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+          "h2-antique": ["26px", { "lineHeight": "34px", "fontWeight": "700" }],
+          "verse-antique": ["20px", { "lineHeight": "1.35", "fontWeight": "400" }],
+          "body-antique": ["18px", { "lineHeight": "1.45", "fontWeight": "400" }],
+          "hebrew": ["28px", { "fontWeight": "400" }]
+        },
+        "spacing": {
+          "0": "0px",
+          "px": "1px",
+          "0.5": "2px",
+          "1": "4px",
+          "1.5": "6px",
+          "2": "8px",
+          "3": "12px",
+          "4": "16px",
+          "5": "20px",
+          "6": "24px",
+          "7": "28px",
+          "8": "32px",
+          "10": "40px",
+          "12": "48px",
+          "16": "64px",
+          "24": "96px",
+          "30": "120px",
+          "35": "140px"
+        },
+        "borderRadius": {
+          "sm": "3px",
+          "md": "4px",
+          "lg": "8px",
+          "xl": "10px",
+          "2xl": "12px",
+          "pill": "999px"
+        },
+        "boxShadow": {
+          "focus-ring": "0 0 0 3px rgba(59,130,246,0.12)",
+          "raised": "0 1px 3px rgba(0,0,0,0.1)"
+        }
+      }
+    }
+  },
+  "documentation": {
+    "componentNames": [
+      "Verse Row",
+      "Section Tabs",
+      "Strong Number Token",
+      "Commentary Card",
+      "Search Mode Toggle",
+      "Search Input",
+      "Bottom Navigation",
+      "Sheet Action Bar"
+    ],
+    "componentStates": [
+      "Verse Row: default",
+      "Verse Row: activeVerse",
+      "Verse Row: activeWord",
+      "Section Tabs: default",
+      "Section Tabs: active",
+      "Strong Number Token: default",
+      "Strong Number Token: badgeMuted",
+      "Commentary Card: listView",
+      "Commentary Card: detailView",
+      "Search Mode Toggle: default",
+      "Search Mode Toggle: active",
+      "Search Input: keywordEmpty",
+      "Search Input: focused",
+      "Search Input: aiEmpty",
+      "Search Input: aiActive",
+      "Bottom Navigation: default",
+      "Bottom Navigation: active",
+      "Sheet Action Bar: default",
+      "Sheet Action Bar: highlightedActive"
+    ],
+    "notes": [
+      "Spacing tokens are normalized from the values used throughout design-system.html.",
+      "Surface.page is derived from body background rather than the swatch list.",
+      "Dark theme coverage reflects the overrides explicitly demonstrated in the design system file."
+    ]
+  }
+}

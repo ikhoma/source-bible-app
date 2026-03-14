@@ -1,0 +1,191 @@
+{
+  "meta": {
+    "name": "Source Bible Figma Styles",
+    "version": "1.0.0",
+    "sourceTokens": "/Users/ivan.khoma/Projects/source-bible-app/design-system.tokens.json"
+  },
+  "colors": [
+    { "name": "Color/FG/Primary", "value": "#272223", "category": "foreground" },
+    { "name": "Color/FG/Muted", "value": "#6C757D", "category": "foreground" },
+    { "name": "Color/FG/Inverse", "value": "#FFFFFF", "category": "foreground" },
+    { "name": "Color/BG/Page", "value": "#F0EFED", "category": "background" },
+    { "name": "Color/BG/Base", "value": "#FFFFFF", "category": "background" },
+    { "name": "Color/BG/Subtle", "value": "#F8F9FA", "category": "background" },
+    { "name": "Color/BG/Raised", "value": "#ECEAE6", "category": "background" },
+    { "name": "Color/BG/Muted", "value": "#DDDDDD", "category": "background" },
+    { "name": "Color/Border/Subtle", "value": "#DDDDDD", "category": "border" },
+    { "name": "Color/Border/Strong", "value": "#949494", "category": "border" },
+    { "name": "Color/Border/Focus", "value": "#93C5FD", "category": "border" },
+    { "name": "Color/Interactive/Primary", "value": "#2563EB", "category": "interactive" },
+    { "name": "Color/Interactive/Hover", "value": "#3B82F6", "category": "interactive" },
+    { "name": "Color/Interactive/Selected Surface", "value": "#EFF6FF", "category": "interactive" },
+    { "name": "Color/Status/Highlight", "value": "#84CC16", "category": "status" },
+    { "name": "Color/Status/Search", "value": "#FDE047", "category": "status" },
+    { "name": "Color/Status/Recording", "value": "#EF4444", "category": "status" },
+    { "name": "Color/Dark/FG/Primary", "value": "#E7E5E4", "category": "dark" },
+    { "name": "Color/Dark/FG/Muted", "value": "#A8A29E", "category": "dark" },
+    { "name": "Color/Dark/BG/Base", "value": "#1C1917", "category": "dark" },
+    { "name": "Color/Dark/BG/Subtle", "value": "#221F1E", "category": "dark" },
+    { "name": "Color/Dark/BG/Muted", "value": "#312E2B", "category": "dark" },
+    { "name": "Color/Dark/BG/Raised", "value": "#403B37", "category": "dark" },
+    { "name": "Color/Dark/Interactive/Primary", "value": "#3B82F6", "category": "dark" },
+    { "name": "Color/Dark/Interactive/Hover", "value": "#60A5FA", "category": "dark" },
+    { "name": "Color/Dark/Interactive/Selected Surface", "value": "#1E3A8A", "category": "dark" }
+  ],
+  "text": [
+    {
+      "name": "Display/Modern",
+      "fontFamily": "Inter",
+      "fontSize": 36,
+      "lineHeight": 40,
+      "fontWeight": 700
+    },
+    {
+      "name": "Heading/H1 Modern",
+      "fontFamily": "Inter",
+      "fontSize": 30,
+      "lineHeight": 36,
+      "fontWeight": 700
+    },
+    {
+      "name": "Heading/H2 Modern",
+      "fontFamily": "Inter",
+      "fontSize": 24,
+      "lineHeight": 32,
+      "fontWeight": 700
+    },
+    {
+      "name": "Heading/H3 Modern",
+      "fontFamily": "Inter",
+      "fontSize": 20,
+      "lineHeight": 28,
+      "fontWeight": 700
+    },
+    {
+      "name": "Body/Verse Modern",
+      "fontFamily": "Inter",
+      "fontSize": 18,
+      "lineHeight": 24.3,
+      "fontWeight": 400
+    },
+    {
+      "name": "Body/Default Modern",
+      "fontFamily": "Inter",
+      "fontSize": 16,
+      "lineHeight": 24,
+      "fontWeight": 400
+    },
+    {
+      "name": "UI/Label Modern",
+      "fontFamily": "Inter",
+      "fontSize": 14,
+      "lineHeight": 20,
+      "fontWeight": 500
+    },
+    {
+      "name": "Caption/Modern",
+      "fontFamily": "Inter",
+      "fontSize": 12,
+      "lineHeight": 16,
+      "fontWeight": 600
+    },
+    {
+      "name": "Label/Eyebrow",
+      "fontFamily": "Inter",
+      "fontSize": 11,
+      "lineHeight": 16,
+      "fontWeight": 700,
+      "letterSpacing": 0.12,
+      "textCase": "UPPER"
+    },
+    {
+      "name": "Meta/Mono",
+      "fontFamily": "Monospace",
+      "fontSize": 10,
+      "lineHeight": 16,
+      "fontWeight": 400
+    },
+    {
+      "name": "Display/Antique",
+      "fontFamily": "Cormorant Garamond",
+      "fontSize": 40,
+      "lineHeight": 48,
+      "fontWeight": 700
+    },
+    {
+      "name": "Heading/H1 Antique",
+      "fontFamily": "Cormorant Garamond",
+      "fontSize": 32,
+      "lineHeight": 40,
+      "fontWeight": 700
+    },
+    {
+      "name": "Heading/H2 Antique",
+      "fontFamily": "Cormorant Garamond",
+      "fontSize": 26,
+      "lineHeight": 34,
+      "fontWeight": 700
+    },
+    {
+      "name": "Body/Verse Antique",
+      "fontFamily": "Cormorant Garamond",
+      "fontSize": 20,
+      "lineHeight": 27,
+      "fontWeight": 400
+    },
+    {
+      "name": "Body/Default Antique",
+      "fontFamily": "Cormorant Garamond",
+      "fontSize": 18,
+      "lineHeight": 26.1,
+      "fontWeight": 400
+    },
+    {
+      "name": "Content/Hebrew",
+      "fontFamily": "Cormorant Garamond",
+      "fontSize": 28,
+      "fontWeight": 400,
+      "direction": "RTL"
+    }
+  ],
+  "effects": [
+    {
+      "name": "Effect/Focus Ring",
+      "type": "DROP_SHADOW",
+      "value": "0 0 0 3px rgba(59,130,246,0.12)"
+    },
+    {
+      "name": "Effect/Raised",
+      "type": "DROP_SHADOW",
+      "value": "0 1px 3px rgba(0,0,0,0.1)"
+    }
+  ],
+  "grid": {
+    "spacing": [
+      { "name": "Spacing/0", "value": 0 },
+      { "name": "Spacing/px", "value": 1 },
+      { "name": "Spacing/0.5", "value": 2 },
+      { "name": "Spacing/1", "value": 4 },
+      { "name": "Spacing/1.5", "value": 6 },
+      { "name": "Spacing/2", "value": 8 },
+      { "name": "Spacing/3", "value": 12 },
+      { "name": "Spacing/4", "value": 16 },
+      { "name": "Spacing/5", "value": 20 },
+      { "name": "Spacing/6", "value": 24 },
+      { "name": "Spacing/7", "value": 28 },
+      { "name": "Spacing/8", "value": 32 },
+      { "name": "Spacing/10", "value": 40 },
+      { "name": "Spacing/12", "value": 48 },
+      { "name": "Spacing/16", "value": 64 },
+      { "name": "Spacing/24", "value": 96 }
+    ],
+    "radii": [
+      { "name": "Radius/SM", "value": 3 },
+      { "name": "Radius/MD", "value": 4 },
+      { "name": "Radius/LG", "value": 8 },
+      { "name": "Radius/XL", "value": 10 },
+      { "name": "Radius/2XL", "value": 12 },
+      { "name": "Radius/Pill", "value": 999 }
+    ]
+  }
+}
