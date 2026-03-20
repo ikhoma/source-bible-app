@@ -9,7 +9,7 @@ export const SettingsView: React.FC = () => {
         <div className="flex flex-col h-full bg-stone-50 overflow-y-auto w-full transition-colors duration-300">
             {/* Header */}
             <div className="sticky top-0 bg-stone-50/90 backdrop-blur-md z-10 border-b border-stone-200/50 pt-safe transition-colors duration-300">
-                <div className="h-16 flex items-center justify-between px-6">
+                <div className="h-[44px] flex items-center justify-between px-6">
                     <h1 className="text-xl font-bold text-primary tracking-tight">Налаштування</h1>
                 </div>
             </div>

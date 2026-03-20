@@ -258,30 +258,31 @@ export const SearchView: React.FC<SearchViewProps> = ({ onBack, onNavigateToVers
 
       {/* Header */}
       <div className="sticky top-0 bg-stone-50/90 backdrop-blur-md z-20 border-b border-stone-200/50 pt-safe transition-colors duration-300">
-        <div className="h-16 flex items-center px-4 gap-2">
+        <div className="h-[44px] flex items-center justify-end px-4 gap-2">
           <button
             onClick={onBack}
-            className="p-2 -ml-2 rounded-full text-muted hover:bg-stone-200/50 transition-colors"
+            className="p-2 -mr-2 rounded-full text-muted hover:bg-stone-200/50 transition-colors"
           >
-            <ChevronLeft size={24} />
+            <X size={24} />
           </button>
-          <h1 className="text-xl font-bold text-primary tracking-tight">Пошук</h1>
         </div>
       </div>
 
       <div className="p-4 space-y-6 pb-32">
+        <h1 className="text-3xl font-bold text-primary">Пошук</h1>
+
         {/* Mode Toggle */}
         <div className="flex bg-stone-200/50 p-1 rounded-xl">
           <button
             onClick={() => { setMode('keyword'); handleKeywordSearch(query); stopListening(); }}
-            className={`flex-1 flex items-center justify-center gap-2 py-1.5 rounded-lg text-sm font-medium transition-all ${mode === 'keyword' ? 'bg-white text-primary shadow-sm' : 'text-muted hover:text-primary'}`}
+            className={`flex-1 flex items-center justify-center gap-2 py-1.5 rounded-lg text-sm font-medium transition-all ${mode === 'keyword' ? 'bg-white dark:bg-stone-900 text-primary dark:text-stone-50 shadow-sm' : 'text-muted hover:text-primary dark:hover:text-stone-900'}`}
           >
             <Search size={16} />
             За словом
           </button>
           <button
             onClick={() => { setMode('ai'); setKeywordResults([]); }}
-            className={`flex-1 flex items-center justify-center gap-2 py-1.5 rounded-lg text-sm font-medium transition-all ${mode === 'ai' ? 'bg-white text-primary shadow-sm' : 'text-muted hover:text-primary'}`}
+            className={`flex-1 flex items-center justify-center gap-2 py-1.5 rounded-lg text-sm font-medium transition-all ${mode === 'ai' ? 'bg-white dark:bg-stone-900 text-primary dark:text-stone-50 shadow-sm' : 'text-muted hover:text-primary dark:hover:text-stone-900'}`}
           >
             <Sparkles size={16} className={mode === 'ai' ? "text-blue-500" : ""} />
             Розумний пошук
