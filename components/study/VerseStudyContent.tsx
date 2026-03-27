@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { VERSE_STUDY_DB, PARALLEL_VERSES_DATA, WORD_STUDY_DB } from '../../constants';
+import { VERSE_STUDY_DB, VERSE_STUDY_DB_EN, PARALLEL_VERSES_DATA, PARALLEL_VERSES_DATA_EN, WORD_STUDY_DB, WORD_STUDY_DB_EN } from '../../constants';
 import { ActionButton } from '../ui/ActionButton';
 import { useScrollToTop, useScroll } from '../BottomSheet';
+import { useTranslation } from '../i18n';
+import { useTheme } from '../ThemeProvider';
 
 import crossRefsEn from '../../data/cross-references.json';
+import crossRefsEnDb from '../../data/cross-references-english.json';
 import crossRefsUk from '../../data/cross-references-ukrainian.json';
 import commentaryHenry from '../../data/commentary-henry.json';
 import commentaryCalvin from '../../data/commentary-calvin.json';
@@ -22,9 +25,16 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
   verseId = 1,
   onOpenWord
 }) => {
+  const { language } = useTheme();
+  const t = useTranslation();
+  
+  const DB = language === 'en' ? VERSE_STUDY_DB_EN : VERSE_STUDY_DB;
+  const PARALLELS_DB = language === 'en' ? PARALLEL_VERSES_DATA_EN : PARALLEL_VERSES_DATA;
+  const WORD_DB = language === 'en' ? WORD_STUDY_DB_EN : WORD_STUDY_DB;
+
   type SectionTab = 'crossRefs' | 'commentary' | 'translations' | 'original';
 
-  const data = VERSE_STUDY_DB[verseId];
+  const data = DB[verseId];
   const [activeSection, setActiveSection] = useState<SectionTab>('crossRefs');
   const [activeParallel, setActiveParallel] = useState<string | null>(null);
   const [commentaryMode, setCommentaryMode] = useState<'list' | 'detail'>('list');
@@ -48,7 +58,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
     }
   }, [verseId, data, activeCommentaryIndex]);
 
-  if (!data) return <div className="p-8 text-center text-muted">Інформація відсутня</div>;
+  if (!data) return <div className="p-8 text-center text-muted">{t('study.no_info')}</div>;
 
   const verseRefsInfo = (crossRefsEn.verses as Record<string, any>)[verseId.toString()];
   const currentRefs = verseRefsInfo ? verseRefsInfo.crossReferences : (data.parallels || []);
@@ -129,6 +139,8 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
   };
 
   function translateReferenceTitle(ref: string): string {
+    if (language === 'en') return ref;
+
     const match = ref.match(/^(\d?\s?[A-Za-z]+)\s+(.+)$/);
     if (!match) return ref;
     const book = match[1].trim();
@@ -151,7 +163,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
                 : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'}
             `}
           >
-            Паралельні
+            {t('study.parallels')}
           </button>
           <button
             onClick={() => setActiveSection('translations')}
@@ -162,7 +174,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
                 : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'}
             `}
           >
-            Переклади
+            {t('study.translations')}
           </button>
           <button
             onClick={() => setActiveSection('original')}
@@ -173,7 +185,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
                 : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'}
             `}
           >
-            Оригінал
+            {t('study.original')}
           </button>
           <button
             onClick={() => setActiveSection('commentary')}
@@ -184,7 +196,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
                 : 'bg-stone-200 text-muted hover:bg-stone-300 active:scale-95 border-stone-300/50'}
             `}
           >
-            Коментарі
+            {t('study.commentary')}
           </button>
         </div>
       </div>
@@ -194,12 +206,13 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
         <section className="pt-4">
           <div className="space-y-4">
             {currentRefs.map((ref: string) => {
-              const ukText = ukData[ref]?.fullText;
-              const fallbackText = PARALLEL_VERSES_DATA[ref] || "Текст вірша...";
+              const ukText = language === 'ua' ? ukData[ref]?.fullText : undefined;
+              const enText = language === 'en' ? (crossRefsEnDb as any)[ref]?.fullText : undefined;
+              const fallbackText = PARALLELS_DB[ref] || "Verse text...";
               const displayTitle = translateReferenceTitle(ref);
 
               // Remove standalone verse numbers (like "12.", "15", or "6\n7")
-              let displayText = ukText || fallbackText;
+              let displayText = language === 'en' ? (enText || fallbackText) : (ukText || fallbackText);
               displayText = displayText
                 .split(/\s+/)
                 .filter(word => !/^\d+\.?$/.test(word))
@@ -309,17 +322,17 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
                         {(() => {
                           const author = data.commentaries[activeCommentaryIndex].author;
                           const commentarySource =
-                            author === 'Жан Кальвін' ? commentaryCalvin :
-                              author === 'Чарльз Сперджен' ? commentarySpurgeon :
+                            (author === 'Жан Кальвін' || author === 'John Calvin') ? commentaryCalvin :
+                              (author === 'Чарльз Сперджен' || author === 'Charles Spurgeon') ? commentarySpurgeon :
                                 commentaryHenry;
 
                           let parts = [];
                           if (verseId === 1) {
-                            const intro = commentarySource.sections.find(s => s.id === 'intro');
-                            if (intro) parts.push(intro.content_md);
+                            const intro = commentarySource.sections.find((s: any) => s.id === 'intro');
+                            if (intro) parts.push(language === 'en' && intro.content_md_en ? intro.content_md_en : intro.content_md);
                           }
                           const section = commentarySource.sections.find((s: any) => s.verses?.includes(verseId));
-                          if (section) parts.push(section.content_md);
+                          if (section) parts.push(language === 'en' && section.content_md_en ? section.content_md_en : section.content_md);
 
                           return parts.length > 0 ? parts.join('\n\n---\n\n') : data.commentaries[activeCommentaryIndex].body;
                         })()}
@@ -389,7 +402,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
                     {/* Strong's */}
                     <div className="shrink-0 mt-1">
                       <ActionButton
-                        label={`Стронга ${token.strongs}`}
+                        label={`${token.strongs}`}
                         onClick={(e) => {
                           e.stopPropagation();
                           if (token.refKey) onOpenWord(token.refKey);
@@ -410,7 +423,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
                       </p>
                     ) : (
                       <p className="text-muted text-xs mt-1 italic">
-                        Детального розбору ще немає.
+                        {t('study.no_word_info')}
                       </p>
                     )}
                   </div>

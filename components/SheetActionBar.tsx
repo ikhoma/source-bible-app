@@ -1,6 +1,7 @@
 import React from 'react';
 import { Highlighter, FilePenLine, Share2 } from 'lucide-react';
 import { SelectionState } from '../types';
+import { useTranslation } from './i18n';
 
 interface SheetActionBarProps {
     selection: SelectionState;
@@ -17,26 +18,27 @@ export const SheetActionBar: React.FC<SheetActionBarProps> = ({
     onShare,
     isHighlighted = false
 }) => {
+    const t = useTranslation();
     const isDisabled = !selection.type;
 
     return (
         <div className="w-full bg-transparent border-t border-stone-200 dark:border-[#312E2B] min-h-[54px] py-1 flex items-center justify-around px-2 z-40 shrink-0">
             <ActionItem
                 icon={<Highlighter size={22} />}
-                label="Відмітити"
+                label={t('action.highlight')}
                 onClick={() => onToggleHighlight(selection)}
                 disabled={isDisabled}
                 isActive={isHighlighted}
             />
             <ActionItem
                 icon={<FilePenLine size={22} />}
-                label="Нотатка"
+                label={t('action.note')}
                 onClick={() => onCreateNote(selection)}
                 disabled={isDisabled}
             />
             <ActionItem
                 icon={<Share2 size={22} />}
-                label="Поділитись"
+                label={t('action.share')}
                 onClick={() => onShare(selection)}
                 disabled={isDisabled}
             />

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback, createContext, useContext } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Tab } from '../types';
+import { useTranslation } from './i18n';
 
 export const ScrollToTopContext = createContext<() => void>(() => { });
 export const useScrollToTop = () => useContext(ScrollToTopContext);
@@ -40,6 +41,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
   expandedHeight = '92dvh',
   bottomContent
 }) => {
+  const t = useTranslation();
   const [isVisible, setIsVisible] = useState(false);
   const startY = useRef<number | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -165,14 +167,14 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
                 }`}
               onClick={() => onTabChange(Tab.Verse)}
             >
-              Вірш
+              {t('sheet.verse')}
             </button>
             <button
               className={`flex-1 px-3 py-1 text-sm font-medium rounded-lg transition-all border ${activeTab === Tab.Word ? 'bg-white dark:bg-stone-900 text-primary dark:text-white shadow-sm border-stone-200/50 dark:border-stone-800' : 'text-muted hover:text-primary border-transparent'
                 }`}
               onClick={() => onTabChange(Tab.Word)}
             >
-              Слово
+              {t('sheet.word')}
             </button>
           </div>
         </div>

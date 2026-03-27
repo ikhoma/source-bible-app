@@ -1,7 +1,8 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { ChevronRight, CheckCircle2, XCircle } from 'lucide-react';
+import { CheckCircle2, XCircle } from 'lucide-react';
 import { WORD_STUDY_DB } from '../../constants';
 import { useScrollToTop } from '../BottomSheet';
+import { useTranslation } from '../i18n';
 
 interface WordStudyContentProps {
   word?: string;
@@ -12,6 +13,7 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
   word = "",
   onNavigateToWord
 }) => {
+  const t = useTranslation();
   type SectionTab = 'meaning' | 'usage';
   const [activeSection, setActiveSection] = useState<SectionTab>('meaning');
   const [isDetailsExpanded, setIsDetailsExpanded] = useState(false);
@@ -59,8 +61,8 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
   if (!wordData) {
     return (
       <div className="p-12 text-center text-muted flex flex-col items-center justify-center h-full">
-        <p className="font-medium text-lg mb-2">Інформація відсутня</p>
-        <p className="text-base opacity-70">Для цього слова ще немає детального розбору.</p>
+        <p className="font-medium text-lg mb-2">{t('study.no_info')}</p>
+        <p className="text-base opacity-70">{t('study.no_word_info')}</p>
       </div>
     );
   }
@@ -73,10 +75,10 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
   const getUsageLabel = (count: number) => {
     const mod100 = count % 100;
     const mod10 = count % 10;
-    if (mod100 >= 11 && mod100 <= 19) return `${count} ВЖИВАНЬ СЛОВА`;
-    if (mod10 === 1) return `${count} ВЖИВАННЯ СЛОВА`;
-    if (mod10 >= 2 && mod10 <= 4) return `${count} ВЖИВАННЯ СЛОВА`;
-    return `${count} ВЖИВАНЬ СЛОВА`;
+    if (mod100 >= 11 && mod100 <= 19) return `${count} ${t('study.word.usages_count_many')}`;
+    if (mod10 === 1) return `${count} ${t('study.word.usages_count_1')}`;
+    if (mod10 >= 2 && mod10 <= 4) return `${count} ${t('study.word.usages_count_1')}`;
+    return `${count} ${t('study.word.usages_count_many')}`;
   };
 
   return (
@@ -95,7 +97,7 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
               }
             `}
           >
-            Значення
+            {t('study.word.meaning')}
           </button>
           <button
             onClick={() => setActiveSection('usage')}
@@ -107,7 +109,7 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
               }
             `}
           >
-            Вживання
+            {t('study.word.usage')}
           </button>
         </div>
       </div>
@@ -118,7 +120,7 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
           {/* Strong's Header */}
           {wordData.strongs && (
             <section className="pt-2 mt-2 border-t border-stone-200/40 first:border-0 first:mt-0 first:pt-0">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-muted mb-3">Номер Стронга</h3>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-muted mb-3">{t('study.word.strongs')}</h3>
               <div className="flex items-baseline gap-3">
                 <span className="text-2xl font-serif font-bold text-primary">{wordData.strongs}</span>
                 {wordData.original && (
@@ -131,7 +133,7 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
           {/* Semantic Range */}
           {wordData.semanticRange && wordData.semanticRange.length > 0 && (
             <section className="pt-6 mt-6 border-t border-stone-200/40 first:border-0 first:mt-0 first:pt-0">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-muted mb-3">Семантичний діапазон</h3>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-muted mb-3">{t('study.word.semantic_range')}</h3>
               <div className="leading-[1.4] text-primary text-base">
                 {wordData.semanticRange.map((item, i) => (
                   <span key={item} className="inline-block">
@@ -145,27 +147,27 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
 
           {/* Lexical Data */}
           <section className="pt-6 mt-6 border-t border-stone-200/50 first:border-0 first:mt-0 first:pt-0">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-muted mb-3">Лексичні дані</h3>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-muted mb-3">{t('study.word.lexical')}</h3>
             <div className="space-y-2">
               {wordData.original && (
                 <div className="grid grid-cols-[140px_1fr] gap-2 text-sm items-baseline">
-                  <span className="text-muted">Оригінальне слово:</span>
+                  <span className="text-muted">{t('study.word.original')}</span>
                   <span className="font-medium text-primary text-left" dir="rtl">{wordData.original}</span>
                 </div>
               )}
               <div className="grid grid-cols-[140px_1fr] gap-2 text-sm items-baseline">
-                <span className="text-muted">Частина мови:</span>
+                <span className="text-muted">{t('study.word.pos')}</span>
                 <span className="font-medium text-primary">{wordData.partOfSpeech}</span>
               </div>
               {wordData.transliteration && (
                 <div className="grid grid-cols-[140px_1fr] gap-2 text-sm items-baseline">
-                  <span className="text-muted">Транслітерація:</span>
+                  <span className="text-muted">{t('study.word.transliteration')}</span>
                   <span className="font-medium text-primary font-mono text-xs">{wordData.transliteration}</span>
                 </div>
               )}
               {wordData.pronunciation && (
                 <div className="grid grid-cols-[140px_1fr] gap-2 text-sm items-baseline">
-                  <span className="text-muted">Вимова:</span>
+                  <span className="text-muted">{t('study.word.pronunciation')}</span>
                   <span className="font-medium text-primary">{wordData.pronunciation}</span>
                 </div>
               )}
@@ -176,7 +178,7 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
                     <div className="space-y-2 animate-in slide-in-from-top-2 duration-300 fade-in">
                       {wordData.typicalConstruction && (
                         <div className="grid grid-cols-[140px_1fr] gap-2 text-sm items-baseline">
-                          <span className="text-muted">Типова конструкція:</span>
+                          <span className="text-muted">{t('study.word.typical_construction')}</span>
                           <span className="font-medium text-primary text-left">
                             <span dir="rtl">{wordData.typicalConstruction.split('+')[0].trim()}</span>
                             {' + '}
@@ -186,7 +188,7 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
                       )}
                       {wordData.origin && (
                         <div className="grid grid-cols-[140px_1fr] gap-2 text-sm items-baseline">
-                          <span className="text-muted">Походження слова:</span>
+                          <span className="text-muted">{t('study.word.origin')}</span>
                           <button
                             onClick={() => onNavigateToWord && onNavigateToWord(wordData.origin!.transliteration)}
                             className="font-medium text-blue-600 underline decoration-blue-300 underline-offset-2 flex gap-1 items-baseline hover:text-blue-700 active:text-blue-800 transition-colors"
@@ -204,7 +206,7 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
                       onClick={() => setIsDetailsExpanded(!isDetailsExpanded)}
                       className="text-xs font-bold text-white bg-blue-500 px-3 py-1.5 rounded-full inline-block transition-colors hover:bg-blue-600 active:bg-blue-700"
                     >
-                      {isDetailsExpanded ? 'Згорнути' : 'Детальніше'}
+                      {isDetailsExpanded ? t('study.word.collapse') : t('study.word.expand')}
                     </button>
                   </div>
                 </>
@@ -215,12 +217,12 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
           {/* Lexical Insight */}
           {wordData.definition && (
             <section className="pt-6 mt-6 border-t border-stone-200/40 first:border-0 first:mt-0 first:pt-0">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-muted mb-3">Лексичний інсайт</h3>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-muted mb-3">{t('study.word.insight')}</h3>
               <div className="space-y-4">
                 <div className="flex gap-3">
                   <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-bold text-primary text-sm">Означає:</span>
+                    <span className="font-bold text-primary text-sm">{t('study.word.means')}</span>
                     <p className="text-base text-muted mt-1 leading-[1.4]">{wordData.definition}</p>
                   </div>
                 </div>
@@ -228,7 +230,7 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
                   <div className="flex gap-3">
                     <XCircle className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
                     <div>
-                      <span className="font-bold text-primary text-sm">Не означає:</span>
+                      <span className="font-bold text-primary text-sm">{t('study.word.not_means')}</span>
                       <p className="text-base text-muted mt-1 leading-[1.4]">{wordData.notDefinition}</p>
                     </div>
                   </div>
@@ -263,7 +265,7 @@ export const WordStudyContent: React.FC<WordStudyContentProps> = ({
             </section>
           ) : (
             <div className="pt-8 text-center text-muted flex flex-col items-center justify-center">
-              <p className="text-base opacity-70">Немає збережених вживань для цього слова.</p>
+              <p className="text-base opacity-70">{t('study.word.no_usage')}</p>
             </div>
           )}
         </div>

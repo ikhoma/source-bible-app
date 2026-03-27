@@ -7,9 +7,9 @@ import { BottomSheet } from './components/BottomSheet';
 import { VerseStudyContent } from './components/study/VerseStudyContent';
 import { WordStudyContent } from './components/study/WordStudyContent';
 import { SearchView } from './components/SearchView';
-import { ThemeProvider } from './components/ThemeProvider';
+import { ThemeProvider, useTheme } from './components/ThemeProvider';
 import { SettingsView } from './components/SettingsView';
-import { PSALM_1 } from './constants';
+import { PSALM_1_UA, PSALM_1_EN } from './constants';
 import { SelectionState, Tab, SelectionCoordinates, NavTab } from './types';
 
 // Helper to get verse ID from selection state
@@ -26,7 +26,10 @@ const getVerseIdFromSelection = (sel: SelectionState): number => {
 // Helper to capitalize first letter for sheet titles
 const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
-export default function App() {
+function AppContent() {
+  const { language } = useTheme();
+  const PSALM_1 = language === 'en' ? PSALM_1_EN : PSALM_1_UA;
+
   const [selection, setSelection] = useState<SelectionState>({ type: null, id: null, text: '' });
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [activeSheetTab, setActiveSheetTab] = useState<Tab>(Tab.Verse);
@@ -361,10 +364,9 @@ export default function App() {
   };
 
   return (
-    <ThemeProvider>
-      <div className="h-screen bg-white max-w-md mx-auto shadow-2xl overflow-hidden relative font-sans text-primary flex flex-col transition-colors duration-300">
+    <div className="h-screen bg-white max-w-md mx-auto shadow-2xl overflow-hidden relative font-sans text-primary flex flex-col transition-colors duration-300">
 
-        <div className="flex-1 overflow-hidden flex flex-col relative pb-20">
+      <div className="flex-1 overflow-hidden flex flex-col relative pb-20">
           {renderMainContent()}
 
           {/* Search Overlay */}
@@ -412,6 +414,13 @@ export default function App() {
           }
         </BottomSheet>
       </div>
+  );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
     </ThemeProvider>
   );
 }

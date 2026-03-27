@@ -1,6 +1,7 @@
 import React from 'react';
 import { BookOpen, PenLine, ToggleLeft } from 'lucide-react';
 import { NavTab } from '../types';
+import { useTranslation } from './i18n';
 
 interface BottomNavProps {
   activeTab: NavTab;
@@ -8,24 +9,25 @@ interface BottomNavProps {
 }
 
 export const BottomNav: React.FC<BottomNavProps> = ({ activeTab, onTabChange }) => {
+  const t = useTranslation();
   return (
     <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-stone-100 border-t border-stone-200 shadow-[0_-4px_20px_-4px_rgba(0,0,0,0.03)] pb-safe z-40">
       <div className="w-full h-[49px] px-6 flex justify-between items-center">
         <NavItem
           icon={<BookOpen size={24} />}
-          label="Біблія"
+          label={t('nav.bible')}
           active={activeTab === 'bible'}
           onClick={() => onTabChange('bible')}
         />
         <NavItem
           icon={<PenLine size={24} />}
-          label="Нотатки"
+          label={t('nav.notes')}
           active={activeTab === 'notes'}
           onClick={() => onTabChange('notes')}
         />
         <NavItem
           icon={<ToggleLeft size={24} />}
-          label="Налаштування"
+          label={t('nav.settings')}
           active={activeTab === 'settings'}
           onClick={() => onTabChange('settings')}
         />

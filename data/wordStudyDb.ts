@@ -722,3 +722,726 @@ export const WORD_STUDY_DB: Record<string, WordStudyData> = {
         ]
     }
 };
+
+export const WORD_STUDY_DB_EN: Record<string, WordStudyData> = {
+    // --- FUNCTIONAL WORDS / PARTICLES ---
+    "which": {
+        strongs: "834 (asher)",
+        original: "אֲשֶׁר",
+        transliteration: "asher",
+        partOfSpeech: "Relative pronoun",
+        definition: "Which, which, that. Indicates the relationship between the parts of the sentence.",
+        semanticRange: ["which", "What", "where", "When"],
+        isFunctional: true
+    },
+    "not": {
+        strongs: "3808 (lo)",
+        original: "לֹא",
+        transliteration: "lo",
+        partOfSpeech: "Particle",
+        definition: "No, no. Absolute denial.",
+        semanticRange: ["No", "not"],
+        isFunctional: true
+    },
+    "and": {
+        strongs: "— (ve)",
+        original: "וְ",
+        transliteration: "ve",
+        partOfSpeech: "Conjunction (prefix)",
+        definition: "And, and, but. Connects words or sentences (Bav sequence).",
+        semanticRange: ["and", "and", "and"],
+        isFunctional: true
+    },
+    "on": {
+        strongs: "5921 (al) / (ba)",
+        original: "עַל / בְּ",
+        transliteration: "al / ba",
+        partOfSpeech: "Preposition",
+        definition: "On, in, at. Indicates location or direction.",
+        semanticRange: ["on", "over", "against"],
+        isFunctional: true
+    },
+    "in": {
+        strongs: "— (be)",
+        original: "בְּ",
+        transliteration: "be",
+        partOfSpeech: "Preposition (prefix)",
+        definition: "In, in, inside.",
+        semanticRange: ["in", "in", "among"],
+        isFunctional: true
+    },
+    "in": {
+        strongs: "— (be)",
+        original: "בְּ",
+        transliteration: "be",
+        partOfSpeech: "Preposition (prefix)",
+        definition: "In, in, with help.",
+        semanticRange: ["in", "through"],
+        isFunctional: true
+    },
+    "but": {
+        strongs: "3588 (ki)",
+        original: "כִּי",
+        transliteration: "ki",
+        partOfSpeech: "Conjunction",
+        definition: "Because, but, because. Logical transition.",
+        semanticRange: ["for", "but", "if"],
+        isFunctional: true
+    },
+    "he": {
+        strongs: "1931 (hu)",
+        original: "הוּא",
+        transliteration: "hu",
+        partOfSpeech: "Pronoun",
+        definition: "He, that Indicates a person.",
+        semanticRange: ["he", "the same"],
+        isFunctional: true
+    },
+    "about": {
+        strongs: "—",
+        original: "—",
+        transliteration: "—",
+        partOfSpeech: "Preposition",
+        definition: "About, relatively. Used to indicate a topic.",
+        isFunctional: true
+    },
+    "its": {
+        strongs: "— (suffix)",
+        original: "וֹ",
+        transliteration: "o",
+        partOfSpeech: "Pronoun (suffix)",
+        definition: "His, belonging to him.",
+        semanticRange: ["its"],
+        isFunctional: true
+    },
+
+    // --- VERSE 1 ---
+    "blessed": {
+        strongs: "835 (esher')",
+        original: "אֶשֶׁר",
+        transliteration: "esher",
+        pronunciation: "EH-sher",
+        partOfSpeech: "Noun, plural (construct)",
+        semanticRange: ["happiness", "bliss", "successful movement forward"],
+        definition: "An exclamation describing the objective state of a person's blessing and happiness.",
+        notDefinition: "Material wealth in itself or temporary joy.",
+        usages: [
+            { ref: "Psalms 1:1", text: "<mark>Blessed</mark> a man who does not walk in the counsel of the unjust, and does not stand in the way of sinners, and does not sit in the seat of evil-doers" },
+            { ref: "Psalms 32:1", text: "<mark>Blessed</mark>, to whom crime is given, to whom sin is forgiven," },
+            { ref: "Psalms 33:12", text: "<mark>Blessed</mark> that people whose God is the Lord, the people whom He chose for His inheritance!" },
+            { ref: "Psalms 41:2", text: "<mark>Blessed</mark> who cares for the poor, the Lord will save him in the day of misfortune!" },
+            { ref: "Psalms 84:5", text: "<mark>Blessed</mark> who dwell in Your house, they will praise You forever!" },
+            { ref: "Proverbs 8:34", text: "<mark>Blessed</mark> the man who listens to Me, to watch at My door day by day, to keep watch at the gates of My entrance!" }
+        ],
+        typicalConstruction: "אֲשְׁרֵי + person",
+        origin: {
+            strongs: "H833",
+            transliteration: "ashar",
+            original: "אָשַׁר"
+        }
+    },
+    "man": {
+        strongs: "376 (ish)",
+        original: "אִישׁ",
+        transliteration: "ish",
+        pronunciation: "eesh",
+        partOfSpeech: "Noun masculine",
+        semanticRange: ["man", "person", "warrior"],
+        definition: "Denotes the man as an individual, often with an emphasis on his strength or character.",
+        notDefinition: "Just \"mankind\" (like adam).",
+        usages: [
+            { ref: "Psalms 1:1", text: "Blessed is the <mark>man</mark> who does not walk in the counsel of the wicked, and does not stand in the way of sinners, and does not sit in the seat of scoffers" },
+            { ref: "Genesis 2:23", text: "...she shall be called <mark>woman</mark>, because she was taken out of <mark>man</mark>." },
+            { ref: "Job 1:1", text: "There was a <mark>man</mark> in the land of Uz, whose name was Job. And that <mark>man</mark> was blameless and upright..." },
+            { ref: "Psalms 112:1", text: "Hallelujah! Blessed is the <mark>man</mark> who fears the Lord, who greatly delights in His commandments!" }
+        ]
+    },
+    "walks": {
+        strongs: "1980 (halak)",
+        original: "הָלַךְ",
+        transliteration: "halak",
+        pronunciation: "haw-LAK",
+        partOfSpeech: "Verb",
+        semanticRange: ["go", "behave", "live"],
+        definition: "Literally means to move, but is often used metaphorically to describe a way of life and behavior.",
+        usages: [
+            { ref: "Psalms 1:1", text: "Blessed is the man who does not follow the advice of the unjust..." },
+            { ref: "Genesis 5:24", text: "And <mark>walked</mark> Enoch was with God, and he was no more, because God took him away." },
+            { ref: "Genesis 6:9", text: "...Noah was a righteous and innocent man in his generations, Noah was with God <mark>walked</mark>." },
+            { ref: "Psalms 15:2", text: "He who <mark>walks</mark> blamelessly, and does justice, and speaks the truth in his heart..." },
+            { ref: "Proverbs 13:20", text: "He who <mark>walks</mark> with the wise becomes wise, but he who associates with the foolish will acquire misfortune." }
+        ]
+    },
+    "council": {
+        strongs: "6098 (etsah)",
+        original: "עֵצָה",
+        transliteration: "etsah",
+        pronunciation: "ay-TSAW",
+        partOfSpeech: "Noun feminine",
+        semanticRange: ["advice", "plan", "plan"],
+        definition: "A plan of action or way of thinking. It means adopting a worldview.",
+        usages: [
+            { ref: "Psalms 1:1", text: "Blessed is the man who does not follow the <mark>advice</mark> of the unjust..." },
+            { ref: "Psalms 33:11", text: "<mark>Rada</mark> The Lord stands forever, the thoughts of His Heart from generation to generation." },
+            { ref: "Proverbs 19:20", text: "Hear <mark>advice</mark> and accept reproof, that you may become wise at your end." },
+            { ref: "Isaiah 46:10", text: "...My <mark>plan</mark> will come true, and I will do everything I want!" }
+        ],
+        origin: {
+            strongs: "H3289",
+            transliteration: "yaats",
+            original: "יָעַץ"
+        }
+    },
+    "wicked": {
+        strongs: "7563 (rasha)",
+        original: "רָשָׁע",
+        transliteration: "rasha",
+        pronunciation: "raw-SHAW",
+        partOfSpeech: "Adjective",
+        semanticRange: ["offender", "guilty", "unstable"],
+        definition: "Morally unstable, one who actively violates God's order. In Ohienko's translation, it is most often \"unjust\" or \"godless\".",
+        usages: [
+            { ref: "Psalms 1:1", text: "Blessed is the man who does not follow the advice of the <mark>unjust</mark>..." },
+            { ref: "Psalms 1:4", text: "Not so <mark>the wicked</mark>, for they are like chaff that the wind blows away!" },
+            { ref: "Psalms 1:5", text: "That is why the <mark>godless</mark> will not stand in court..." },
+            { ref: "Psalms 1:6", text: "...and the way <mark>of the wicked</mark> will perish!" },
+            { ref: "Isaiah 57:20", text: "And the <mark>wicked</mark> is like a raging sea, when it cannot calm down..." }
+        ],
+        origin: {
+            strongs: "H7561",
+            transliteration: "rasha",
+            original: "רָשַׁע"
+        }
+    },
+    "is standing": {
+        strongs: "5975 (amad)",
+        original: "עָמַד",
+        transliteration: "amad",
+        pronunciation: "aw-MAD",
+        partOfSpeech: "Verb",
+        semanticRange: ["stand", "remain", "to be stable"],
+        definition: "Take a position. Indicates a more permanent involvement in something than \"walking\".",
+        usages: [
+            { ref: "Psalms 1:1", text: "...and not <mark>stands</mark> in the way of sinners..." },
+            { ref: "Psalms 24:3", text: "Who will ascend the Lord's mountain, and who will <mark>stand</mark> in His holy place?" },
+            { ref: "Psalms 33:11", text: "The Lord's Council <mark>stands</mark> forever..." },
+            { ref: "Psalms 130:3", text: "If, Lord, you will pay attention to iniquity, who <mark>resist</mark>, Lord?" }
+        ]
+    },
+    "way": {
+        strongs: "1870 (derek)",
+        original: "דֶּרֶךְ",
+        transliteration: "derek",
+        pronunciation: "DEH-rek",
+        partOfSpeech: "Noun masculine",
+        semanticRange: ["road", "way", "lifestyle"],
+        definition: "A trodden path. Metaphorically - a habitual way of life or behavior.",
+        usages: [
+            { ref: "Psalms 1:1", text: "...and does not stand in the <mark>path</mark> of sinners..." },
+            { ref: "Psalms 1:6", text: "<mark>The way</mark> because the Lord knows the righteous, and <mark>the way</mark> the wicked will perish!" },
+            { ref: "Psalms 119:1", text: "Blessed are the innocent in the <mark>road</mark> who walk in the Law of the Lord!" },
+            { ref: "Proverbs 3:6", text: "Acknowledge him in all your <mark>roads</mark>, and he will make your paths straight." },
+            { ref: "Isaiah 55:8", text: "For your thoughts are not my thoughts, but <mark>ways</mark> Mine are not your <mark>ways</mark>, says the Lord." }
+        ],
+        origin: {
+            strongs: "H1869",
+            transliteration: "darak",
+            original: "דָּרַךְ"
+        }
+    },
+    "sinners": {
+        strongs: "2400 (chatta)",
+        original: "חַטָּא",
+        transliteration: "chatta",
+        pronunciation: "khat-TAW",
+        partOfSpeech: "Noun",
+        semanticRange: ["sinner", "one who errs"],
+        definition: "One who goes astray or misses the mark (God's will).",
+        usages: [
+            { ref: "Psalms 1:1", text: "...and does not stand in the way of <mark>sinners</mark>..." },
+            { ref: "Psalms 1:5", text: "...nor <mark>sinners</mark> in the congregation of the righteous!" },
+            { ref: "Psalms 51:7", text: "So I was born in iniquity, and in <mark>sin</mark> my mother conceived me." },
+            { ref: "Proverbs 1:10", text: "My son, as <mark>sinners</mark> will persuade you, do not agree with them!" }
+        ],
+        origin: {
+            strongs: "H2398",
+            transliteration: "chata",
+            original: "חָטָא"
+        }
+    },
+    "is sitting": {
+        strongs: "3427 (yashab)",
+        original: "יָשַׁב",
+        transliteration: "yashab",
+        pronunciation: "yaw-SHAB",
+        partOfSpeech: "Verb",
+        semanticRange: ["sit", "live", "live"],
+        definition: "Complete identification and settlement. The deepest level of involvement in sin is in this progression.",
+        usages: [
+            { ref: "Psalms 1:1", text: "...and not <mark>sits</mark> on the seat of evil-doers." },
+            { ref: "Psalms 2:4", text: "He who <mark>sits</mark> in the heavens will laugh..." },
+            { ref: "Psalms 91:1", text: "Who <mark>lives</mark> under the protection of the Most High, who dwells in the shadow of the Almighty..." },
+            { ref: "Psalms 27:4", text: "One thing I ask from the Lord, I will long for <mark>stay</mark> me in the house of the Lord all the days of my life..." }
+        ]
+    },
+    "assembly": {
+        strongs: "4186 (moshab)",
+        original: "מוֹשָׁב",
+        transliteration: "moshab",
+        pronunciation: "mo-SHAB",
+        partOfSpeech: "Noun",
+        semanticRange: ["seat", "meeting place", "settlement"],
+        definition: "A place where people gather or live. Meeting, company. In Ohienko there is a ``seat''.",
+        usages: [
+            { ref: "Psalms 1:1", text: "...and does not sit on the <mark>seat</mark> of ill-wishers." },
+            { ref: "Departure at 12:40", text: "And the time <mark>residence</mark> of the children of Israel, who were sitting in Egypt, four hundred and thirty years." },
+            { ref: "Leviticus 25:29", text: "And when someone sells <mark>housing</mark> in a brick city..." },
+            { ref: "Psalms 107:32", text: "Let them exalt Him in the assembly of the people, and let them praise Him in the <mark>meeting</mark> of the elders!" }
+        ],
+        origin: {
+            strongs: "H3427",
+            transliteration: "yashab",
+            original: "יָשַׁב"
+        }
+    },
+    "evil year": {
+        strongs: "3887 (litz)",
+        original: "לִיץ",
+        transliteration: "litz",
+        pronunciation: "leets",
+        partOfSpeech: "Verb (participle)",
+        definition: "Mockers, cynics who openly mock righteousness (in Ohienko: ``slanderers'').",
+        semanticRange: ["scoffer", "fool"],
+        usages: [
+            { ref: "Psalms 1:1", text: "...and does not sit on the seat <mark>zlorikiv</mark>." },
+            { ref: "Proverbs 3:34", text: "<mark>mockers</mark> He mocks, but gives mercy to the meek." },
+            { ref: "Proverbs 9:7", text: "Whoever chastises <mark>a scoffer</mark> takes shame upon himself..." },
+            { ref: "Proverbs 14:6", text: "He seeks <mark>mocker</mark> wisdom, but in vain, but knowledge is easy for the intelligent." }
+        ]
+    },
+
+    // --- VERSE 2 ---
+    "laws": {
+        strongs: "8451 (torah)",
+        original: "תּוֹרָה",
+        transliteration: "torah",
+        pronunciation: "to-RAH",
+        partOfSpeech: "Noun feminine",
+        semanticRange: ["teaching", "instruction", "law"],
+        definition: "Divine instruction or teaching. Indicates the direction that God gives to man.",
+        usages: [
+            { ref: "Psalms 1:2", text: "But in the Lord's <mark>Law</mark> his delight, and about His <mark>Law</mark> day and night he meditates!" },
+            { ref: "Psalms 19:8", text: "<mark>Law</mark> God's perfect, it revives the soul..." },
+            { ref: "Psalms 119:97", text: "How I love Your <mark>Law</mark>, it is my conversation all day long!" },
+            { ref: "Isaiah 2:3", text: "For the <mark>Law</mark> will go out of Zion, and the Word of the Lord from Jerusalem." }
+        ],
+        origin: {
+            strongs: "H3384",
+            transliteration: "yarah",
+            original: "יָרָה"
+        }
+    },
+    "Lord's": {
+        strongs: "3068 (YHWH)",
+        original: "יהוה",
+        transliteration: "Yahweh",
+        pronunciation: "yah-WEH",
+        partOfSpeech: "Proper name",
+        definition: "Personal name of the God of the Covenant. I AM That I Am.",
+        semanticRange: ["the Lord", "Yahweh", "Mere"],
+        usages: [
+            { ref: "Psalms 1:2", text: "But in <mark>God's</mark> Law his delight..." },
+            { ref: "Psalms 1:6", text: "For the righteous know the way <mark>God</mark>..." },
+            { ref: "Exit 3:15", text: "...<mark>Lord</mark>, the God of your fathers... This is My Name forever..." },
+            { ref: "Psalms 23:1", text: "<mark>Lord</mark> is my Shepherd, so I will not be in want..." }
+        ]
+    },
+    "pleasure": {
+        strongs: "2656 (chephets)",
+        original: "חֵפֶץ",
+        transliteration: "chephets",
+        pronunciation: "KHAY-fets",
+        partOfSpeech: "Noun",
+        definition: "Deep desire, satisfaction, joy from something.",
+        semanticRange: ["desire", "joy", "preferences"],
+        usages: [
+            { ref: "Psalms 1:2", text: "But in the Law of the Lord his <mark>pleasure</mark>..." },
+            { ref: "Psalms 16:3", text: "To the saints on earth, to the nobles, to them all <mark>desire</mark> is mine!" },
+            { ref: "Isaiah 53:10", text: "But the <mark>will</mark> of the Lord will turn out happily for him." },
+            { ref: "Ecclesiastes 3:1", text: "There is a time for everything, and an hour for every <mark>business</mark> (desire) under heaven..." }
+        ]
+    },
+    "ponders": {
+        strongs: "1897 (hagah)",
+        original: "הָגָה",
+        transliteration: "hagah",
+        pronunciation: "haw-GAH",
+        partOfSpeech: "Verb",
+        definition: "To mumble, to read softly, to think deeply. A low-pitched sound (like a lion growling).",
+        semanticRange: ["meditate", "speak", "conceive"],
+        usages: [
+            { ref: "Psalms 1:2", text: "...and about His Law day and night he <mark>ponders</mark>!" },
+            { ref: "Joshua 1:8", text: "Do not let the book of this Law depart from your mouth, but you will <mark>meditate</mark> on it day and night..." },
+            { ref: "Psalms 2:1", text: "Why do the tribes rebel, and the nations <mark>conspire</mark> in vain?" },
+            { ref: "Isaiah 31:4", text: "...Like a lion that <mark>snarls</mark>, and a lion cub over his prey..." }
+        ]
+    },
+    "during the day": {
+        strongs: "3117 (yom)",
+        original: "יוֹם",
+        transliteration: "yom",
+        pronunciation: "yome",
+        partOfSpeech: "Noun",
+        definition: "Period of light, day. Metaphorically - the time of activity or life.",
+        semanticRange: ["day", "time", "era"],
+        usages: [
+            { ref: "Psalms 1:2", text: "...in <mark>day</mark> and at night he ponders!" },
+            { ref: "Genesis 1:5", text: "And God called the light <mark>day</mark>, and the darkness he called night." },
+            { ref: "Psalms 19:2", text: "<mark>Day</mark> to the day announces the word..." },
+            { ref: "Psalms 118:24", text: "This <mark>day</mark> that the Lord has created, let us rejoice and be glad in it!" }
+        ]
+    },
+    "at night": {
+        strongs: "3915 (laylah)",
+        original: "לַיְלָה",
+        transliteration: "laylah",
+        pronunciation: "lay-LAW",
+        partOfSpeech: "Noun",
+        definition: "Night, the time of darkness. Metaphorically - a time of peace or trials.",
+        semanticRange: ["night", "darkness"],
+        usages: [
+            { ref: "Psalms 1:2", text: "...day and <mark>night</mark> he ponders!" },
+            { ref: "Genesis 1:5", text: "...and called the darkness <mark>night</mark>." },
+            { ref: "Psalms 19:2", text: "...and <mark>night</mark> night shows thought." },
+            { ref: "Psalms 119:55", text: "In<mark>night</mark> I remember Your Name, Lord, and I keep Your Law." }
+        ]
+    },
+
+    // --- VERSE 3 ---
+    "will be": {
+        strongs: "1961 (hayah)",
+        original: "הָיָה",
+        transliteration: "hayah",
+        pronunciation: "haw-YAH",
+        partOfSpeech: "Verb",
+        definition: "To become, to be, to happen.",
+        semanticRange: ["be", "become"],
+        usages: [
+            { ref: "Psalms 1:3", text: "And he <mark>will</mark> be like a tree..." },
+            { ref: "Genesis 1:3", text: "And God said: Let there be light! And <mark>happened</mark> light." },
+            { ref: "Exodus 3:14", text: "And God said to Moses: I <mark>He Who Is</mark>." }
+        ]
+    },
+    "tree": {
+        strongs: "6086 (ets)",
+        original: "עֵץ",
+        transliteration: "ets",
+        pronunciation: "ayts",
+        partOfSpeech: "Noun",
+        definition: "A plant with a solid trunk; also wood.",
+        semanticRange: ["tree", "wood"],
+        usages: [
+            { ref: "Psalms 1:3", text: "And he will be like a <mark>tree</mark> planted over a stream of water..." },
+            { ref: "Genesis 2:9", text: "And the Lord God grew out of the earth every <mark>tree</mark>, attractive in appearance and tasty for food, and <mark>tree</mark> life in the middle of paradise..." },
+            { ref: "Psalms 92:12", text: "The righteous will flourish like a palm tree, will rise like a cedar (<mark>tree</mark>) in Lebanon." }
+        ]
+    },
+    "planted": {
+        strongs: "8362 (shathal)",
+        original: "שָׁתַל",
+        transliteration: "shathal",
+        pronunciation: "shaw-THAL",
+        partOfSpeech: "Verb (passive)",
+        definition: "Transplanted. Indicates that the tree did not grow there by itself, but was purposefully placed there.",
+        semanticRange: ["plant", "transplant"],
+        usages: [
+            { ref: "Psalms 1:3", text: "...like a tree, above a stream of water <mark>planted</mark>..." },
+            { ref: "Jeremiah 17:8", text: "And he will be like that tree above the water <mark>planted</mark>..." },
+            { ref: "Psalms 92:13", text: "<mark>Planted</mark> in the house of the Lord, blooming in the courtyards of our God!" }
+        ]
+    },
+    "flows": {
+        strongs: "6388 (peleg)",
+        original: "פֶּלֶג",
+        transliteration: "peleg",
+        pronunciation: "PEH-leg",
+        partOfSpeech: "Noun",
+        definition: "Artificial irrigation canals or natural streams providing constant power.",
+        semanticRange: ["flow", "channel", "stream"],
+        usages: [
+            { ref: "Psalms 1:3", text: "...above the water <mark>stream</mark> planted..." },
+            { ref: "Psalms 46:4", text: "The river, its <mark>flows</mark> will cheer the city of God..." },
+            { ref: "Psalms 65:9", text: "God's <mark>stream</mark> is full of water..." },
+            { ref: "Isaiah 30:25", text: "And on every high mountain and on every high hill there will be <mark>streams</mark>..." }
+        ]
+    },
+    "water": {
+        strongs: "4325 (mayim)",
+        original: "מַיִם",
+        transliteration: "mayim",
+        pronunciation: "MAH-yim",
+        partOfSpeech: "Noun",
+        definition: "Water, the source of life. Often symbolizes God's blessing or the Spirit.",
+        semanticRange: ["water", "water"],
+        usages: [
+            { ref: "Psalms 1:3", text: "...planted above the <mark>water</mark> stream..." },
+            { ref: "Genesis 1:2", text: "...and the Spirit of God hovered over the surface <mark>water</mark>." },
+            { ref: "Isaiah 55:1", text: "Oh, all you who are thirsty, go to the <mark>water</mark>!" },
+            { ref: "Psalms 42:1", text: "As that deer molts to the <mark>water</mark> streams, so my soul molts to You, O God..." }
+        ]
+    },
+    "brings": {
+        strongs: "5414 (nathan)",
+        original: "נָתַן",
+        transliteration: "nathan",
+        pronunciation: "naw-THAN",
+        partOfSpeech: "Verb",
+        definition: "Give, produce, bring.",
+        semanticRange: ["give", "bring"],
+        usages: [
+            { ref: "Psalms 1:3", text: "...that <mark>gives birth</mark> (brings) its fruit in due time..." },
+            { ref: "Genesis 1:29", text: "Here <mark>gave</mark> I gave you the whole spring..." },
+            { ref: "Psalms 84:11", text: "For the sun and shield is the Lord God, the Lord <mark>gives</mark> mercy and glory..." },
+            { ref: "Isaiah 9:6", text: "For a Child was born to us, <mark>given</mark> to us a Son..." }
+        ]
+    },
+    "fruit": {
+        strongs: "6529 (peri)",
+        original: "פְּרִי",
+        transliteration: "peri",
+        pronunciation: "peh-REE",
+        partOfSpeech: "Noun",
+        definition: "Result, harvest, offspring.",
+        semanticRange: ["fruit", "fruit", "consequence"],
+        usages: [
+            { ref: "Psalms 1:3", text: "...which will bring forth its <mark>fruit</mark> in due time..." },
+            { ref: "Genesis 1:11", text: "Let the earth bring forth... a <mark>vegetable</mark> tree, which according to its kind <mark>fruit</mark> brings..." },
+            { ref: "Psalms 127:3", text: "Children are the inheritance of the Lord, <mark>fruit</mark> wombs are a reward!" },
+            { ref: "Proverbs 11:30 am", text: "<mark>Fruit</mark> of the righteous is the tree of life, and the wise acquires life." }
+        ]
+    },
+    "on time": {
+        strongs: "6256 (eth)",
+        original: "עֵת",
+        transliteration: "eth",
+        pronunciation: "ayth",
+        partOfSpeech: "Noun",
+        definition: "Time, season, season.",
+        semanticRange: ["time", "season"],
+        usages: [
+            { ref: "Psalms 1:3", text: "...which will bring forth its fruit <mark>in due time</mark>..." },
+            { ref: "Ecclesiastes 3:1", text: "For everything there is a <mark>time</mark>, and an <mark>hour</mark> for every matter under heaven..." },
+            { ref: "Psalms 104:27", text: "All of them are waiting for the Lord to give them food <mark>in time</mark>." }
+        ]
+    },
+    "withers": {
+        strongs: "5034 (nabel)",
+        original: "נָבֵל",
+        transliteration: "nabel",
+        pronunciation: "naw-BEL",
+        partOfSpeech: "Verb",
+        definition: "Wither, dry, decay.",
+        semanticRange: ["wither", "dry"],
+        usages: [
+            { ref: "Psalms 1:3", text: "...and that the leaves do not <mark>wither</mark> his..." },
+            { ref: "Isaiah 40:8", text: "The grass dries up, the flower <mark>withers</mark>, but the Word of our God stands forever!" },
+            { ref: "Psalms 37:2", text: "For they will soon be withered like grass, and <mark>fade</mark> like a green potion!" }
+        ]
+    },
+    "leaf": {
+        strongs: "5929 (aleh)",
+        original: "עָלֶה",
+        transliteration: "aleh",
+        pronunciation: "aw-LEH",
+        partOfSpeech: "Noun",
+        definition: "Leaf, tree leaves.",
+        semanticRange: ["letter", "leaf"],
+        usages: [
+            { ref: "Psalms 1:3", text: "...and that <mark>leaves</mark> does not wither it..." },
+            { ref: "Genesis 3:7", text: "And they sewed fig <mark>leaves</mark> together, and made belts for themselves." },
+            { ref: "Genesis 8:11", text: "...until <mark>a leaf</mark> olive plucked in her beak." }
+        ]
+    },
+    "does": {
+        strongs: "6213 (asah)",
+        original: "עָשָׂה",
+        transliteration: "asah",
+        pronunciation: "aw-SAH",
+        partOfSpeech: "Verb",
+        definition: "Do, create, perform.",
+        semanticRange: ["do", "create"],
+        usages: [
+            { ref: "Psalms 1:3", text: "...and whatever he <mark>does</mark>, good luck to him!" },
+            { ref: "Genesis 1:1", text: "In the beginning God <mark>created</mark> Heaven and earth." },
+            { ref: "Genesis 1:26", text: "And God said: <mark>Let us</mark> man in Our image..." },
+            { ref: "Psalms 115:3", text: "Our God is in heaven, everything He willed, He <mark>did</mark>!" }
+        ]
+    },
+    "success": {
+        strongs: "6743 (tsalach)",
+        original: "צָלַח",
+        transliteration: "tsalach",
+        pronunciation: "tsaw-LAKH",
+        partOfSpeech: "Verb",
+        definition: "To prosper, to achieve a goal, to be successful.",
+        semanticRange: ["flourish", "resort"],
+        usages: [
+            { ref: "Psalms 1:3", text: "...and everything he does, <mark>happy</mark> to him!" },
+            { ref: "Genesis 39:2", text: "And the Lord was with Joseph, and he became a man who had <mark>success</mark>..." },
+            { ref: "Joshua 1:8", text: "...for then you will make <mark>happy</mark> your ways, and then you will be <mark>happy</mark> to you." },
+            { ref: "Psalms 118:25", text: "Please, Lord, save! Please, Lord, <mark>good luck</mark>!" }
+        ]
+    },
+
+    // --- VERSE 4 ---
+    "Yes": {
+        strongs: "3651 (ken)",
+        original: "כֵּן",
+        transliteration: "ken",
+        pronunciation: "ken",
+        partOfSpeech: "Adverb",
+        definition: "Thus, correctly, honestly.",
+        semanticRange: ["Yes", "so"],
+        usages: [
+            { ref: "Psalms 1:4", text: "Not <mark>yes</mark> wicked..." },
+            { ref: "Genesis 1:7", text: "...And it happened <mark>so</mark>." },
+            { ref: "Exit 10:29", text: "And Moses said: <mark>Rightly</mark> you said..." }
+        ]
+    },
+    "chaff": {
+        strongs: "4671 (mots)",
+        original: "מֹץ",
+        transliteration: "mots",
+        pronunciation: "mose",
+        partOfSpeech: "Noun",
+        definition: "A grain husk that is easily blown away by the wind. A symbol of worthlessness and instability.",
+        semanticRange: ["husk", "chaff"],
+        usages: [
+            { ref: "Psalms 1:4", text: "...for they are like <mark>chaff</mark> that the wind blows away!" },
+            { ref: "Psalms 35:5", text: "Let them become like <mark>chaff</mark> in the wind..." },
+            { ref: "Isaiah 17:13", text: "...and he will be driven like that <mark>chaff</mark> on the mountains behind the wind..." },
+            { ref: "Job 21:18", text: "They will be like that straw in the wind, and like that <mark>chaff</mark> that the storm caught it!" }
+        ]
+    },
+    "wind": {
+        strongs: "7307 (ruach)",
+        original: "רוּחַ",
+        transliteration: "ruach",
+        pronunciation: "ROO-akh",
+        partOfSpeech: "Noun",
+        definition: "Breath, wind, spirit. The driving force.",
+        semanticRange: ["wind", "spirit", "breath"],
+        usages: [
+            { ref: "Psalms 1:4", text: "...for they are like chaff that the <mark>wind</mark> blows away!" },
+            { ref: "Genesis 1:2", text: "...and the <mark>Spirit</mark> of God hovered over the surface of the water." },
+            { ref: "Psalms 104:4", text: "You make spirits Your angels, burning fire Your <mark>servants</mark> (wind)." },
+            { ref: "Ecclesiastes 1:6", text: "It goes to the south and turns to the north, turns, turns <mark>wind</mark>, and returns to its circles <mark>wind</mark>..." }
+        ]
+    },
+    "disperses": {
+        strongs: "5086 (nadaph)",
+        original: "נָדַף",
+        transliteration: "nadaph",
+        pronunciation: "naw-DAF",
+        partOfSpeech: "Verb",
+        definition: "Disperse, disperse, drive.",
+        semanticRange: ["dispel", "drive"],
+        usages: [
+            { ref: "Psalms 1:4", text: "...for they are like chaff that the wind <mark>disperses</mark>!" },
+            { ref: "Psalms 68:2", text: "As <mark>disperses</mark> smoke, so their <mark>disperse</mark>..." },
+            { ref: "Proverbs 21:6", text: "Gaining treasures with a lying tongue is vanity that <mark>passes away</mark>, it is the seeking of death." }
+        ]
+    },
+
+    // --- VERSE 5 ---
+    "stand up": {
+        strongs: "6965 (qum)",
+        original: "קוּם",
+        transliteration: "qum",
+        pronunciation: "koom",
+        partOfSpeech: "Verb",
+        definition: "Get up, stand, rise.",
+        semanticRange: ["get up", "stand"],
+        usages: [
+            { ref: "Psalms 1:5", text: "That is why the wicked do not <mark>stand</mark> in judgment..." },
+            { ref: "Psalms 3:7", text: "<mark>Resurrect</mark>, Lord, save me, my God..." },
+            { ref: "Isaiah 40:8", text: "The grass dries up, the flower withers, and the Word of our God <mark>stands</mark> forever!" },
+            { ref: "Isaiah 60:1", text: "<mark>Arise</mark>, shine, Jerusalem, for your light has come..." }
+        ]
+    },
+    "judge": {
+        strongs: "4941 (mishpat)",
+        original: "מִשְׁפָּט",
+        transliteration: "mishpat",
+        pronunciation: "mish-PAT",
+        partOfSpeech: "Noun",
+        definition: "Court, justice, sentence, justice.",
+        semanticRange: ["court", "justice", "law"],
+        usages: [
+            { ref: "Psalms 1:5", text: "That is why the wicked will not stand in <mark>judgment</mark>..." },
+            { ref: "Psalms 89:14", text: "Justice and <mark>justice</mark> the foundation of Your throne..." },
+            { ref: "Isaiah 1:17", text: "Learn to do good, seek <mark>truth</mark>, save the oppressed..." },
+            { ref: "Micah 6:8", text: "It has been revealed to you, O man, what is good, and what the Lord desires from you, nothing but to do <mark>justice</mark>, and to love mercy..." }
+        ]
+    },
+    "the righteous": {
+        strongs: "6662 (tsaddiq)",
+        original: "צַדִּיק",
+        transliteration: "tsaddiq",
+        pronunciation: "tsad-DEEK",
+        partOfSpeech: "Adjective",
+        definition: "The one who is right, just, justified by God.",
+        semanticRange: ["righteous", "fair"],
+        usages: [
+            { ref: "Psalms 1:5", text: "...nor sinners in the congregation of the <mark>righteous</mark>!" },
+            { ref: "Psalms 1:6", text: "For the Lord knows the way <mark>the righteous</mark>..." },
+            { ref: "Genesis 6:9", text: "...Noah was a man <mark>righteous</mark> and blameless in his generations..." },
+            { ref: "Proverbs 10:7", text: "The memory of the <mark>righteous</mark> is a blessing, but the name of the wicked will rot." }
+        ]
+    },
+
+    // --- VERSE 6 ---
+    "knows": {
+        strongs: "3045 (yada)",
+        original: "יָדַע",
+        transliteration: "yada",
+        pronunciation: "yaw-DAH",
+        partOfSpeech: "Verb",
+        definition: "To know, to know. Includes personal experiences and relationships.",
+        semanticRange: ["know", "cognize"],
+        usages: [
+            { ref: "Psalms 1:6", text: "The way of the righteous <mark>knows</mark> God..." },
+            { ref: "Genesis 4:1", text: "And Adam <mark>recognized</mark> Eve, his wife..." },
+            { ref: "Psalms 139:1", text: "Lord, You tested me and <mark>recognized</mark>..." },
+            { ref: "Jeremiah 1:5", text: "While I was forming you in my mother's womb, I <mark>recognized</mark> was you..." }
+        ]
+    },
+    "way": {
+        strongs: "1870 (derek)",
+        original: "דֶּרֶךְ",
+        transliteration: "derek",
+        pronunciation: "DEH-rek",
+        partOfSpeech: "Noun",
+        definition: "A road, a way, a way of life.",
+        semanticRange: ["way", "road"],
+        usages: [
+            { ref: "Psalms 1:6", text: "<mark>The way</mark> because the Lord knows the righteous, and <mark>the way</mark> the wicked will perish!" },
+            { ref: "Psalms 119:105", text: "Your word is a lamp for my feet, a light for my <mark>path</mark>." }
+        ]
+    },
+    "will die": {
+        strongs: "6 (abad)",
+        original: "אָבַד",
+        transliteration: "abad",
+        pronunciation: "aw-BAD",
+        partOfSpeech: "Verb",
+        definition: "To perish, to disappear, to be destroyed.",
+        semanticRange: ["perish", "disappear"],
+        usages: [
+            { ref: "Psalms 1:6", text: "...and the way of the wicked <mark>will perish</mark>!" },
+            { ref: "Psalms 2:12", text: "Honor the Son, that He may not be angry, and that you may not <mark>perish</mark> on the way..." },
+            { ref: "Job 3:3", text: "Let <mark>perish</mark> the day that I was born in it..." },
+            { ref: "Psalms 119:92", text: "If it weren't for Your Law, my consolation, I would be <mark>perished</mark> in my misfortune!" }
+        ]
+    }
+};

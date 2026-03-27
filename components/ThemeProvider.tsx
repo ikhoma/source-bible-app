@@ -2,12 +2,15 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 
 type Theme = 'light' | 'dark';
 type FontStyle = 'modern' | 'antique';
+type Language = 'ua' | 'en';
 
 interface ThemeContextType {
     theme: Theme;
     fontStyle: FontStyle;
+    language: Language;
     setTheme: (theme: Theme) => void;
     setFontStyle: (fontStyle: FontStyle) => void;
+    setLanguage: (lang: Language) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -25,6 +28,11 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         return (saved as FontStyle) || 'antique';
     });
 
+    const [language, setLanguage] = useState<Language>(() => {
+        const saved = localStorage.getItem('app-language');
+        return (saved as Language) || 'ua';
+    });
+
     useEffect(() => {
         localStorage.setItem('app-theme', theme);
         document.documentElement.classList.remove('light', 'dark');
@@ -37,8 +45,12 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         document.documentElement.classList.add(`font-${fontStyle}`);
     }, [fontStyle]);
 
+    useEffect(() => {
+        localStorage.setItem('app-language', language);
+    }, [language]);
+
     return (
-        <ThemeContext.Provider value={{ theme, fontStyle, setTheme, setFontStyle }}>
+        <ThemeContext.Provider value={{ theme, fontStyle, language, setTheme, setFontStyle, setLanguage }}>
             {children}
         </ThemeContext.Provider>
     );

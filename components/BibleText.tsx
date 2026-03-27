@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { Verse, SelectionState, SelectionCoordinates } from '../types';
+import { useTranslation } from './i18n';
 
 interface BibleTextProps {
   verses: Verse[];
@@ -18,6 +19,7 @@ export const BibleText: React.FC<BibleTextProps> = ({
   onSelectVerse,
   highlights
 }) => {
+  const t = useTranslation();
   const longPressTimer = useRef<number | null>(null);
   const isDragging = useRef(false);
 
@@ -112,8 +114,8 @@ export const BibleText: React.FC<BibleTextProps> = ({
   return (
     <div className="pb-32 pt-6 px-4 max-w-md mx-auto">
       <div className="mb-4">
-        <h3 className="text-muted font-medium text-sm mb-1">Книга Перша</h3>
-        <h1 className="text-3xl font-bold text-primary">Псалом 1</h1>
+        <h3 className="text-muted font-medium text-sm mb-1">{t('bible.book1')}</h3>
+        <h1 className="text-3xl font-bold text-primary">{t('bible.psalm')} 1</h1>
       </div>
 
       <div className="space-y-2">

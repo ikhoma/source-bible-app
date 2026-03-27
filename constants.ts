@@ -1,5 +1,5 @@
 import { Verse, VerseStudyData, InductiveStudyData } from './types';
-import { WORD_STUDY_DB } from './data/wordStudyDb';
+import { WORD_STUDY_DB, WORD_STUDY_DB_EN } from './data/wordStudyDb';
 
 // Helper to construct tokens easily
 // We iterate manually in the array, but this helper keeps object creation tidy
@@ -9,7 +9,7 @@ const t = (v: number, idx: number, text: string, anchorKey?: string) => ({
   anchorKey
 });
 
-export const PSALM_1: Verse[] = [
+export const PSALM_1_UA: Verse[] = [
   {
     id: 1,
     book: "Псалом",
@@ -151,6 +151,63 @@ export const PSALM_1: Verse[] = [
   }
 ];
 
+export const PSALM_1_EN: Verse[] = [
+  {
+    id: 1,
+    book: "Psalm",
+    chapter: 1,
+    text: "Blessed is the man that walketh not in the counsel of the wicked, Nor standeth in the way of sinners, Nor sitteth in the seat of scoffers:",
+    tokens: [
+      t(1, 0, "Blessed", "блаженний"), t(1, 1, " is the "), t(1, 2, "man", "муж"), t(1, 3, " "), t(1, 4, "that", "який"), t(1, 5, " "), t(1, 6, "walketh", "ходить"), t(1, 7, " "), t(1, 8, "not", "не"), t(1, 9, " in the "), t(1, 10, "counsel", "раду"), t(1, 11, " of the "), t(1, 12, "wicked", "нечестивих"), t(1, 13, ", Nor "), t(1, 14, "standeth", "стоїть"), t(1, 15, " in the "), t(1, 16, "way", "шляху"), t(1, 17, " of "), t(1, 18, "sinners", "грішних"), t(1, 19, ", Nor "), t(1, 20, "sitteth", "сидить"), t(1, 21, " in the "), t(1, 22, "seat", "зборищі"), t(1, 23, " of "), t(1, 24, "scoffers", "злорік"), t(1, 25, ":")
+    ]
+  },
+  {
+    id: 2,
+    book: "Psalm",
+    chapter: 1,
+    text: "But his delight is in the law of Jehovah; And on his law doth he meditate day and night.",
+    tokens: [
+      t(2, 0, "But", "але"), t(2, 1, " his "), t(2, 2, "delight", "насолода"), t(2, 3, " is in the "), t(2, 4, "law", "законі"), t(2, 5, " of "), t(2, 6, "Jehovah", "господнім"), t(2, 7, "; And on his "), t(2, 8, "law", "законі"), t(2, 9, " doth he "), t(2, 10, "meditate", "розмірковує"), t(2, 11, " "), t(2, 12, "day", "вдень"), t(2, 13, " and "), t(2, 14, "night", "вночі"), t(2, 15, ".")
+    ]
+  },
+  {
+    id: 3,
+    book: "Psalm",
+    chapter: 1,
+    text: "And he shall be like a tree planted by the streams of water, That bringeth forth its fruit in its season, Whose leaf also doth not wither; And whatsoever he doeth shall prosper.",
+    tokens: [
+      t(3, 0, "And he shall "), t(3, 1, "be", "буде"), t(3, 2, " like a "), t(3, 3, "tree", "дерево"), t(3, 4, " "), t(3, 5, "planted", "посаджене"), t(3, 6, " by the "), t(3, 7, "streams", "потоків"), t(3, 8, " of "), t(3, 9, "water", "вод"), t(3, 10, ", "), t(3, 11, "That", "який"), t(3, 12, " "), t(3, 13, "bringeth forth", "приносить"), t(3, 14, " its "), t(3, 15, "fruit", "плід"), t(3, 16, " in its "), t(3, 17, "season", "своєчасно"), t(3, 18, ", Whose "), t(3, 19, "leaf", "листя"), t(3, 20, " also doth "), t(3, 21, "not", "не"), t(3, 22, " "), t(3, 23, "wither", "в'яне"), t(3, 24, "; And whatsoever he "), t(3, 25, "doeth", "робить"), t(3, 26, " shall "), t(3, 27, "prosper", "успіх"), t(3, 28, ".")
+    ]
+  },
+  {
+    id: 4,
+    book: "Psalm",
+    chapter: 1,
+    text: "The wicked are not so, But are like the chaff which the wind driveth away.",
+    tokens: [
+      t(4, 0, "The "), t(4, 1, "wicked", "нечестивих"), t(4, 2, " are "), t(4, 3, "not", "не"), t(4, 4, " "), t(4, 5, "so", "так"), t(4, 6, ", "), t(4, 7, "But", "але"), t(4, 8, " are like the "), t(4, 9, "chaff", "полова"), t(4, 10, " "), t(4, 11, "which", "який"), t(4, 12, " the "), t(4, 13, "wind", "вітер"), t(4, 14, " "), t(4, 15, "driveth away", "розвіває"), t(4, 16, ".")
+    ]
+  },
+  {
+    id: 5,
+    book: "Psalm",
+    chapter: 1,
+    text: "Therefore the wicked shall not stand in the judgment, Nor sinners in the congregation of the righteous.",
+    tokens: [
+      t(5, 0, "Therefore", "тому"), t(5, 1, " the "), t(5, 2, "wicked", "нечестивих"), t(5, 3, " shall "), t(5, 4, "not", "не"), t(5, 5, " "), t(5, 6, "stand", "встоять"), t(5, 7, " in the "), t(5, 8, "judgment", "суді"), t(5, 9, ", Nor "), t(5, 10, "sinners", "грішних"), t(5, 11, " in the "), t(5, 12, "congregation", "зборищі"), t(5, 13, " of the "), t(5, 14, "righteous", "праведних"), t(5, 15, ".")
+    ]
+  },
+  {
+    id: 6,
+    book: "Psalm",
+    chapter: 1,
+    text: "For Jehovah knoweth the way of the righteous; But the way of the wicked shall perish.",
+    tokens: [
+      t(6, 0, "For", "бо"), t(6, 1, " "), t(6, 2, "Jehovah", "господнім"), t(6, 3, " "), t(6, 4, "knoweth", "знає"), t(6, 5, " the "), t(6, 6, "way", "путь"), t(6, 7, " of the "), t(6, 8, "righteous", "праведних"), t(6, 9, "; "), t(6, 10, "But", "але"), t(6, 11, " the "), t(6, 12, "way", "путь"), t(6, 13, " of the "), t(6, 14, "wicked", "нечестивих"), t(6, 15, " shall "), t(6, 16, "perish", "загине"), t(6, 17, ".")
+    ]
+  }
+];
+
 export const INDUCTIVE_STUDY_DB: Record<number, InductiveStudyData> = {
   1: {
     observationPoints: [
@@ -184,7 +241,22 @@ export const INDUCTIVE_STUDY_DB: Record<number, InductiveStudyData> = {
   }
 };
 
-export { WORD_STUDY_DB };
+export { WORD_STUDY_DB, WORD_STUDY_DB_EN };
+
+export const PARALLEL_VERSES_DATA_EN: Record<string, string> = {
+  "Jeremiah 17:7-8": "Blessed is the man that trusteth in Jehovah... For he shall be as a tree planted by the waters...",
+  "Joshua 1:8": "This book of the law shall not depart out of thy mouth, but thou shalt meditate thereon day and night...",
+  "Psalm 92:12": "The righteous shall flourish like the palm-tree: He shall grow like a cedar in Lebanon.",
+  "Psalm 119:1": "Blessed are they that are perfect in the way, Who walk in the law of Jehovah.",
+  "Psalm 119:97": "Oh how love I thy law! It is my meditation all the day.",
+  "Revelation 22:2": "in the midst of the street thereof. And on this side of the river and on that was the tree of life, bearing twelve manner of fruits...",
+  "Ezekiel 47:12": "And by the river upon the bank thereof, on this side and on that side, shall grow every tree for food, whose leaf shall not wither...",
+  "Matthew 3:12": "whose fan is in his hand, and he will thoroughly cleanse his threshing-floor; and he will gather his wheat into the garner, but the chaff he will burn up with unquenchable fire.",
+  "Job 21:18": "That they are as stubble before the wind, And as chaff that the storm carrieth away?",
+  "Psalm 5:5": "The arrogant shall not stand in thy sight: Thou hatest all workers of iniquity.",
+  "John 10:14": "I am the good shepherd; and I know mine own, and mine own know me,",
+  "2 Timothy 2:19": "Howbeit the firm foundation of God standeth, having this seal, The Lord knoweth them that are his: and, Let every one that nameth the name of the Lord depart from unrighteousness."
+};
 
 export const PARALLEL_VERSES_DATA: Record<string, string> = {
   "Єремія 17:7-8": "Блаженна людина, що на Господа покладається... Бо вона буде як дерево, над водним потоком посаджене...",
@@ -200,6 +272,33 @@ export const PARALLEL_VERSES_DATA: Record<string, string> = {
   "Івана 10:14": "Я Пастир Добрий, і знаю Своїх, і Свої Мене знають.",
   "2 Тимофію 2:19": "Та стоїть міцна Божа основа, та має печатку оцю: Господь знає тих, хто Його..."
 };
+
+const COMMON_COMMENTARIES_EN = [
+  {
+    author: "John Calvin",
+    title: "Commentary on Psalms",
+    image: "/images/authors/calvin.png",
+    subtitle: "16th cent. • Text and theology",
+    preview: "Calvin emphasizes that the 'blessed man' is primarily one whose joy is rooted in God's Word, not in circumstances.",
+    body: "Calvin points out that the psalm opens not with a commandment, but with a description of a state: blessed. It is not an emotion, but an objective reality into which God brings a person.\n\nThe 'blessed man' does not mean sinless or problem-free. It is someone who is separated from the counsel of the wicked, the lifestyle of sinners, and the community of mockers. He does not find his identity or joy in them.\n\nFor Calvin, the key thought is that true happiness is connected with constant immersion in the Law of the Lord. Such reading and meditation is not a dry duty, but a source of delight that shapes a person's character and direction of life."
+  },
+  {
+    author: "Matthew Henry",
+    title: "Commentary on the Whole Bible",
+    image: "/images/authors/henry.png",
+    subtitle: "18th cent. • Devotional and practical",
+    preview: "Henry reads this psalm as an invitation to examine what truly fills a person's heart and daily habits.",
+    body: "Matthew Henry sees the first psalm as a kind of door to the entire book of Psalms. It presents two paths - the path of blessing and the path of destruction.\n\nFor Henry, it is important that the righteous not only avoids evil, but actively seeks God's presence in the Word. He draws a clear distinction between accidentally encountering a sinful influence and consciously 'walking, standing, and sitting' in it.\n\nHenry encourages the reader to ask practical questions: Who am I truly walking with? Who shapes my thinking? Where does my heart find delight - in quick entertainment or in quiet meditation on God's Word?"
+  },
+  {
+    author: "Charles Spurgeon",
+    title: "The Treasury of David",
+    image: "/images/authors/spurgeon.png",
+    subtitle: "19th cent. • Preaching and imagery",
+    preview: "Spurgeon sees in this psalm a portrait of a tree that stands against the wind thanks to invisible roots in God's grace.",
+    body: "Charles Spurgeon emphasizes that the blessedness of the righteous is not the absence of winds and storms around, but where the roots are located. A person rooted near the streams of God's Word can withstand what breaks superficial piety.\n\nSpurgeon vividly describes the progression of sin: from walking next to the wicked to standing firmly with them and, ultimately, to sitting in their circle. Each step makes the heart more indifferent to God.\n\nIn his sermons, he urges readers not to be satisfied with formal Bible reading, but to let it become a living stream that constantly washes a person's thoughts, desires, and decisions."
+  }
+];
 
 const COMMON_COMMENTARIES = [
   {
@@ -227,6 +326,20 @@ const COMMON_COMMENTARIES = [
     body: "Чарльз Сперджен наголошує, що блаженство праведного не в тому, що навколо немає вітрів і бур, а в тому, де знаходяться корені. Людина, яка вкорінена біля потоків Божого Слова, може витримати те, що зламає поверхневу побожність.\n\nСперджен яскраво описує прогресію гріха: від прогулянки поруч із нечестивими до стійкого стояння з ними і, зрештою, до сидіння в їхньому колі. Кожен крок робить серце більш байдужим до Бога.\n\nУ своїх проповідях він закликає читачів не задовольнятися формальним читанням Біблії, а дозволити їй стати живим потоком, який постійно омиває думки, бажання і рішення людини."
   }
 ];
+
+const glossMap: Record<string, string> = {
+  "Блаженний": "Blessed", "муж": "man", "який": "who", "не": "not", "ходить": "walks", "на раді": "in the counsel", "нечестивих": "of the wicked", "і на шляху": "nor in the way", "грішних": "of sinners", "стоїть": "stands", "і в зборищі": "nor in the seat", "злоріків": "of scoffers", "сидить": "sits",
+  "але": "But", "тільки": "", "в Законі": "in the law", "Господнім": "of Jehovah", "насолода його": "his delight", "і в Законі Його": "and in His law", "розмірковує": "meditates", "вдень": "day", "і вночі": "and night",
+  "і буде він": "And he shall be", "як дерево": "like a tree", "посаджене": "planted", "біля": "by", "потоків": "the streams", "вод": "of water", "що": "which", "плід свій": "its fruit", "приносить": "brings forth", "своєчасно": "in its season", "і листя його": "and its leaf", "в'яне": "withers", "і все": "and whatever", "робить": "he does", "матиме успіх": "shall prosper",
+  "так": "so", "нечестиві": "the wicked", "бо": "for", "як": "like", "полова": "the chaff", "розвіває її": "drives it away", "вітер": "the wind",
+  "тому": "Therefore", "встоять": "shall stand", "на суді": "in the judgment", "і грішні": "nor sinners", "у зібранні": "in the congregation", "праведних": "of the righteous",
+  "Господь": "Jehovah", "знає": "knows", "путь": "the way", "а путь": "but the way", "загине": "will perish"
+};
+
+const translateGloss = (ukGloss: string | undefined): string => {
+  if (!ukGloss) return '';
+  return glossMap[ukGloss] || ukGloss;
+};
 
 export const VERSE_STUDY_DB: Record<number, VerseStudyData> = {
   1: {
@@ -373,5 +486,50 @@ export const VERSE_STUDY_DB: Record<number, VerseStudyData> = {
       { original: "רְשָׁעִים", transliteration: "reshaim", strongs: "7563", gloss: "нечестивих", morphology: "Прикметник", refKey: "нечестивих" },
       { original: "תֹּאבֵד", transliteration: "tobed", strongs: "6", gloss: "загине", morphology: "Дієслово", refKey: "загине" }
     ]
+  }
+};
+
+export const VERSE_STUDY_DB_EN: Record<number, VerseStudyData> = {
+  1: {
+    verseId: 1,
+    parallels: ["Jeremiah 17:7-8", "Joshua 1:8"],
+    translations: VERSE_STUDY_DB[1].translations,
+    commentaries: COMMON_COMMENTARIES_EN,
+    originalTokens: VERSE_STUDY_DB[1].originalTokens.map(t => ({...t, gloss: translateGloss(t.gloss)}))
+  },
+  2: {
+    verseId: 2,
+    parallels: ["Joshua 1:8", "Psalm 119:1", "Psalm 119:97"],
+    translations: VERSE_STUDY_DB[2].translations,
+    commentaries: COMMON_COMMENTARIES_EN,
+    originalTokens: VERSE_STUDY_DB[2].originalTokens.map(t => ({...t, gloss: translateGloss(t.gloss)}))
+  },
+  3: {
+    verseId: 3,
+    parallels: ["Jeremiah 17:8", "Revelation 22:2", "Ezekiel 47:12"],
+    translations: VERSE_STUDY_DB[3].translations,
+    commentaries: COMMON_COMMENTARIES_EN,
+    originalTokens: VERSE_STUDY_DB[3].originalTokens.map(t => ({...t, gloss: translateGloss(t.gloss)}))
+  },
+  4: {
+    verseId: 4,
+    parallels: ["Matthew 3:12", "Job 21:18", "Psalm 35:5"],
+    translations: VERSE_STUDY_DB[4].translations,
+    commentaries: COMMON_COMMENTARIES_EN,
+    originalTokens: VERSE_STUDY_DB[4].originalTokens.map(t => ({...t, gloss: translateGloss(t.gloss)}))
+  },
+  5: {
+    verseId: 5,
+    parallels: ["Psalm 5:5", "Psalm 24:3"],
+    translations: VERSE_STUDY_DB[5].translations,
+    commentaries: COMMON_COMMENTARIES_EN,
+    originalTokens: VERSE_STUDY_DB[5].originalTokens.map(t => ({...t, gloss: translateGloss(t.gloss)}))
+  },
+  6: {
+    verseId: 6,
+    parallels: ["Psalm 37:18", "John 10:14", "2 Timothy 2:19"],
+    translations: VERSE_STUDY_DB[6].translations,
+    commentaries: COMMON_COMMENTARIES_EN,
+    originalTokens: VERSE_STUDY_DB[6].originalTokens.map(t => ({...t, gloss: translateGloss(t.gloss)}))
   }
 };
