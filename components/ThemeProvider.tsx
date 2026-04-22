@@ -3,14 +3,17 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 type Theme = 'light' | 'dark';
 type FontStyle = 'modern' | 'antique';
 type Language = 'ua' | 'en';
+export type BibleTranslation = 'GRM' | 'RST+' | 'NASB+';
 
 interface ThemeContextType {
     theme: Theme;
     fontStyle: FontStyle;
     language: Language;
+    translation: BibleTranslation;
     setTheme: (theme: Theme) => void;
     setFontStyle: (fontStyle: FontStyle) => void;
     setLanguage: (lang: Language) => void;
+    setTranslation: (translation: BibleTranslation) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -44,6 +47,13 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         return (saved as Language) || 'ua';
     });
 
+    const [translation, setTranslation] = useState<BibleTranslation>(() => {
+        const forced = getSearchParam('translation');
+        if (forced === 'GRM' || forced === 'RST+' || forced === 'NASB+') return forced as BibleTranslation;
+        const saved = localStorage.getItem('app-translation');
+        return (saved as BibleTranslation) || 'GRM';
+    });
+
     useEffect(() => {
         localStorage.setItem('app-theme', theme);
         document.documentElement.classList.remove('light', 'dark');
@@ -60,8 +70,12 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         localStorage.setItem('app-language', language);
     }, [language]);
 
+    useEffect(() => {
+        localStorage.setItem('app-translation', translation);
+    }, [translation]);
+
     return (
-        <ThemeContext.Provider value={{ theme, fontStyle, language, setTheme, setFontStyle, setLanguage }}>
+        <ThemeContext.Provider value={{ theme, fontStyle, language, translation, setTheme, setFontStyle, setLanguage, setTranslation }}>
             {children}
         </ThemeContext.Provider>
     );

@@ -1,16 +1,27 @@
 import React, { useState } from 'react';
 import { X, LayoutGrid, List as ListIcon, ChevronRight } from 'lucide-react';
 import { useTranslation } from '../i18n';
-import { Book, BIBLE_BOOKS } from '../../data/books';
+import { DbBook, getBooks } from '../../database';
+import { useTheme } from '../ThemeProvider';
 
 interface BookSelectionViewProps {
   onBack: () => void;
-  onSelectBook: (book: Book) => void;
+  onSelectBook: (book: DbBook) => void;
 }
 
 export const BookSelectionView: React.FC<BookSelectionViewProps> = ({ onBack, onSelectBook }) => {
   const t = useTranslation();
+  const { translation } = useTheme();
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [books, setBooks] = useState<DbBook[]>([]);
+
+  React.useEffect(() => {
+    let active = true;
+    getBooks(translation).then(dbBooks => {
+      if (active) setBooks(dbBooks);
+    });
+    return () => { active = false; };
+  }, [translation]);
 
   return (
     <div className="absolute inset-0 bg-stone-50 z-50 flex flex-col animate-in slide-in-from-bottom-2 duration-300 overflow-y-auto w-full transition-colors">
@@ -40,31 +51,31 @@ export const BookSelectionView: React.FC<BookSelectionViewProps> = ({ onBack, on
         
         {viewMode === 'grid' ? (
           <div className="grid grid-cols-6 gap-2">
-            {BIBLE_BOOKS.map(book => (
+            {books.map(book => (
               <button
-                key={book.id}
+                key={book.book_number}
                 onClick={() => onSelectBook(book)}
                 className={`aspect-[4/3] flex items-center justify-center rounded-lg text-[12px] font-medium transition-all active:scale-95 shadow-sm ${
-                  book.testament === 'OT' 
-                    ? 'bg-blue-500 text-white' 
-                    : 'bg-yellow-500 text-stone-900'
+                  book.book_color === '#ff8080' 
+                    ? 'bg-yellow-500 text-stone-900' 
+                    : 'bg-blue-500 text-white'
                 }`}
               >
-                {book.abbr}
+                {book.short_name}
               </button>
             ))}
           </div>
         ) : (
           <div className="space-y-1">
-            {BIBLE_BOOKS.map(book => (
+            {books.map(book => (
               <button
-                key={book.id}
+                key={book.book_number}
                 onClick={() => onSelectBook(book)}
                 className="w-full flex items-center justify-between p-3 rounded-xl transition-colors text-left"
               >
                 <div className="flex items-center gap-3">
-                  <span className={`w-2 h-2 rounded-full ${book.testament === 'OT' ? 'bg-blue-500' : 'bg-yellow-500'}`} />
-                  <span className="text-primary font-medium">{book.name}</span>
+                  <span className={`w-2 h-2 rounded-full ${book.book_color === '#ff8080' ? 'bg-yellow-500' : 'bg-blue-500'}`} />
+                  <span className="text-primary font-medium">{book.long_name}</span>
                 </div>
                 <ChevronRight size={18} className="text-muted" />
               </button>

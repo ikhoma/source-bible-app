@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { Verse, SelectionState, SelectionCoordinates } from '../types';
 import { useTranslation } from './i18n';
+import { parseVerseText } from '../textParser';
 
 interface BibleTextProps {
   verses: Verse[];
@@ -8,6 +9,7 @@ interface BibleTextProps {
   onSelectWord: (id: string, text: string, coords: SelectionCoordinates, anchorKey?: string) => void;
   onLongPressWord: (id: string, text: string, coords: SelectionCoordinates, anchorKey?: string) => void;
   onSelectVerse: (id: number, text: string, coords: SelectionCoordinates) => void;
+  onFootnoteClick?: (marker: string, event: React.MouseEvent, verseId: number) => void;
   highlights: Set<string | number>;
 }
 
@@ -17,6 +19,7 @@ export const BibleText: React.FC<BibleTextProps> = ({
   onSelectWord,
   onLongPressWord,
   onSelectVerse,
+  onFootnoteClick,
   highlights
 }) => {
   const t = useTranslation();
@@ -84,7 +87,7 @@ export const BibleText: React.FC<BibleTextProps> = ({
             id={`token-${token.id}`}
             className={`inline py-0.5 box-decoration-clone ${isHighlighted ? 'bg-lime-300 dark:bg-lime-300/20 text-primary' : ''}`}
           >
-            {token.text}
+            {parseVerseText(token.text, verse.id, onFootnoteClick)}
           </span>
         );
       }
@@ -105,7 +108,7 @@ export const BibleText: React.FC<BibleTextProps> = ({
           onMouseUp={handlePressEnd}
           onMouseLeave={handlePressEnd}
         >
-          {token.text}
+          {parseVerseText(token.text, verse.id, onFootnoteClick)}
         </span>
       );
     });
@@ -113,10 +116,6 @@ export const BibleText: React.FC<BibleTextProps> = ({
 
   return (
     <div className="pb-32 pt-6 px-4 max-w-md mx-auto">
-      <div className="mb-4">
-        <h3 className="text-muted font-medium text-sm mb-1">{t('bible.book1')}</h3>
-        <h1 className="text-3xl font-bold text-primary">{t('bible.psalm')} 1</h1>
-      </div>
 
       <div className="space-y-2">
         {verses.map((verse) => {

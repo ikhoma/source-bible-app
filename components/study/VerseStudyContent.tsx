@@ -5,6 +5,8 @@ import { ActionButton } from '../ui/ActionButton';
 import { useScrollToTop, useScroll } from '../BottomSheet';
 import { useTranslation } from '../i18n';
 import { useTheme } from '../ThemeProvider';
+import { DbBook, CrossReference, getCrossReferencesList, getCrossReferenceText } from '../../database';
+import { parseVerseText } from '../../textParser';
 
 import crossRefsEn from '../../data/cross-references.json';
 import crossRefsEnDb from '../../data/cross-references-english.json';
@@ -17,15 +19,21 @@ import ReactMarkdown from 'react-markdown';
 type CrossRefsUkData = Record<string, { reference: string, fullText: string }>;
 
 interface VerseStudyContentProps {
+  book?: number;
+  chapter?: number;
   verseId?: number;
+  books?: DbBook[];
   onOpenWord: (key: string) => void;
 }
 
 export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
+  book,
+  chapter,
   verseId = 1,
+  books = [],
   onOpenWord
 }) => {
-  const { language } = useTheme();
+  const { language, translation } = useTheme();
   const t = useTranslation();
   
   const DB = language === 'en' ? VERSE_STUDY_DB_EN : VERSE_STUDY_DB;
@@ -39,6 +47,35 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
   const [activeParallel, setActiveParallel] = useState<string | null>(null);
   const [commentaryMode, setCommentaryMode] = useState<'list' | 'detail'>('list');
   const [activeCommentaryIndex, setActiveCommentaryIndex] = useState<number | null>(null);
+
+  const [dynamicRefs, setDynamicRefs] = useState<{ title: string, text: React.ReactNode, rawRef: string }[]>([]);
+
+  useEffect(() => {
+    if (book && chapter && verseId) {
+      let active = true;
+      (async () => {
+        try {
+          const refsList = await getCrossReferencesList(book, chapter, verseId);
+          const refsWithText = await Promise.all(refsList.map(async (ref) => {
+            const text = await getCrossReferenceText(translation, ref);
+            const targetBook = books.find(b => b.book_number === ref.book_to);
+            const bookName = targetBook ? targetBook.short_name : `Book ${ref.book_to}`;
+            const title = `${bookName} ${ref.chapter_to}:${ref.verse_to_start}${ref.verse_to_end && ref.verse_to_end !== ref.verse_to_start ? '-' + ref.verse_to_end : ''}`;
+            
+            return {
+              title,
+              text: parseVerseText(text),
+              rawRef: title
+            };
+          }));
+          if (active) setDynamicRefs(refsWithText);
+        } catch (e) {
+          console.error(e);
+        }
+      })();
+      return () => { active = false; };
+    }
+  }, [book, chapter, verseId, translation, books]);
 
   const scrollToTop = useScrollToTop();
   const { scrollY, direction } = useScroll();
@@ -58,10 +95,11 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
     }
   }, [verseId, data, activeCommentaryIndex]);
 
-  if (!data) return <div className="p-8 text-center text-muted">{t('study.no_info')}</div>;
+  if (!data && dynamicRefs.length === 0) return <div className="p-8 text-center text-muted">{t('study.no_info')}</div>;
 
+  // We can fallback to currentRefs if there are no dynamic refs, or combine.
   const verseRefsInfo = (crossRefsEn.verses as Record<string, any>)[verseId.toString()];
-  const currentRefs = verseRefsInfo ? verseRefsInfo.crossReferences : (data.parallels || []);
+  const currentRefs = verseRefsInfo ? verseRefsInfo.crossReferences : (data?.parallels || []);
   const ukData = crossRefsUk as CrossRefsUkData;
 
   type CommentaryMeta = typeof data.commentaries[number];
@@ -92,7 +130,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
   // Reusable row component for Translations and Parallel Places
   const ReferenceRow: React.FC<{
     title: string;
-    text: string;
+    text: React.ReactNode | string;
     onClick?: () => void;
   }> = ({ title, text, onClick }) => (
     <div className="group" onClick={onClick}>
@@ -205,29 +243,40 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
       {activeSection === 'crossRefs' && (
         <section className="pt-4">
           <div className="space-y-4">
-            {currentRefs.map((ref: string) => {
-              const ukText = language === 'ua' ? ukData[ref]?.fullText : undefined;
-              const enText = language === 'en' ? (crossRefsEnDb as any)[ref]?.fullText : undefined;
-              const fallbackText = PARALLELS_DB[ref] || "Verse text...";
-              const displayTitle = translateReferenceTitle(ref);
-
-              // Remove standalone verse numbers (like "12.", "15", or "6\n7")
-              let displayText = language === 'en' ? (enText || fallbackText) : (ukText || fallbackText);
-              displayText = displayText
-                .split(/\s+/)
-                .filter(word => !/^\d+\.?$/.test(word))
-                .join(' ')
-                .trim();
-
-              return (
+            {dynamicRefs.length > 0 ? (
+              dynamicRefs.map((item, idx) => (
                 <ReferenceRow
-                  key={ref}
-                  title={displayTitle}
-                  text={displayText}
-                  onClick={() => handleParallelClick(ref)}
+                  key={`dyn-${idx}`}
+                  title={item.title}
+                  text={item.text}
+                  onClick={() => handleParallelClick(item.rawRef)}
                 />
-              );
-            })}
+              ))
+            ) : (
+              currentRefs.map((ref: string) => {
+                const ukText = language === 'ua' ? ukData[ref]?.fullText : undefined;
+                const enText = language === 'en' ? (crossRefsEnDb as any)[ref]?.fullText : undefined;
+                const fallbackText = PARALLELS_DB[ref] || "Verse text...";
+                const displayTitle = translateReferenceTitle(ref);
+  
+                // Remove standalone verse numbers (like "12.", "15", or "6\n7")
+                let displayText = language === 'en' ? (enText || fallbackText) : (ukText || fallbackText);
+                displayText = displayText
+                  .split(/\s+/)
+                  .filter((word: string) => !/^\d+\.?$/.test(word))
+                  .join(' ')
+                  .trim();
+  
+                return (
+                  <ReferenceRow
+                    key={ref}
+                    title={displayTitle}
+                    text={displayText}
+                    onClick={() => handleParallelClick(ref)}
+                  />
+                );
+              })
+            )}
           </div>
         </section>
       )}
@@ -245,7 +294,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
             `}
           >
             <div className="divide-y divide-stone-200">
-              {data.commentaries.map((c, idx) => (
+              {data?.commentaries?.map((c, idx) => (
                 <button
                   key={c.author}
                   onClick={() => {
@@ -274,7 +323,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
                 : 'opacity-0 translate-x-4 pointer-events-none absolute inset-0'}
             `}
           >
-            {commentaryMode === 'detail' && activeCommentaryIndex !== null && data.commentaries[activeCommentaryIndex] && (
+            {commentaryMode === 'detail' && activeCommentaryIndex !== null && data?.commentaries?.[activeCommentaryIndex] && (
               <div className="pt-0">
                 <div
                   className={`sticky top-[57px] -mx-4 px-4 bg-white dark:bg-stone-100 z-10 py-3 mb-2 border-b border-stone-200/50 flex items-center justify-between transition-transform duration-300 ${direction === 'down' && scrollY > 60 ? '-translate-y-[calc(100%+16px)]' : 'translate-y-0'
@@ -291,12 +340,12 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
                       <ChevronLeft size={20} />
                     </div>
 
-                    <CommentaryHeader item={data.commentaries[activeCommentaryIndex]} />
+                    <CommentaryHeader item={data?.commentaries?.[activeCommentaryIndex]} />
                   </button>
                 </div>
 
                 <div className="text-base leading-[1.4] text-primary space-y-3 mt-2">
-                  {['Меттью Генрі', 'Жан Кальвін', 'Чарльз Сперджен'].includes(data.commentaries[activeCommentaryIndex].author) ? (
+                  {['Меттью Генрі', 'Жан Кальвін', 'Чарльз Сперджен'].includes(data?.commentaries?.[activeCommentaryIndex]?.author) ? (
                     <div className="space-y-4">
                       <ReactMarkdown
                         components={{
@@ -320,7 +369,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
                         }}
                       >
                         {(() => {
-                          const author = data.commentaries[activeCommentaryIndex].author;
+                          const author = data?.commentaries?.[activeCommentaryIndex]?.author;
                           const commentarySource =
                             (author === 'Жан Кальвін' || author === 'John Calvin') ? commentaryCalvin :
                               (author === 'Чарльз Сперджен' || author === 'Charles Spurgeon') ? commentarySpurgeon :
@@ -334,12 +383,12 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
                           const section = commentarySource.sections.find((s: any) => s.verses?.includes(verseId));
                           if (section) parts.push(language === 'en' && section.content_md_en ? section.content_md_en : section.content_md);
 
-                          return parts.length > 0 ? parts.join('\n\n---\n\n') : data.commentaries[activeCommentaryIndex].body;
+                          return parts.length > 0 ? parts.join('\n\n---\n\n') : data?.commentaries?.[activeCommentaryIndex]?.body;
                         })()}
                       </ReactMarkdown>
                     </div>
                   ) : (
-                    (data.commentaries[activeCommentaryIndex].body || data.commentaries[activeCommentaryIndex].preview || '')
+                    (data?.commentaries?.[activeCommentaryIndex]?.body || data?.commentaries?.[activeCommentaryIndex]?.preview || '')
                       .split('\n\n')
                       .map((para, i) => (
                         <p key={i}>{para}</p>
@@ -356,7 +405,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
       {activeSection === 'translations' && (
         <section className="pt-4">
           <div className="space-y-4">
-            {data.translations.map((t) => (
+            {data?.translations?.map((t) => (
               <ReferenceRow
                 key={t.name}
                 title={t.name}
@@ -368,7 +417,7 @@ export const VerseStudyContent: React.FC<VerseStudyContentProps> = ({
       )}
 
       {/* ORIGINAL LANGUAGE TAB */}
-      {activeSection === 'original' && data.originalTokens && (
+      {activeSection === 'original' && data?.originalTokens && (
         <section className="pt-4">
           <div className="space-y-4">
             {data.originalTokens.map((token, idx) => {

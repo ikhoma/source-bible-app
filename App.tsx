@@ -11,9 +11,9 @@ import { ThemeProvider, useTheme } from './components/ThemeProvider';
 import { SettingsView } from './components/SettingsView';
 import { BookSelectionView } from './components/navigation/BookSelectionView';
 import { ChapterSelectionView } from './components/navigation/ChapterSelectionView';
-import { Book } from './data/books';
-import { PSALM_1_UA, PSALM_1_EN } from './constants';
-import { SelectionState, Tab, SelectionCoordinates, NavTab } from './types';
+import { SelectionState, Tab, SelectionCoordinates, NavTab, Verse } from './types';
+import { getVerses, getBooks, DbBook, getFootnoteText } from './database';
+import { generateTokensFromDbVerse } from './textParser';
 
 // Helper to get verse ID from selection state
 const getVerseIdFromSelection = (sel: SelectionState): number => {
@@ -30,8 +30,36 @@ const getVerseIdFromSelection = (sel: SelectionState): number => {
 const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 function AppContent() {
-  const { language } = useTheme();
-  const PSALM_1 = language === 'en' ? PSALM_1_EN : PSALM_1_UA;
+  const { language, translation } = useTheme();
+  
+  const [currentBookId, setCurrentBookId] = useState(230); // Psalm
+  const [currentBookName, setCurrentBookName] = useState('Псалми');
+  const [currentChapter, setCurrentChapter] = useState(1);
+  const [verses, setVerses] = useState<Verse[]>([]);
+  const [allBooks, setAllBooks] = useState<DbBook[]>([]);
+  const [activeFootnote, setActiveFootnote] = useState<{ marker: string, text: string, anchorEl: HTMLElement | null } | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    getBooks(translation).then(dbBooks => {
+      if (active) {
+        setAllBooks(dbBooks);
+        const b = dbBooks.find(b => b.book_number === currentBookId);
+        if (b) setCurrentBookName(b.short_name);
+      }
+    });
+    return () => { active = false; };
+  }, [translation, currentBookId]);
+  
+  useEffect(() => {
+    let active = true;
+    getVerses(translation, currentBookId, currentChapter).then(dbVerses => {
+      if (active) {
+        setVerses(dbVerses.map(v => generateTokensFromDbVerse(v)));
+      }
+    }).catch(err => console.error(err));
+    return () => { active = false; };
+  }, [translation, currentBookId, currentChapter]);
   const didApplyCaptureStateRef = useRef(false);
 
   const [selection, setSelection] = useState<SelectionState>({ type: null, id: null, text: '' });
@@ -50,11 +78,22 @@ function AppContent() {
   // Navigation State
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [navStep, setNavStep] = useState<'books' | 'chapters'>('books');
-  const [selectedNavBook, setSelectedNavBook] = useState<Book | null>(null);
+  const [selectedNavBook, setSelectedNavBook] = useState<DbBook | null>(null);
 
   const [expandedSheetHeight, setExpandedSheetHeight] = useState('92dvh');
 
   const mainViewportRef = useRef<HTMLDivElement>(null);
+
+  const handleFootnoteClick = async (marker: string, event: React.MouseEvent, verseId: number) => {
+    const text = await getFootnoteText(translation, currentBookId, currentChapter, verseId, marker);
+    if (text) {
+      setActiveFootnote({
+        marker,
+        text,
+        anchorEl: event.currentTarget as HTMLElement
+      });
+    }
+  };
 
   // Auto-scroll logic to keep selection visible when sheet opens
   useEffect(() => {
@@ -136,7 +175,7 @@ function AppContent() {
   const handleOpenWordFromStudy = useCallback((key: string) => {
     // Find a token in the text that matches this key
     const currentVId = getVerseIdFromSelection(selection);
-    const verse = PSALM_1.find(v => v.id === currentVId);
+    const verse = verses.find(v => v.id === currentVId);
     if (verse) {
       const token = verse.tokens.find(t => t.anchorKey === key);
       if (token) {
@@ -166,15 +205,18 @@ function AppContent() {
     setIsNavOpen(true);
   }, []);
 
-  const handleSelectBook = useCallback((book: Book) => {
+  const handleSelectBook = useCallback((book: DbBook) => {
     setSelectedNavBook(book);
     setNavStep('chapters');
   }, []);
 
   const handleSelectChapter = useCallback((chapterId: number) => {
-    // For now, just close the navigation overlay. Later we will load the chapter.
+    setCurrentChapter(chapterId);
+    if (selectedNavBook) {
+      setCurrentBookId(selectedNavBook.book_number);
+    }
     setIsNavOpen(false);
-  }, []);
+  }, [selectedNavBook]);
 
   const handleNavBack = useCallback(() => {
     setNavStep('books');
@@ -189,7 +231,7 @@ function AppContent() {
     if (!capture) return;
 
     const verseId = Number(params.get('verse') || '1');
-    const targetVerse = PSALM_1.find(v => v.id === verseId) || PSALM_1[0];
+    const targetVerse = verses.find(v => v.id === verseId) || verses[0];
     const wordKey = params.get('word');
     const firstInteractiveToken = targetVerse?.tokens.find(token => !!token.anchorKey);
     const targetToken =
@@ -237,7 +279,7 @@ function AppContent() {
         coordinates: null
       });
     }
-  }, [PSALM_1]);
+  }, [verses]);
 
   useEffect(() => {
     if (!selection.type) return;
@@ -246,7 +288,7 @@ function AppContent() {
 
     if (selection.type === 'verse') {
       const verseId = getVerseIdFromSelection(selection);
-      setSheetTitle(`Псалом 1:${verseId}`);
+      setSheetTitle(`${currentBookName} ${currentChapter}:${verseId}`);
       setActiveSheetTab(Tab.Verse);
     } else if (selection.type === 'word') {
       setSheetTitle(selection.dataKey ? capitalize(selection.dataKey) : selection.text.trim());
@@ -262,7 +304,7 @@ function AppContent() {
     setActiveNavTab('bible');
 
     // Select the verse
-    const verse = PSALM_1.find(v => v.id === verseId);
+    const verse = verses.find(v => v.id === verseId);
     if (verse) {
       setSelection({
         type: 'verse',
@@ -312,10 +354,10 @@ function AppContent() {
       } else if (typeof selection.id === 'number') {
         verseId = selection.id;
       }
-      setSheetTitle(`Псалом 1:${verseId}`);
+      setSheetTitle(`${currentBookName} ${currentChapter}:${verseId}`);
 
       // Update selection to Verse mode to highlight the verse
-      const verse = PSALM_1.find(v => v.id === verseId);
+      const verse = verses.find(v => v.id === verseId);
       if (verse) {
         setSelection({
           type: 'verse',
@@ -329,7 +371,7 @@ function AppContent() {
         setSheetTitle(selection.dataKey ? capitalize(selection.dataKey) : selection.text.trim());
       } else if (selection.type === 'verse' && typeof selection.id === 'number') {
         const vId = selection.id;
-        const verse = PSALM_1.find(v => v.id === vId);
+        const verse = verses.find(v => v.id === vId);
         if (verse && verse.tokens.length > 0) {
           const firstInteractiveToken = verse.tokens.find(t => !!t.anchorKey);
           if (firstInteractiveToken) {
@@ -352,14 +394,14 @@ function AppContent() {
   const currentVerseId = getVerseIdFromSelection(selection);
 
   if (activeSheetTab === Tab.Verse) {
-    canPrev = PSALM_1.some(v => v.id === currentVerseId - 1);
-    canNext = PSALM_1.some(v => v.id === currentVerseId + 1);
+    canPrev = verses.some(v => v.id === currentVerseId - 1);
+    canNext = verses.some(v => v.id === currentVerseId + 1);
   } else if (activeSheetTab === Tab.Word && selection.type === 'word' && typeof selection.id === 'string') {
     const parts = selection.id.split('-');
     if (parts.length === 2) {
       const vId = parseInt(parts[0].replace('v', ''), 10);
       const tIdx = parseInt(parts[1].replace('t', ''), 10);
-      const verse = PSALM_1.find(v => v.id === vId);
+      const verse = verses.find(v => v.id === vId);
       if (verse) {
         canPrev = tIdx > 0 && verse.tokens.slice(0, tIdx).some(t => !!t.anchorKey);
         canNext = tIdx < verse.tokens.length - 1 && verse.tokens.slice(tIdx + 1).some(t => !!t.anchorKey);
@@ -371,7 +413,7 @@ function AppContent() {
     if (activeSheetTab === Tab.Verse) {
       const currentVId = getVerseIdFromSelection(selection);
       const nextId = direction === 'next' ? currentVId + 1 : currentVId - 1;
-      const targetVerse = PSALM_1.find(v => v.id === nextId);
+      const targetVerse = verses.find(v => v.id === nextId);
 
       if (targetVerse) {
         setSelection({
@@ -380,7 +422,7 @@ function AppContent() {
           text: targetVerse.text,
           coordinates: null
         });
-        setSheetTitle(`Псалом 1:${targetVerse.id}`);
+        setSheetTitle(`${currentBookName} ${currentChapter}:${targetVerse.id}`);
       }
 
     } else if (activeSheetTab === Tab.Word && selection.type === 'word' && typeof selection.id === 'string') {
@@ -388,7 +430,7 @@ function AppContent() {
       const vId = parseInt(parts[0].replace('v', ''), 10);
       const tIdx = parseInt(parts[1].replace('t', ''), 10);
 
-      const verse = PSALM_1.find(v => v.id === vId);
+      const verse = verses.find(v => v.id === vId);
       if (!verse) return;
 
       let nextTokenIndex = -1;
@@ -428,7 +470,12 @@ function AppContent() {
     // Standard Bible Text
     return (
       <>
-        <TopBar onSearchClick={handleOpenSearch} onNavClick={handleOpenNav} />
+        <TopBar 
+          onSearchClick={handleOpenSearch} 
+          onNavClick={handleOpenNav} 
+          currentBookName={currentBookName}
+          currentChapter={currentChapter}
+        />
         <main
           ref={mainViewportRef}
           className={`
@@ -442,11 +489,12 @@ function AppContent() {
           }}
         >
           <BibleText
-            verses={PSALM_1}
+            verses={verses}
             selection={selection}
             onSelectWord={handleSelectWord}
             onLongPressWord={handleLongPressWord}
             onSelectVerse={handleSelectVerse}
+            onFootnoteClick={handleFootnoteClick}
             highlights={highlights}
           />
         </main>
@@ -512,7 +560,10 @@ function AppContent() {
         >
           {activeSheetTab === Tab.Verse ?
             <VerseStudyContent
+              book={currentBookId}
+              chapter={currentChapter}
               verseId={currentVerseId}
+              books={allBooks}
               onOpenWord={handleOpenWordFromStudy}
             /> :
             <WordStudyContent
@@ -521,6 +572,30 @@ function AppContent() {
             />
           }
         </BottomSheet>
+
+        {/* FOOTNOTE POPOVER */}
+        {activeFootnote && (
+          <>
+            <div className="fixed inset-0 z-40" onClick={() => setActiveFootnote(null)} onTouchStart={() => setActiveFootnote(null)} />
+            <div
+              className="fixed z-50 p-4 bg-white dark:bg-[#201D1A] text-primary text-sm rounded-xl shadow-xl max-w-[320px] border border-stone-200/50 dark:border-stone-700/50"
+              style={{
+                top: activeFootnote.anchorEl ? Math.max(16, activeFootnote.anchorEl.getBoundingClientRect().top - 16) : '50%',
+                left: activeFootnote.anchorEl ? Math.max(16, Math.min(window.innerWidth - 336, activeFootnote.anchorEl.getBoundingClientRect().left - 160)) : '50%',
+                transform: 'translateY(-100%)',
+              }}
+            >
+              <div className="font-bold mb-2 text-blue-500">
+                Зноска {activeFootnote.marker}
+              </div>
+              {/* The string could have some basic styling tags */}
+              <div 
+                className="leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: activeFootnote.text }}
+              />
+            </div>
+          </>
+        )}
       </div>
   );
 }

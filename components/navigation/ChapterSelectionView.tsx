@@ -1,17 +1,26 @@
 import React from 'react';
 import { ChevronLeft, X } from 'lucide-react';
-import { Book } from '../../data/books';
+import { DbBook, getChaptersData } from '../../database';
+import { useTheme } from '../ThemeProvider';
 
 interface ChapterSelectionViewProps {
-  book: Book;
+  book: DbBook;
   onBack: () => void;
   onClose: () => void;
   onSelectChapter: (chapterId: number) => void;
 }
 
 export const ChapterSelectionView: React.FC<ChapterSelectionViewProps> = ({ book, onBack, onClose, onSelectChapter }) => {
-  // Generate an array of chapter numbers from 1 to book.chapters
-  const chapters = Array.from({ length: book.chapters }, (_, i) => i + 1);
+  const { translation } = useTheme();
+  const [chapters, setChapters] = React.useState<number[]>([]);
+
+  React.useEffect(() => {
+    let active = true;
+    getChaptersData(translation, book.book_number).then(data => {
+      if (active) setChapters(data);
+    });
+    return () => { active = false; };
+  }, [translation, book.book_number]);
 
   return (
     <div className="absolute inset-0 bg-stone-50 z-50 flex flex-col animate-in slide-in-from-right-2 duration-300 overflow-y-auto w-full transition-colors">
@@ -35,7 +44,7 @@ export const ChapterSelectionView: React.FC<ChapterSelectionViewProps> = ({ book
       </div>
 
       <div className="p-4 space-y-6 pb-32">
-        <h1 className="text-3xl font-bold text-primary">{book.name}</h1>
+        <h1 className="text-3xl font-bold text-primary">{book.long_name}</h1>
         
         <div className="grid grid-cols-6 gap-2">
           {chapters.map(chapter => (
