@@ -5,9 +5,10 @@ import { useTranslation } from './i18n';
 
 interface TopBarProps {
   onSearchClick?: () => void;
+  onNavClick?: () => void;
 }
 
-export const TopBar: React.FC<TopBarProps> = ({ onSearchClick }) => {
+export const TopBar: React.FC<TopBarProps> = ({ onSearchClick, onNavClick }) => {
   const { language } = useTheme();
   const t = useTranslation();
   return (
@@ -17,7 +18,10 @@ export const TopBar: React.FC<TopBarProps> = ({ onSearchClick }) => {
           {language === 'en' ? 'ASV' : 'Grom'}
           <ChevronDown size={16} className="text-muted" />
         </button>
-        <button className="flex items-center gap-1 pl-3 pr-2 py-1 rounded-lg bg-stone-200/50 border border-stone-300/30 hover:bg-stone-200 active:bg-stone-300 text-primary font-medium text-[15px] transition-colors">
+        <button 
+          onClick={onNavClick}
+          className="flex items-center gap-1 pl-3 pr-2 py-1 rounded-lg bg-stone-200/50 border border-stone-300/30 hover:bg-stone-200 active:bg-stone-300 text-primary font-medium text-[15px] transition-colors"
+        >
           {t('bible.psalm')} 1
           <ChevronDown size={16} className="text-muted" />
         </button>

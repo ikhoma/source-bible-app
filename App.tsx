@@ -9,6 +9,9 @@ import { WordStudyContent } from './components/study/WordStudyContent';
 import { SearchView } from './components/SearchView';
 import { ThemeProvider, useTheme } from './components/ThemeProvider';
 import { SettingsView } from './components/SettingsView';
+import { BookSelectionView } from './components/navigation/BookSelectionView';
+import { ChapterSelectionView } from './components/navigation/ChapterSelectionView';
+import { Book } from './data/books';
 import { PSALM_1_UA, PSALM_1_EN } from './constants';
 import { SelectionState, Tab, SelectionCoordinates, NavTab } from './types';
 
@@ -29,6 +32,7 @@ const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 function AppContent() {
   const { language } = useTheme();
   const PSALM_1 = language === 'en' ? PSALM_1_EN : PSALM_1_UA;
+  const didApplyCaptureStateRef = useRef(false);
 
   const [selection, setSelection] = useState<SelectionState>({ type: null, id: null, text: '' });
   const [isSheetOpen, setIsSheetOpen] = useState(false);
@@ -42,6 +46,11 @@ function AppContent() {
 
   // Search State
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  // Navigation State
+  const [isNavOpen, setIsNavOpen] = useState(false);
+  const [navStep, setNavStep] = useState<'books' | 'chapters'>('books');
+  const [selectedNavBook, setSelectedNavBook] = useState<Book | null>(null);
 
   const [expandedSheetHeight, setExpandedSheetHeight] = useState('92dvh');
 
@@ -146,8 +155,89 @@ function AppContent() {
 
   const handleOpenSearch = useCallback(() => {
     setIsSheetOpen(false);
+    setIsNavOpen(false);
     setIsSearchOpen(true);
   }, []);
+
+  const handleOpenNav = useCallback(() => {
+    setIsSheetOpen(false);
+    setIsSearchOpen(false);
+    setNavStep('books');
+    setIsNavOpen(true);
+  }, []);
+
+  const handleSelectBook = useCallback((book: Book) => {
+    setSelectedNavBook(book);
+    setNavStep('chapters');
+  }, []);
+
+  const handleSelectChapter = useCallback((chapterId: number) => {
+    // For now, just close the navigation overlay. Later we will load the chapter.
+    setIsNavOpen(false);
+  }, []);
+
+  const handleNavBack = useCallback(() => {
+    setNavStep('books');
+  }, []);
+
+  useEffect(() => {
+    if (didApplyCaptureStateRef.current) return;
+    didApplyCaptureStateRef.current = true;
+
+    const params = new URLSearchParams(window.location.search);
+    const capture = params.get('capture');
+    if (!capture) return;
+
+    const verseId = Number(params.get('verse') || '1');
+    const targetVerse = PSALM_1.find(v => v.id === verseId) || PSALM_1[0];
+    const wordKey = params.get('word');
+    const firstInteractiveToken = targetVerse?.tokens.find(token => !!token.anchorKey);
+    const targetToken =
+      targetVerse?.tokens.find(token => token.anchorKey === wordKey)
+      || firstInteractiveToken;
+
+    setIsSearchOpen(false);
+    setIsSheetOpen(false);
+    setIsNavOpen(false);
+    setSelection({ type: null, id: null, text: '' });
+
+    if (capture === 'notes') {
+      setActiveNavTab('notes');
+      return;
+    }
+
+    if (capture === 'settings') {
+      setActiveNavTab('settings');
+      return;
+    }
+
+    setActiveNavTab('bible');
+
+    if (capture === 'search') {
+      setIsSearchOpen(true);
+      return;
+    }
+
+    if (capture === 'verse-study' && targetVerse) {
+      setSelection({
+        type: 'verse',
+        id: targetVerse.id,
+        text: targetVerse.text,
+        coordinates: null
+      });
+      return;
+    }
+
+    if (capture === 'word-study' && targetToken) {
+      setSelection({
+        type: 'word',
+        id: targetToken.id,
+        text: targetToken.text,
+        dataKey: targetToken.anchorKey,
+        coordinates: null
+      });
+    }
+  }, [PSALM_1]);
 
   useEffect(() => {
     if (!selection.type) return;
@@ -168,6 +258,7 @@ function AppContent() {
 
   const handleNavigateToVerse = useCallback((verseId: number) => {
     setIsSearchOpen(false);
+    setIsNavOpen(false);
     setActiveNavTab('bible');
 
     // Select the verse
@@ -337,7 +428,7 @@ function AppContent() {
     // Standard Bible Text
     return (
       <>
-        <TopBar onSearchClick={handleOpenSearch} />
+        <TopBar onSearchClick={handleOpenSearch} onNavClick={handleOpenNav} />
         <main
           ref={mainViewportRef}
           className={`
@@ -374,6 +465,23 @@ function AppContent() {
             <SearchView
               onBack={() => setIsSearchOpen(false)}
               onNavigateToVerse={handleNavigateToVerse}
+            />
+          )}
+
+          {/* Navigation Overlays */}
+          {isNavOpen && navStep === 'books' && (
+            <BookSelectionView 
+              onBack={() => setIsNavOpen(false)} 
+              onSelectBook={handleSelectBook} 
+            />
+          )}
+
+          {isNavOpen && navStep === 'chapters' && selectedNavBook && (
+            <ChapterSelectionView
+              book={selectedNavBook}
+              onBack={handleNavBack}
+              onClose={() => setIsNavOpen(false)}
+              onSelectChapter={handleSelectChapter}
             />
           )}
         </div>

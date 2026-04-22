@@ -15,20 +15,31 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+const getSearchParam = (key: string): string | null => {
+    if (typeof window === 'undefined') return null;
+    return new URLSearchParams(window.location.search).get(key);
+};
+
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [theme, setTheme] = useState<Theme>(() => {
+        const forced = getSearchParam('theme');
+        if (forced === 'light' || forced === 'dark') return forced;
         const saved = localStorage.getItem('app-theme');
         // Default to dark mode based on current state
         return (saved as Theme) || 'dark';
     });
 
     const [fontStyle, setFontStyle] = useState<FontStyle>(() => {
+        const forced = getSearchParam('font');
+        if (forced === 'modern' || forced === 'antique') return forced;
         const saved = localStorage.getItem('app-font');
         // Default to antique (Cormorant) based on current state
         return (saved as FontStyle) || 'antique';
     });
 
     const [language, setLanguage] = useState<Language>(() => {
+        const forced = getSearchParam('lang');
+        if (forced === 'ua' || forced === 'en') return forced;
         const saved = localStorage.getItem('app-language');
         return (saved as Language) || 'ua';
     });
